@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import game.logic.Hero;
+import game.model.HeroModel;
 
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	public static OrthographicCamera cam;
-	Hero hero;
+	HeroModel hero;
 	
 	
 	@Override
@@ -22,7 +22,7 @@ public class Game extends ApplicationAdapter {
 		img = new Texture(Gdx.files.internal("Stage2.png"));
 		cam = new OrthographicCamera(256,256);
 		cam.translate(128, 128);
-		hero = new Hero("HeroSprite.png",64,64);
+		hero = new HeroModel("HeroSprite.png",64,64);
 	}
 
 	@Override

@@ -1,13 +1,15 @@
-package game.logic;
+package game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
-public class Hero extends Character{
+public class HeroModel extends CharacterModel{
+	public enum charState {STARE,WALK,JUMP,ATTACK,DAMAGE};
+	protected charState state;
 
-	public Hero(String path, int x, int y) {
+	public HeroModel(String path, int x, int y) {
 		super(path, x, y);
-		// TODO Auto-generated constructor stub
+		this.speed = 25;
 	}
 	
 	public void move() {
@@ -19,6 +21,11 @@ public class Hero extends Character{
 			      sp.setY(sp.getY() + Gdx.graphics.getDeltaTime() * speed);
 			   if(Gdx.input.isKeyPressed(Keys.DOWN)) 
 			      sp.setY(sp.getY() - Gdx.graphics.getDeltaTime() * speed);
+	}
+
+	@Override
+	public ModelType getModelType() {
+		return ModelType.HERO;
 	}
 	
 }
