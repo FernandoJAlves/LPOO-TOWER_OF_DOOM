@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import game.model.HeroModel;
 
-public class Game extends ApplicationAdapter {
+public class TowerOfDoom extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	public static OrthographicCamera cam;
