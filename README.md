@@ -1,3 +1,7 @@
-Project Checkpoint: ![alt text](https://raw.githubusercontent.com/username/projectname/branch/checkpoint.pdf)
-UML: 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/UML.png)
+Project Checkpoint:
+
+![alt text](checkpoint.pdf)
+
+UML:
+
+![alt text](UML.png)
