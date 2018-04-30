@@ -1,4 +1,4 @@
-Project Checkpoint: ![a link](checkpoint.pdf)
+Project Checkpoint: ![Checkpoint PDF](checkpoint.pdf)
 
 UML:
 
