@@ -34,6 +34,10 @@ public class HeroModel extends CharacterModel{
 	public void update() {
 		x += Gdx.graphics.getDeltaTime() * speed;
 	}
+	
+	public charState getState() {
+		return this.state;
+	}
 
 	@Override
 	public ModelType getModelType() {

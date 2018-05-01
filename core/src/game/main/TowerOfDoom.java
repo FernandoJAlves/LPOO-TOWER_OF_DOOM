@@ -13,10 +13,12 @@ public class TowerOfDoom extends Game {
 	
 	
 	@Override
-	public void create () {
-		TowerOfDoom.instance = this;
+	public void create () {	
+		assetManager = new AssetManager();
+		TowerOfDoom.instance = this;	
 		this.setScreen(new GameView());
 		batch = new SpriteBatch();
+
 	}
 	
 	@Override

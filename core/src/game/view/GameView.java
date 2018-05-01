@@ -18,12 +18,13 @@ public class GameView extends ScreenAdapter{
 	HeroView hv;
 	
 	public GameView(){
-		img = new Texture(Gdx.files.internal("Stage2.png"));
+		game = TowerOfDoom.getInstance();
+		this.loadAssets();
+		img = this.game.getAssetManager().get("Stage2.png");
 		cam = new OrthographicCamera(256,256);
 		cam.translate(128, 128);
-		hero = new HeroModel(64,108);
+		hero = new HeroModel(64,140);
 		hv = new HeroView();
-		game = TowerOfDoom.getInstance();
 	}
 	
 	public void drawEnteties() {
@@ -49,6 +50,14 @@ public class GameView extends ScreenAdapter{
 	@Override
 	public void dispose() {
 		this.img.dispose();
+	}
+	
+	public void loadAssets() {
+		this.game.getAssetManager().load("HeroStaring.png", Texture.class);
+		this.game.getAssetManager().load( "HeroSprite.png" , Texture.class);
+		this.game.getAssetManager().load( "Stage2.png" , Texture.class);
+		this.game.getAssetManager().finishLoading();
+		
 	}
 	
 }
