@@ -3,7 +3,7 @@ package game.model;
 public class GuardModel extends CharacterModel{
 
 	public GuardModel(String path, int x, int y) {
-		super(path, x, y);
+		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
 

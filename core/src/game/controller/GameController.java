@@ -9,8 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 public class GameController implements ContactListener{
 	private HeroBody hero;
 	private List<CharacterBody> enemies;
+	private static GameController instance;
 	
-	public GameController() {
+	private GameController() {
 		
 	}
 
@@ -36,6 +37,21 @@ public class GameController implements ContactListener{
 	public void postSolve(Contact contact, ContactImpulse impulse) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public HeroBody getHero() {
+		return this.hero;
+	}
+	
+	public List<CharacterBody> getEnemies(){
+		return this.enemies;
+	}
+	
+	public static GameController getInstance() {
+		if(instance == null) {
+			instance = new GameController();
+		}
+		return instance;
 	}
 
 }

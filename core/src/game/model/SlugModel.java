@@ -3,7 +3,7 @@ package game.model;
 public class SlugModel extends CharacterModel{
 
 	public SlugModel(String path, int x, int y) {
-		super(path, x, y);
+		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
 

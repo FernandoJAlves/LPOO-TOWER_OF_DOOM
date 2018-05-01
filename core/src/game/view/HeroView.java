@@ -1,16 +1,13 @@
 package game.view;
 
-import game.model.EntityModel;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 
 public class HeroView extends CharacterView{
 	
 	public HeroView() {
-		
+		super();
+		this.sprite.setTexture(new Texture(Gdx.files.internal("HeroSprite.png")));
 	}
 
-	@Override
-	public void update(EntityModel model) {
-		// TODO Auto-generated method stub
-		
-	}
 }

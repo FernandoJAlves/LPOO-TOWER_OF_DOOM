@@ -7,20 +7,32 @@ public class HeroModel extends CharacterModel{
 	public enum charState {STARE,WALK,JUMP,ATTACK,DAMAGE};
 	protected charState state;
 
-	public HeroModel(String path, int x, int y) {
-		super(path, x, y);
-		this.speed = 25;
+	public HeroModel(int x, int y) {
+		super(x, y);
+		this.speed = 0;
+		this.state=charState.STARE;
 	}
 	
 	public void move() {
-		   if(Gdx.input.isKeyPressed(Keys.LEFT)) 
-			      sp.setX(sp.getX() - Gdx.graphics.getDeltaTime() * speed);
-			   if(Gdx.input.isKeyPressed(Keys.RIGHT)) 
-			      sp.setX(sp.getX() + Gdx.graphics.getDeltaTime() * speed);
-			   if(Gdx.input.isKeyPressed(Keys.UP)) 
-			      sp.setY(sp.getY() + Gdx.graphics.getDeltaTime() * speed);
-			   if(Gdx.input.isKeyPressed(Keys.DOWN)) 
-			      sp.setY(sp.getY() - Gdx.graphics.getDeltaTime() * speed);
+		   if(Gdx.input.isKeyPressed(Keys.LEFT)) {
+			   speed = -25;
+			   this.dir = directionState.LEFT;
+			   this.state=charState.WALK;
+		   }   
+		   else if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
+			   speed = 25;
+			   this.dir = directionState.RIGHT;
+			   this.state=charState.WALK;
+		   }
+		   else {
+			   speed = 0;
+			   this.state=charState.STARE;
+		   }
+
+	}
+	
+	public void update() {
+		x += Gdx.graphics.getDeltaTime() * speed;
 	}
 
 	@Override

@@ -10,13 +10,17 @@ public abstract class EntityView {
 
 
     public EntityView() {
-    	
+		this.sprite = new Sprite();
     }
 
     public void draw(SpriteBatch batch) {
-        sprite.draw(batch);
+        //sprite.draw(batch);
+    	batch.draw(this.sprite.getTexture(), this.sprite.getX(), this.sprite.getY());
     }
 
 
-    public abstract void update(EntityModel model);
+    public void update(EntityModel model) {
+    	sprite.setCenter(model.getX(), model.getY());
+    	sprite.setRotation(0);
+    }
 }
