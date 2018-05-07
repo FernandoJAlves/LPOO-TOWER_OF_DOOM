@@ -2,8 +2,8 @@ package game.controller;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import game.model.EntityModel;
@@ -33,9 +33,9 @@ public abstract class EntityBody {
 
             vertexes[i] *= PIXEL_TO_METER;              // scale from pixel to meter
         }
-
-        PolygonShape polygon = new PolygonShape();
-        polygon.set(vertexes);
+        
+        CircleShape polygon = new CircleShape();
+        polygon.setRadius(24);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = polygon;
@@ -66,6 +66,10 @@ public abstract class EntityBody {
 
 	public void applyForceToCenter(float forceX, float forceY, boolean awake) {
 		body.applyForceToCenter(forceX, forceY, awake);
+	}
+	
+	public void setLinearVelocity(float vX, float vY) {
+		body.setLinearVelocity(vX, vY);
 	}
 	
 	public Object getUserData() {

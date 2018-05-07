@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import game.controller.GameController;
 import game.main.TowerOfDoom;
+import game.model.GameModel;
 import game.model.HeroModel;
 
 public class GameView extends ScreenAdapter{
@@ -23,7 +25,7 @@ public class GameView extends ScreenAdapter{
 		img = this.game.getAssetManager().get("Stage2.png");
 		cam = new OrthographicCamera(256,256);
 		cam.translate(128, 128);
-		hero = new HeroModel(64,140);
+		hero = GameModel.getInstance().getHero();
 		hv = new HeroView();
 	}
 	
@@ -36,6 +38,7 @@ public class GameView extends ScreenAdapter{
 		SpriteBatch batch = TowerOfDoom.getInstance().getBatch();
 		hero.move();
 		hero.update();
+		GameController.getInstance().update(delta);
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         cam.update();
@@ -56,6 +59,9 @@ public class GameView extends ScreenAdapter{
 		this.game.getAssetManager().load("HeroStaring.png", Texture.class);
 		this.game.getAssetManager().load( "HeroSprite.png" , Texture.class);
 		this.game.getAssetManager().load( "Stage2.png" , Texture.class);
+		this.game.getAssetManager().load( "HeroWalking.png" , Texture.class);
+		this.game.getAssetManager().load( "HeroJumping.png" , Texture.class);
+		this.game.getAssetManager().load( "HeroLanding.png" , Texture.class);
 		this.game.getAssetManager().finishLoading();
 		
 	}

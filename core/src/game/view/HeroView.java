@@ -13,7 +13,9 @@ import game.model.HeroModel;
 
 public class HeroView extends CharacterView{
 	private Animation<TextureRegion> staringAnimation;
-	private TextureRegion HeroRegion;
+	private Animation<TextureRegion> walkingAnimation;
+	private Animation<TextureRegion> jumpingAnimation;
+	private Animation<TextureRegion> landingAnimation;
 	private float FRAME_TIME = 0.15f;
 	private float stateTime = 0;
 	HeroModel.charState state;
@@ -25,22 +27,20 @@ public class HeroView extends CharacterView{
 
 	@Override
 	public Sprite createSprite() {
-		staringAnimation = this.createStaringAnimation();
-		HeroRegion= this.createHeroRegion();
-		return new Sprite(HeroRegion);
+		staringAnimation = this.createAnimation("HeroStaring.png", 6);
+		walkingAnimation = this.createAnimation("HeroWalking.png", 6);
+		jumpingAnimation = this.createAnimation("HeroJumping.png", 7);
+		landingAnimation = this.createAnimation("HeroLanding.png", 3);
+		return new Sprite(this.staringAnimation.getKeyFrame(0));
 	}
 	
-    private TextureRegion createHeroRegion() {
-        Texture noThrustTexture = TowerOfDoom.getInstance().getAssetManager().get("HeroSprite.png");
-        return new TextureRegion(noThrustTexture, noThrustTexture.getWidth(), noThrustTexture.getHeight());
-    }
-	
-    private Animation<TextureRegion> createStaringAnimation() {
-        Texture thrustTexture = TowerOfDoom.getInstance().getAssetManager().get("HeroStaring.png");
-        TextureRegion[][] thrustRegion = TextureRegion.split(thrustTexture, thrustTexture.getWidth() / 6, thrustTexture.getHeight());
+    
+    private Animation<TextureRegion>createAnimation(String name, int divisions) {
+        Texture thrustTexture = TowerOfDoom.getInstance().getAssetManager().get(name);
+        TextureRegion[][] thrustRegion = TextureRegion.split(thrustTexture, thrustTexture.getWidth() / divisions, thrustTexture.getHeight());
 
-        TextureRegion[] frames = new TextureRegion[6];
-        System.arraycopy(thrustRegion[0], 0, frames, 0, 6);
+        TextureRegion[] frames = new TextureRegion[divisions];
+        System.arraycopy(thrustRegion[0], 0, frames, 0, divisions);
 
         return new Animation<TextureRegion>(FRAME_TIME, frames);
     }
@@ -54,21 +54,32 @@ public class HeroView extends CharacterView{
     @Override
     public void draw(SpriteBatch batch) {
         stateTime += Gdx.graphics.getDeltaTime();
-
-        if (this.state==HeroModel.charState.STARE)
-            sprite.setRegion(staringAnimation.getKeyFrame(stateTime, true));
-        else
-            sprite.setRegion(HeroRegion);
+        switch(this.state) {
+        case WALK:
+        	sprite.setRegion(walkingAnimation.getKeyFrame(stateTime,true));
+        	break;
+        case JUMP:
+        	sprite.setRegion(jumpingAnimation.getKeyFrame(stateTime,false));
+        	break;
+        case FALL:
+        	sprite.setRegion(jumpingAnimation.getKeyFrames()[jumpingAnimation.getKeyFrames().length-1]);
+        	break;
+		default:
+			sprite.setRegion(staringAnimation.getKeyFrame(stateTime, true));
+			break;
+        	
+        }
+            
 
         sprite.draw(batch);
     }
 
 	@Override
 	protected void flipAnimations() {
-		for(TextureRegion tex: staringAnimation.getKeyFrames()) {
-			tex.flip(true, false);
-		}
-		
+		super.flipAnimation(walkingAnimation);
+		super.flipAnimation(staringAnimation);
+		super.flipAnimation(jumpingAnimation);
+		super.flipAnimation(landingAnimation);
 	}
 
 }

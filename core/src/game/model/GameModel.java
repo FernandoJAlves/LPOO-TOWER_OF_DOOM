@@ -1,14 +1,15 @@
 package game.model;
 
-import com.badlogic.gdx.scenes.scene2d.ui.List;
+import java.util.ArrayList;
 
 public class GameModel {
 	private static GameModel instance;
 	private HeroModel hero;
-	private List<CharacterModel> enemies;
+	private ArrayList<CharacterModel> enemies;
 	
 	private GameModel() {
-		
+		enemies = new ArrayList<CharacterModel>();
+		hero = new HeroModel(64,140);
 	}
 	
 	public static GameModel getInstance() {
@@ -22,7 +23,7 @@ public class GameModel {
 		return this.hero;
 	}
 	
-	public List<CharacterModel> getEnemies(){
+	public ArrayList<CharacterModel> getEnemies(){
 		return this.enemies;
 	}
 

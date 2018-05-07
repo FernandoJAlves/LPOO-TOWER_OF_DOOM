@@ -1,7 +1,9 @@
 package game.view;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import game.model.EntityModel;
 import game.model.EntityModel.directionState;
@@ -18,8 +20,8 @@ public abstract class EntityView {
     }
 
     public void draw(SpriteBatch batch) {
-        //sprite.draw(batch);
-    	batch.draw(this.sprite.getTexture(), this.sprite.getX(), this.sprite.getY());
+        sprite.draw(batch);
+    	//batch.draw(this.sprite.getTexture(), this.sprite.getX(), this.sprite.getY());
     }
     
     public abstract Sprite createSprite();
@@ -41,4 +43,10 @@ public abstract class EntityView {
     }
     
     protected abstract void flipAnimations();
+    
+    protected void flipAnimation(Animation<TextureRegion> a) {
+		for(TextureRegion tex: a.getKeyFrames()) {
+			tex.flip(true, false);
+		}
+    }
 }
