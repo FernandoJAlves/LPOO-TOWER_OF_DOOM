@@ -17,15 +17,15 @@ public class HeroModel extends CharacterModel{
 	public void move() {
 		
 		if(Gdx.input.isKeyPressed(Keys.UP) && (this.yspeed == 0)) {
-			this.yspeed = 25;
+			this.yspeed = 50;
 		}
 		
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-			   speed = -25;
+			   speed = -30;
 			   this.dir = directionState.LEFT;
 		   }   
 	   else if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			   speed = 25;
+			   speed = 30;
 			   this.dir = directionState.RIGHT;
 		   }
 	   else {
@@ -35,17 +35,19 @@ public class HeroModel extends CharacterModel{
 	}
 	
 	public void update() {
-		x += Gdx.graphics.getDeltaTime() * speed;
-		if(this.yspeed > 5) {
+		if(this.yspeed > 1) {
 			this.state = charState.JUMP;
 		}
-		else if (this.yspeed < -5) {
+		else if (this.yspeed < -1) {
 			this.state = charState.FALL;
 		}
-		else if(this.speed != 0) {
-			this.state = charState.WALK;
+		else if(this.state != charState.JUMP) {
+			if(this.speed != 0) {
+				this.state = charState.WALK;
+			}
+			else this.state = charState.STARE;
 		}
-		else this.state = charState.STARE;
+		
 	}
 	
 	public charState getState() {

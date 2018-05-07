@@ -48,7 +48,11 @@ public class HeroView extends CharacterView{
     @Override
     public void update(EntityModel model) {
     	super.update(model);
-    	state= ((HeroModel)model).getState();
+    	if(state != ((HeroModel)model).getState()) {
+    		state= ((HeroModel)model).getState();
+    		stateTime = 0;
+    	}
+    	
     }
     
     @Override
@@ -67,10 +71,7 @@ public class HeroView extends CharacterView{
 		default:
 			sprite.setRegion(staringAnimation.getKeyFrame(stateTime, true));
 			break;
-        	
         }
-            
-
         sprite.draw(batch);
     }
 

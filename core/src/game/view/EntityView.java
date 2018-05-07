@@ -21,7 +21,6 @@ public abstract class EntityView {
 
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
-    	//batch.draw(this.sprite.getTexture(), this.sprite.getX(), this.sprite.getY());
     }
     
     public abstract Sprite createSprite();

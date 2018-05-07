@@ -23,7 +23,7 @@ public class GameController implements ContactListener{
 	private LevelController level;
 	
 	private GameController() {
-		world = new World(new Vector2(0, -10), true);
+		world = new World(new Vector2(0, -30), true);
 		level = new LevelController(world);
 		hero = new HeroBody(world,GameModel.getInstance().getHero());
 		for(CharacterModel enemy: GameModel.getInstance().getEnemies()) {
