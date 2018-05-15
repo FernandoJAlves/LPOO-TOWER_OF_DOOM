@@ -9,8 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import game.model.EntityModel;
 
 public abstract class EntityBody {
-	//TODO
-	private static float PIXEL_TO_METER = 1f;
+
 
 	final Body body;
 	
@@ -23,19 +22,10 @@ public abstract class EntityBody {
 		body.setUserData(model);
 	}
 	
-	final void createFixture(Body body, float[] vertexes, float width, float height, float density) {
-        // Transform pixels into meters, center and invert the y-coordinate
-        for (int i = 0; i < vertexes.length; i++) {
-            if (i % 2 == 0) vertexes[i] -= width / 2;   // center the vertex x-coordinate
-            if (i % 2 != 0) vertexes[i] -= height / 2;  // center the vertex y-coordinate
-
-            if (i % 2 != 0) vertexes[i] *= -1;          // invert the y-coordinate
-
-            vertexes[i] *= PIXEL_TO_METER;              // scale from pixel to meter
-        }
+	final void createFixture(Body body,float radius, float width, float height, float density) {
         
         CircleShape polygon = new CircleShape();
-        polygon.setRadius(24);
+        polygon.setRadius(radius);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = polygon;

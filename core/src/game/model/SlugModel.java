@@ -2,9 +2,8 @@ package game.model;
 
 public class SlugModel extends CharacterModel{
 
-	public SlugModel(String path, int x, int y) {
+	public SlugModel(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -34,10 +34,14 @@ public class LevelController {
 	}
 	
 	private void generateBodies() {
-		this.addBody(0,20,100,100);
+		this.addBody(300,336,216,48);
 	}
 	
-	private void addBody(int x, int y, int width, int length) {
-		this.bodies.add(createBody(x,y,width,length));
+	private void addBody(int x, int y, int width, int height) {
+		this.bodies.add(createBody(x,y,width/2,height/2));
+	}
+	
+	public void step(float timeStep, int velocityIterations, int positionIterations) {
+		this.world.step(timeStep, velocityIterations, positionIterations);
 	}
 }

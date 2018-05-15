@@ -2,6 +2,7 @@ package game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Vector2;
 
 public class HeroModel extends CharacterModel{
 	public enum charState {STARE,WALK,JUMP,FALL, LAND,ATTACK,DAMAGE};
@@ -17,7 +18,7 @@ public class HeroModel extends CharacterModel{
 	public void move() {
 		
 		if(Gdx.input.isKeyPressed(Keys.UP) && (this.yspeed == 0)) {
-			this.yspeed = 50;
+			this.yspeed = 85;
 		}
 		
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
@@ -52,6 +53,11 @@ public class HeroModel extends CharacterModel{
 	
 	public charState getState() {
 		return this.state;
+	}
+	
+	public void setPosition(Vector2 vec) {
+		this.x = vec.x;
+		this.y = vec.y;
 	}
 
 	@Override

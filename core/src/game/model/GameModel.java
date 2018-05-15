@@ -6,10 +6,13 @@ public class GameModel {
 	private static GameModel instance;
 	private HeroModel hero;
 	private ArrayList<CharacterModel> enemies;
+	private LevelModel level;
 	
 	private GameModel() {
-		enemies = new ArrayList<CharacterModel>();
-		hero = new HeroModel(64,140);
+		level = initLevel(1);
+		enemies = level.getChars();
+		hero = new HeroModel(488,720);
+		hero.setPosition(level.getHeroPosition());
 	}
 	
 	public static GameModel getInstance() {
@@ -25,6 +28,15 @@ public class GameModel {
 	
 	public ArrayList<CharacterModel> getEnemies(){
 		return this.enemies;
+	}
+	
+	private LevelModel initLevel(int levelNum) {
+		switch(levelNum) {
+		case 1:
+			return new LevelModel1();
+		default:
+			return new LevelModel1();
+		}
 	}
 
 }
