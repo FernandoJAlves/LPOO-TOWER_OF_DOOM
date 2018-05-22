@@ -34,11 +34,15 @@ public class LevelController {
 	}
 	
 	private void generateBodies() {
-		this.addBody(300,336,216,48);
+		//TODO POVOATE with bodies
+		this.addBody(192,312,216,48);
+		this.addBody(408, 312, 216, 48);
 	}
 	
 	private void addBody(int x, int y, int width, int height) {
-		this.bodies.add(createBody(x,y,width/2,height/2));
+		int newWidth = width/2;
+		int newHeight = height/2;
+		this.bodies.add(createBody(x+newWidth,y+newHeight,newWidth,newHeight));
 	}
 	
 	public void step(float timeStep, int velocityIterations, int positionIterations) {

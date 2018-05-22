@@ -14,9 +14,9 @@ public class HeroModel extends CharacterModel{
 		this.yspeed = 0;
 		this.state=charState.STARE;
 	}
-	
+
 	public void move() {
-		
+
 		if(Gdx.input.isKeyPressed(Keys.UP) && (this.yspeed == 0)) {
 			this.yspeed = 85;
 		}
@@ -26,6 +26,26 @@ public class HeroModel extends CharacterModel{
 			   this.dir = directionState.LEFT;
 		   }   
 	   else if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
+			   speed = 30;
+			   this.dir = directionState.RIGHT;
+		   }
+	   else {
+			   speed = 0;
+		   }
+
+	}
+	
+	public void move(char c) {
+		
+		if((c == 'w') && (this.yspeed == 0)) {
+			this.yspeed = 85;
+		}
+		
+		if((c == 'a')) {
+			   speed = -30;
+			   this.dir = directionState.LEFT;
+		   }   
+	   else if((c == 'd')) {
 			   speed = 30;
 			   this.dir = directionState.RIGHT;
 		   }

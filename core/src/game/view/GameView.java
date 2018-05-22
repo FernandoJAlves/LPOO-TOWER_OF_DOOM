@@ -25,12 +25,14 @@ public class GameView extends ScreenAdapter{
 	LevelView level;
 	HeroModel hero;
 	HeroView hv;
+	GUI gui;
 	
 	public GameView(){
 		game = TowerOfDoom.getInstance();
 		this.loadAssets();
 		level = new LevelView1();
 		hero = GameModel.getInstance().getHero();
+		gui = new GUI(hero);
 		hv = new HeroView();
 		this.createCam();
 	}
@@ -53,6 +55,7 @@ public class GameView extends ScreenAdapter{
 		hv.update(hero);
 		hv.draw(batch);
 		batch.end();
+		gui.update(delta);
 		this.debugPhysics();
 	}
 	
@@ -68,7 +71,12 @@ public class GameView extends ScreenAdapter{
 		this.game.getAssetManager().load( "HeroWalking.png" , Texture.class);
 		this.game.getAssetManager().load( "HeroJumping.png" , Texture.class);
 		this.game.getAssetManager().load( "HeroLanding.png" , Texture.class);
+		this.game.getAssetManager().load( "HeroFiring.png" , Texture.class);
 		this.game.getAssetManager().load( "level1.png" , Texture.class);
+		this.game.getAssetManager().load( "ButtonLeft.png" , Texture.class);
+		this.game.getAssetManager().load( "ButtonRight.png" , Texture.class);
+		this.game.getAssetManager().load( "ButtonUp.png" , Texture.class);
+		this.game.getAssetManager().load( "ButtonFire.png" , Texture.class);
 		this.game.getAssetManager().finishLoading();
 		
 	}
@@ -96,5 +104,5 @@ public class GameView extends ScreenAdapter{
             debugRenderer.render(GameController.getInstance().getWorld(), debugCamera);
         }
 	}
-	
+		
 }
