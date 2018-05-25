@@ -1,6 +1,5 @@
 package game.controller;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -19,12 +18,12 @@ public class GameController implements ContactListener{
 	private HeroBody hero;
 	private List<CharacterBody> enemies;
 	private static GameController instance;
-	private final World world;
+	private World world;
 	private LevelController level;
 	
 	private GameController() {
-		world = new World(new Vector2(0, -60), true);
-		level = new LevelController(world);
+		level = this.levelSelection(1);
+		this.world = level.getWorld();
 		hero = new HeroBody(world,GameModel.getInstance().getHero());
 		for(CharacterModel enemy: GameModel.getInstance().getEnemies()) {
 			if(enemy.getModelType() == ModelType.GUARD)
@@ -93,7 +92,16 @@ public class GameController implements ContactListener{
 	}
 	
 	public World getWorld() {
-		return this.world;
+		return this.level.getWorld();
+	}
+	
+	private LevelController levelSelection(int num) {
+		switch(num) {
+		case 1:
+			return new Level1Controller();
+		default:
+			return new Level1Controller();
+		}
 	}
 	
 

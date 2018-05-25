@@ -1,6 +1,10 @@
 package game.view;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,10 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import game.main.TowerOfDoom;
-import game.model.HeroModel;
 
 public class GUI extends Stage{
-	private HeroModel hero;
+	protected Map<Character, Boolean> keys;
 	private ImageButton upButton;
 	private ImageButton fireButton;
 	private ImageButton leftButton;
@@ -21,17 +24,28 @@ public class GUI extends Stage{
 	int screenWidth, screenHeight;
 	
 	
-	public GUI(HeroModel h) {
+	public GUI() {
 		super();
-		hero = h;
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
+		this.initKeys();
 		switch(Gdx.app.getType()) {
 		   case Android:
 			   this.initButtons();
+			   break;
+		   default:
+			   break;
 			   
 		}
 		Gdx.input.setInputProcessor(this);
+	}
+	
+	private void initKeys() {
+		this.keys = new TreeMap<Character, Boolean>();
+		this.keys.put('w', false);
+		this.keys.put('a', false);
+		this.keys.put('f', false);
+		this.keys.put('d', false);
 	}
 	
 	private void initButtons() {
@@ -45,7 +59,7 @@ public class GUI extends Stage{
 		Texture thrustTexture = TowerOfDoom.getInstance().getAssetManager().get(path);
 		TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(thrustTexture));
 		ImageButton button = new ImageButton(drawable);
-		button.setScale(3);
+		//button.setScale(3);
 		button.getImage().scaleBy(3);
 		return button;
 	}
@@ -56,8 +70,11 @@ public class GUI extends Stage{
 		this.upButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                hero.move('w');
+                keys.replace('w', true);
                 return true;
+            }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+            	keys.replace('w', false);
             }
         });
 		this.addActor(upButton);
@@ -69,11 +86,11 @@ public class GUI extends Stage{
 		this.fireButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                hero.move('w');
+            	keys.replace('f', true);
                 return true;
             }
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                hero.move('n');
+            	keys.replace('f', false);
             }
         });
 		this.addActor(fireButton);
@@ -85,11 +102,11 @@ public class GUI extends Stage{
 		this.leftButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                hero.move('a');
+            	keys.replace('a', true);
                 return true;
             }
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                hero.move('n');
+            	keys.replace('a', false);
             }
         });
 		this.addActor(leftButton);
@@ -101,17 +118,37 @@ public class GUI extends Stage{
 		this.rightButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                hero.move('d');
+            	keys.replace('d', true);
                 return true;
             }
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                hero.move('n');
+            	keys.replace('d', false);
             }
         });
 		this.addActor(rightButton);
 	}
 	
+	private void updateKeys() {
+		   if(Gdx.input.isKeyPressed(Keys.LEFT)) 
+			   this.keys.replace('a', true);
+		   else this.keys.replace('a', false);
+		   if(Gdx.input.isKeyPressed(Keys.RIGHT)) 
+			   this.keys.replace('d', true);
+		   else this.keys.replace('d', false);
+		   if(Gdx.input.isKeyPressed(Keys.UP)) 
+			   this.keys.replace('w', true);
+		   else this.keys.replace('w', false);
+		   if(Gdx.input.isKeyPressed(Keys.A)) 
+			   this.keys.replace('f', true);
+		   else this.keys.replace('f', false);
+	}
+	
+	public boolean keyPressed(char key) {
+		return this.keys.get(key);
+	}
+	
 	public void update(float delta) {
+		this.updateKeys();
         this.act(delta); //Perform ui logic
         this.draw(); //Draw the ui
 	}

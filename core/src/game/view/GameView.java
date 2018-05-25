@@ -21,18 +21,18 @@ public class GameView extends ScreenAdapter{
     private Matrix4 debugCamera;
 	
 	private OrthographicCamera cam;
-	TowerOfDoom game;
-	LevelView level;
-	HeroModel hero;
-	HeroView hv;
-	GUI gui;
+	private TowerOfDoom game;
+	private LevelView level;
+	private HeroModel hero;
+	private HeroView hv;
+	private GUI gui;
 	
 	public GameView(){
 		game = TowerOfDoom.getInstance();
 		this.loadAssets();
 		level = new LevelView1();
 		hero = GameModel.getInstance().getHero();
-		gui = new GUI(hero);
+		gui = new GUI();
 		hv = new HeroView();
 		this.createCam();
 	}
@@ -44,7 +44,7 @@ public class GameView extends ScreenAdapter{
 	@Override
     public void render(float delta) {
 		SpriteBatch batch = TowerOfDoom.getInstance().getBatch();
-		hero.move();
+		this.handleInput();
 		hero.update();
 		GameController.getInstance().update(delta);
 		Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -82,13 +82,13 @@ public class GameView extends ScreenAdapter{
 	}
 	
 	private void updateCam(SpriteBatch batch) {
-        cam.position.set(GameModel.getInstance().getHero().getX(), GameModel.getInstance().getHero().getY()+20, 0);
+        cam.position.set(GameModel.getInstance().getHero().getX(), GameModel.getInstance().getHero().getY()+50, 0);
         cam.update();
         batch.setProjectionMatrix(cam.combined);
 	}
 	
 	private void createCam() {
-		cam = new OrthographicCamera(512,512);
+		cam = new OrthographicCamera(300,300 * ((float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getBackBufferWidth()));
 		
         if (DEBUG_PHYSICS) {
             debugRenderer = new Box2DDebugRenderer();
@@ -103,6 +103,27 @@ public class GameView extends ScreenAdapter{
             debugCamera.scl(1);
             debugRenderer.render(GameController.getInstance().getWorld(), debugCamera);
         }
+	}
+	
+	public void handleInput() {
+		if(gui.keyPressed('w')) {
+			hero.move('w');
+		}
+		
+		if(gui.keyPressed('a')) {
+			hero.move('a');
+		}
+		
+		else if(gui.keyPressed('d')) {
+			hero.move('d');
+		}
+		else {
+			hero.move('n');
+		}
+		
+		if(gui.keyPressed('f')) {
+			hero.move('f');
+		}
 	}
 		
 }

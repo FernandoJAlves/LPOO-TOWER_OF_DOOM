@@ -2,18 +2,19 @@ package game.controller;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class LevelController {
+public abstract class LevelController {
 	private ArrayList<Body> bodies;
-	private World world;
+	private final World world;
 	
-	LevelController(World world){
-		this.world = world;
+	LevelController(){
+		this.world = new World(new Vector2(0, -60), true);
 		bodies = new ArrayList<Body>();
 		this.generateBodies();
 	}
@@ -33,13 +34,9 @@ public class LevelController {
 		return body;
 	}
 	
-	private void generateBodies() {
-		//TODO POVOATE with bodies
-		this.addBody(192,312,216,48);
-		this.addBody(408, 312, 216, 48);
-	}
+	protected abstract void generateBodies();
 	
-	private void addBody(int x, int y, int width, int height) {
+	protected void addBody(int x, int y, int width, int height) {
 		int newWidth = width/2;
 		int newHeight = height/2;
 		this.bodies.add(createBody(x+newWidth,y+newHeight,newWidth,newHeight));
@@ -47,5 +44,9 @@ public class LevelController {
 	
 	public void step(float timeStep, int velocityIterations, int positionIterations) {
 		this.world.step(timeStep, velocityIterations, positionIterations);
+	}
+	
+	public World getWorld() {
+		return this.world;
 	}
 }
