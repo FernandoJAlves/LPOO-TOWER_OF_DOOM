@@ -17,6 +17,7 @@ import game.model.HeroModel;
 public class GameView extends ScreenAdapter{
 	
     private static final boolean DEBUG_PHYSICS = true;
+    private static final int SCREEN_WIDTH = 400;
     private Box2DDebugRenderer debugRenderer;
     private Matrix4 debugCamera;
 	
@@ -88,7 +89,7 @@ public class GameView extends ScreenAdapter{
 	}
 	
 	private void createCam() {
-		cam = new OrthographicCamera(300,300 * ((float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getBackBufferWidth()));
+		cam = new OrthographicCamera(SCREEN_WIDTH,SCREEN_WIDTH * ((float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getBackBufferWidth()));
 		
         if (DEBUG_PHYSICS) {
             debugRenderer = new Box2DDebugRenderer();
@@ -106,8 +107,13 @@ public class GameView extends ScreenAdapter{
 	}
 	
 	public void handleInput() {
+		   
 		if(gui.keyPressed('w')) {
 			hero.move('w');
+		}
+		
+		if(gui.keyPressed('f')) {
+			hero.move('f');
 		}
 		
 		if(gui.keyPressed('a')) {
@@ -121,9 +127,6 @@ public class GameView extends ScreenAdapter{
 			hero.move('n');
 		}
 		
-		if(gui.keyPressed('f')) {
-			hero.move('f');
-		}
 	}
 		
 }

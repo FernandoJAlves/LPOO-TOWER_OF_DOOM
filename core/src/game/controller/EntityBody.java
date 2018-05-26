@@ -65,6 +65,6 @@ public abstract class EntityBody {
 	public Object getUserData() {
 		return body.getUserData();
 	}
-	
+		
 	
 }

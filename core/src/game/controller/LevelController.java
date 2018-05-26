@@ -31,6 +31,7 @@ public abstract class LevelController {
 	    fixtureDef.density = 20;
 	    body.createFixture(fixtureDef);
 	    polygon.dispose();
+	    body.setUserData("Floor");
 		return body;
 	}
 	

@@ -41,6 +41,10 @@ public class HeroModel extends CharacterModel{
 			this.yspeed = 85;
 		}
 		
+		if(c == 'f') {
+			
+		}
+		
 		if((c == 'a')) {
 			   speed = -30;
 			   this.dir = directionState.LEFT;

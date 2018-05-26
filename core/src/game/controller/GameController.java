@@ -83,8 +83,9 @@ public class GameController implements ContactListener{
         world.getBodies(bodies);
 
         for (Body body : bodies) {
+        	
+        	if(body.getUserData() instanceof EntityModel) {
         	EntityModel model = ((EntityModel) body.getUserData());
-        	if(model instanceof EntityModel) {
             model.setPosition(body.getPosition().x, body.getPosition().y);
             model.setYSpeed(body.getLinearVelocity().y);
         	}

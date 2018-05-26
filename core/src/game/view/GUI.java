@@ -4,10 +4,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -33,7 +33,11 @@ public class GUI extends Stage{
 		   case Android:
 			   this.initButtons();
 			   break;
+		   case Desktop:
+			   this.initKeyboard();
+			   break;
 		   default:
+			   this.initButtons();
 			   break;
 			   
 		}
@@ -128,27 +132,44 @@ public class GUI extends Stage{
 		this.addActor(rightButton);
 	}
 	
-	private void updateKeys() {
-		   if(Gdx.input.isKeyPressed(Keys.LEFT)) 
-			   this.keys.replace('a', true);
-		   else this.keys.replace('a', false);
-		   if(Gdx.input.isKeyPressed(Keys.RIGHT)) 
-			   this.keys.replace('d', true);
-		   else this.keys.replace('d', false);
-		   if(Gdx.input.isKeyPressed(Keys.UP)) 
-			   this.keys.replace('w', true);
-		   else this.keys.replace('w', false);
-		   if(Gdx.input.isKeyPressed(Keys.A)) 
-			   this.keys.replace('f', true);
-		   else this.keys.replace('f', false);
-	}
-	
 	public boolean keyPressed(char key) {
 		return this.keys.get(key);
 	}
 	
+	private void initKeyboard() {
+		  this.addListener(new InputListener() 
+		    {
+		        @Override
+		        public boolean keyDown(InputEvent event, int keycode) 
+		        {
+		 		   if(keycode == 21) 
+					   keys.replace('a', true);
+		 		   else if(keycode == 22) 
+					   keys.replace('d', true);
+		 		   else if(keycode == 19) 
+					   keys.replace('w', true);
+		 		   else if(keycode == 29) 
+					   keys.replace('f', true);
+		            return true;
+		        }
+		        
+		        @Override
+		        public boolean keyUp(InputEvent event, int keycode) 
+		        {
+		 		   if(keycode == 21) 
+					   keys.replace('a', false);
+		 		   else if(keycode == 22) 
+					   keys.replace('d', false);
+		 		   else if(keycode == 19) 
+					   keys.replace('w', false);
+		 		   else if(keycode == 29) 
+					   keys.replace('f', false);
+		            return true;
+		        }
+		    });
+	}
+	
 	public void update(float delta) {
-		this.updateKeys();
         this.act(delta); //Perform ui logic
         this.draw(); //Draw the ui
 	}
