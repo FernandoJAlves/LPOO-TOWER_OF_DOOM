@@ -17,4 +17,10 @@ public class HeroBody extends CharacterBody{
 		super.createFixture(body,radius, width, height, density);
 	}
 
+	@Override
+	public void rayCast(World world) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

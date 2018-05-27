@@ -10,5 +10,7 @@ public abstract class CharacterBody extends EntityBody{
 		super(world, model);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public abstract void rayCast(World world );
 
 }

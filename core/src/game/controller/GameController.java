@@ -1,12 +1,13 @@
 package game.controller;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.utils.Array;
 
 import game.model.CharacterModel;
@@ -16,7 +17,7 @@ import game.model.GameModel;
 
 public class GameController implements ContactListener{
 	private HeroBody hero;
-	private List<CharacterBody> enemies;
+	private ArrayList<CharacterBody> enemies;
 	private static GameController instance;
 	private World world;
 	private LevelController level;
@@ -25,13 +26,17 @@ public class GameController implements ContactListener{
 		level = this.levelSelection(1);
 		this.world = level.getWorld();
 		hero = new HeroBody(world,GameModel.getInstance().getHero());
+		this.enemies = new ArrayList<CharacterBody>();
 		for(CharacterModel enemy: GameModel.getInstance().getEnemies()) {
-			if(enemy.getModelType() == ModelType.GUARD)
-				new GuardBody(world,enemy);
+			if(enemy.getModelType() == ModelType.SLUG)
+				this.enemies.add( new SlugBody(world,enemy));
+			/*
+			else if(enemy.getModelType() == ModelType.GUARD)
+				//add Guard
 			else if(enemy.getModelType() == ModelType.OGRE)
-				new OgreBody(world,enemy);
-			else if(enemy.getModelType() == ModelType.SLUG)
-				new SlugBody(world,enemy);
+				//add Ogre
+			*/
+				
 		}
 		world.setContactListener(this);
 	}
@@ -64,7 +69,7 @@ public class GameController implements ContactListener{
 		return this.hero;
 	}
 	
-	public List<CharacterBody> getEnemies(){
+	public ArrayList<CharacterBody> getEnemies(){
 		return this.enemies;
 	}
 	
@@ -77,6 +82,7 @@ public class GameController implements ContactListener{
 	
 	public void update(float delta) {
 		hero.setLinearVelocity(((EntityModel)hero.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
+		this.rayCastController();
 		world.step(delta, 6, 2);
 		
         Array<Body> bodies = new Array<Body>();
@@ -105,5 +111,10 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	private void rayCastController() {
+		for(CharacterBody enemy: this.enemies) {
+			enemy.rayCast(world);
+		}
+	}
 
 }

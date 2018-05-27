@@ -1,42 +1,49 @@
 package game.model;
 
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
-
 public class SlugModel extends CharacterModel{
+	public enum slugState {WALK,ATTACK,DAMAGE};
+	private slugState state;
+	private boolean alert;
+	private int attackRange;
+	private int viewRange;
 
 	public SlugModel(int x, int y) {
 		super(x, y);
+		state = slugState.WALK;
+		alert = false;
+		attackRange = 1;
+		viewRange = 3;
 	}
 
 	@Override
 	public void move() {
-		Rectangle viewRange;
-		Rectangle attackRange;
-		Circle circ = new Circle(GameModel.getInstance().getHero().getX(),GameModel.getInstance().getHero().getY(),24);
-		int viewWidth = 3;
-		int attackWidth = 3;
-		if(this.dir == EntityModel.directionState.RIGHT) {
-			viewRange = new Rectangle(this.x,this.y,viewWidth,3);
-			attackRange = new Rectangle(this.x,this.y,attackWidth,3);
-		}
-		else {
-			viewRange = new Rectangle(this.x-viewWidth,this.y,viewWidth,3);
-			attackRange = new Rectangle(this.x-attackWidth,this.y,attackWidth,3);
-		}
-		if(Intersector.overlaps(circ, viewRange)) {
-			if(Intersector.overlaps(circ, attackRange)) {
-				
-			}
-		}
+
 		
 	}
 
 	@Override
 	public ModelType getModelType() {
-		// TODO Auto-generated method stub
-		return null;
+		return EntityModel.ModelType.SLUG;
+	}
+	
+	public void setAlert(boolean a) {
+		this.alert = a;
+	}
+	
+	public boolean isAlert() {
+		return this.alert;
+	}
+	
+	public slugState getState() {
+		return this.state;
+	}
+	
+	public int getViewRange() {
+		return this.viewRange;
+	}
+	
+	public int getAttackRange() {
+		return this.attackRange;
 	}
 
 }
