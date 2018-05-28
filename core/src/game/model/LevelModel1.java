@@ -24,5 +24,8 @@ public class LevelModel1 extends LevelModel implements Serializable{
 		return new Vector2(288,380);
 	}
 	
+	public Vector2 getHero2Position() {
+		return new Vector2(308,380);
+	}
 	
 }

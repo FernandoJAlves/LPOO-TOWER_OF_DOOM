@@ -86,7 +86,7 @@ public class GameController implements ContactListener{
 	public void update(float delta) {
 		hero.setLinearVelocity(((EntityModel)hero.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
 		if(this.multiplayer)
-			netHero.setLinearVelocity(((EntityModel)hero.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
+			netHero.setLinearVelocity(((EntityModel)netHero.getUserData()).getSpeed(), ((EntityModel)netHero.getUserData()).getYSpeed());
 		this.rayCastController();
 		world.step(delta, 6, 2);
 		
