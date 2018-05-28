@@ -62,5 +62,16 @@ public class GameModel {
 		this.netHero = netHero;
 	}
 	
+	public void update(float delta){
+		this.hero.update(delta);
+		if(this.netHero != null) {
+			this.netHero.update(delta);
+		}
+	}
+	
+	public void setMultiplayer() {
+		new HeroModel(488,720);
+		hero.setPosition(level.getHeroPosition());
+	}
 
 }

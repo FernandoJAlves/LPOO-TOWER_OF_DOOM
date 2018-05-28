@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class PlayerSocket {
 	protected Socket socket;
@@ -12,16 +11,6 @@ public class PlayerSocket {
 	protected ObjectOutputStream outputStream;
 	
 	public PlayerSocket() {
-		try {
-			socket = new Socket("localHost", 4445);
-			outputStream = new ObjectOutputStream(socket.getOutputStream());
-			inputStream = new ObjectInputStream(socket.getInputStream());
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 
 		
 		
@@ -58,4 +47,5 @@ public class PlayerSocket {
 			e.printStackTrace();
 		}
 	}
+	
 }

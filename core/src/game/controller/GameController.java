@@ -28,8 +28,9 @@ public class GameController implements ContactListener{
 		level = this.levelSelection(1);
 		this.world = level.getWorld();
 		hero = new HeroBody(world,GameModel.getInstance().getHero());
-		if(this.multiplayer) {
+		if(GameModel.getInstance().getNetHero() != null) {
 			setNetHero(new HeroBody(world,GameModel.getInstance().getNetHero()));
+			this.multiplayer = true;
 		}
 
 		
@@ -84,6 +85,8 @@ public class GameController implements ContactListener{
 	
 	public void update(float delta) {
 		hero.setLinearVelocity(((EntityModel)hero.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
+		if(this.multiplayer)
+			netHero.setLinearVelocity(((EntityModel)hero.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
 		this.rayCastController();
 		world.step(delta, 6, 2);
 		

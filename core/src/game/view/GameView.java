@@ -19,7 +19,7 @@ import game.model.HeroModel;
 
 public class GameView extends ScreenAdapter{
 	
-	private boolean multiplayer = false;
+	private boolean multiplayer = true;
 	private boolean player2 = false;
 	private PlayerSocket socket;
 	
@@ -32,7 +32,9 @@ public class GameView extends ScreenAdapter{
 	private TowerOfDoom game;
 	private LevelView level;
 	private HeroModel hero;
+	private HeroModel netHero;
 	private HeroView hv;
+	private HeroView nv;
 	private GUI gui;
 	
 	public GameView(){
@@ -44,6 +46,7 @@ public class GameView extends ScreenAdapter{
 		this.setHero();
 		gui = new GUI();
 		hv = new HeroView();
+		nv = new HeroView();
 		this.createCam();
 	}
 	
@@ -54,18 +57,12 @@ public class GameView extends ScreenAdapter{
 	@Override
     public void render(float delta) {
 		this.updateNet();
-		SpriteBatch batch = TowerOfDoom.getInstance().getBatch();
+		
 		this.handleInput();
-		hero.update(delta);
+		GameModel.getInstance().update(delta);
 		GameController.getInstance().update(delta);
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		this.updateCam(batch);
-		batch.begin();
-		level.draw(batch);
-		hv.update(hero);
-		hv.draw(batch);
-		batch.end();
+		this.sendData();
+		this.updateDraw();
 		gui.update(delta);
 		this.debugPhysics();
 	}
@@ -142,16 +139,25 @@ public class GameView extends ScreenAdapter{
 	public void updateNet() {
 		if(this.multiplayer) {
 			if(this.player2) {
-				GameModel.setInstance(((Player2Socket)socket).getGameModel());
+				GameModel game = ((Player2Socket)socket).getGameModel();
+				if(game != null) {
+					GameModel.setInstance(game);
+				}
+				
 			}
 			else {
-				GameModel.getInstance().setNetHero(((Player1Socket)socket).getHeroModel());
+				HeroModel hero = ((Player1Socket)socket).getHeroModel();
+				if(hero != null) {
+					GameModel.getInstance().setNetHero(hero);
+				}
+				
 			}
 		}
 	}
 	
 	public void setSockets() {
 		if(this.multiplayer) {
+			GameModel.getInstance().setMultiplayer();
 			if(this.player2) {
 				this.socket = new Player2Socket();
 			}
@@ -163,11 +169,41 @@ public class GameView extends ScreenAdapter{
 	
 	public void setHero() {
 		if(this.player2) {
-			hero = GameModel.getInstance().getHero();
+			hero = GameModel.getInstance().getNetHero();
+			netHero = GameModel.getInstance().getHero();
 		}
 		else {
 			hero = GameModel.getInstance().getHero();
+			netHero = GameModel.getInstance().getNetHero();
 		}
 		
 	}
+	
+	public void sendData() {
+		if(this.multiplayer) {
+			if(this.player2) {
+				((Player2Socket)socket).sendHero(GameModel.getInstance().getNetHero());
+			}
+			else {
+				((Player1Socket)socket).sendGameModel(GameModel.getInstance());
+			}
+		}
+	}
+	
+	private void updateDraw() {
+		SpriteBatch batch = TowerOfDoom.getInstance().getBatch();
+		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		this.updateCam(batch);
+		batch.begin();
+		level.draw(batch);
+		hv.update(hero);
+		hv.draw(batch);
+		if(netHero != null) {
+			nv.update(netHero);
+			nv.draw(batch);
+		}
+		batch.end();
+	}
+	
 }
