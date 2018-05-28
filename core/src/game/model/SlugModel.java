@@ -16,7 +16,7 @@ public class SlugModel extends CharacterModel{
 	}
 
 	@Override
-	public void move() {
+	public void move(char c) {
 
 		
 	}
@@ -44,6 +44,12 @@ public class SlugModel extends CharacterModel{
 	
 	public int getAttackRange() {
 		return this.attackRange;
+	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -10,6 +10,8 @@ public abstract class CharacterModel extends EntityModel{
 		
 	}
 	
-	abstract public void move();
+	abstract public void move(char c);
+	
+	abstract public void update(float delta);
 	
 }
