@@ -146,9 +146,11 @@ public class GameView extends ScreenAdapter{
 				
 			}
 			else {
+				
 				HeroModel hero = ((Player1Socket)socket).getHeroModel();
 				if(hero != null) {
 					GameModel.getInstance().setNetHero(hero);
+					System.out.println("Data received");
 				}
 				
 			}

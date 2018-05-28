@@ -75,8 +75,8 @@ public class GameModel implements Serializable{
 	}
 	
 	public void setMultiplayer() {
-		new HeroModel(488,720);
-		hero.setPosition(level.getHeroPosition());
+		this.netHero = new HeroModel(528,720);
+		netHero.setPosition(level.getHero2Position());
 	}
 
 }

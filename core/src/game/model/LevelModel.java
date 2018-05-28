@@ -25,6 +25,8 @@ public abstract class LevelModel implements Serializable{
 	
 	public abstract Vector2 getHeroPosition();
 	
+	public abstract Vector2 getHero2Position();
+	
 	public ArrayList<CharacterModel> getChars() {
 		return this.chars;
 	}
