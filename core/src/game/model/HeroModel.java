@@ -1,9 +1,17 @@
 package game.model;
 
 
+import java.io.Serializable;
+
 import com.badlogic.gdx.math.Vector2;
 
-public class HeroModel extends CharacterModel{
+public class HeroModel extends CharacterModel implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1120208627717480964L;
+
 
 	public enum charState {STARE,WALK,JUMP,FALL, LAND,ATTACK,DAMAGE};
 	protected charState state;

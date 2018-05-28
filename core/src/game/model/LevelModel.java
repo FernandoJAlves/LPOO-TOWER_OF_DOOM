@@ -1,10 +1,15 @@
 package game.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class LevelModel {
+public abstract class LevelModel implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4316961198719715398L;
 	protected ArrayList<CharacterModel> chars;
 	
 	public LevelModel() {

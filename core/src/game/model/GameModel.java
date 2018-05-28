@@ -1,9 +1,14 @@
 package game.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class GameModel {
+public class GameModel implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5144259653074020691L;
 	private static GameModel instance;
 	private HeroModel hero;
 	private HeroModel netHero;

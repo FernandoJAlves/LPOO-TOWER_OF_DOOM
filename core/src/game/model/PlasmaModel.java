@@ -1,6 +1,13 @@
 package game.model;
 
-public class PlasmaModel extends EntityModel{
+import java.io.Serializable;
+
+public class PlasmaModel extends EntityModel implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -56992925497861864L;
 
 	public PlasmaModel(int x, int y) {
 		super(x, y);

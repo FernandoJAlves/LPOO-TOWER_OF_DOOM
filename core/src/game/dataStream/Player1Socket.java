@@ -13,8 +13,8 @@ public class Player1Socket extends PlayerSocket{
 	public Player1Socket() {
 		super();
 		try {
-			this.ServerSocket = new ServerSocket(4445);
-			this.ServerSocket.setSoTimeout(5*1000);
+			this.ServerSocket = new ServerSocket(1234);
+			this.ServerSocket.setSoTimeout(20*1000);
 			this.socket = this.ServerSocket.accept();
 			this.outputStream = new ObjectOutputStream(socket.getOutputStream());
 			this.inputStream = new ObjectInputStream(socket.getInputStream());
