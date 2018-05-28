@@ -20,7 +20,7 @@ import game.model.HeroModel;
 public class GameView extends ScreenAdapter{
 	
 	private boolean multiplayer = true;
-	private boolean player2 = false;
+	private boolean player2 = true;
 	private PlayerSocket socket;
 	
     private static final boolean DEBUG_PHYSICS = true;
@@ -39,6 +39,9 @@ public class GameView extends ScreenAdapter{
 	
 	public GameView(){
 		setSockets();
+
+		this.setPlayerTwo();
+
 		game = TowerOfDoom.getInstance();
 		this.loadAssets();
 		level = new LevelView1();
@@ -139,9 +142,11 @@ public class GameView extends ScreenAdapter{
 	public void updateNet() {
 		if(this.multiplayer) {
 			if(this.player2) {
+				
 				GameModel game = ((Player2Socket)socket).getGameModel();
 				if(game != null) {
 					GameModel.setInstance(game);
+					System.out.println("Data received");
 				}
 				
 			}
@@ -206,6 +211,12 @@ public class GameView extends ScreenAdapter{
 			nv.draw(batch);
 		}
 		batch.end();
+	}
+	
+	private void setPlayerTwo() {
+		if(this.player2) {
+			this.updateNet();
+		}
 	}
 	
 }

@@ -12,7 +12,7 @@ public class Player2Socket extends PlayerSocket{
 	public Player2Socket() {
 		super();
 		try {
-			this.socket = new Socket("localhost", 4445);
+			this.socket = new Socket("172.30.30.164", 1234);
 			this.outputStream = new ObjectOutputStream(socket.getOutputStream());
 			this.inputStream = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
