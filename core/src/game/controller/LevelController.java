@@ -43,6 +43,17 @@ public abstract class LevelController {
 		this.bodies.add(createBody(x+newWidth,y+newHeight,newWidth,newHeight));
 	}
 	
+	protected void addBody_m(int x, int y, int width, int height) {
+		x *= 24;
+		y *= 24;
+		width *= 24;
+		height *= 24;
+		
+		int newWidth = width/2;
+		int newHeight = height/2;
+		this.bodies.add(createBody(x+newWidth,y+newHeight,newWidth,newHeight));
+	}
+	
 	public void step(float timeStep, int velocityIterations, int positionIterations) {
 		this.world.step(timeStep, velocityIterations, positionIterations);
 	}
