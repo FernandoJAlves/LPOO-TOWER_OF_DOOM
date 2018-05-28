@@ -14,10 +14,6 @@ public class ViewFactory {
         if (!cache.containsKey(model.getModelType())) {
             if (model.getModelType() == ModelType.HERO)
                 cache.put(model.getModelType(), new HeroView());
-            if (model.getModelType() == ModelType.GUARD)
-                cache.put(model.getModelType(), new GuardView());
-            if (model.getModelType() == ModelType.OGRE)
-                cache.put(model.getModelType(), new OgreView());
             if (model.getModelType() == ModelType.SLUG)
                 cache.put(model.getModelType(), new SlugView());
         }
