@@ -16,7 +16,9 @@ import game.model.EntityModel.ModelType;
 import game.model.GameModel;
 
 public class GameController implements ContactListener{
+	private boolean multiplayer = false;
 	private HeroBody hero;
+	private HeroBody netHero;
 	private ArrayList<CharacterBody> enemies;
 	private static GameController instance;
 	private World world;
@@ -26,16 +28,16 @@ public class GameController implements ContactListener{
 		level = this.levelSelection(1);
 		this.world = level.getWorld();
 		hero = new HeroBody(world,GameModel.getInstance().getHero());
+		if(this.multiplayer) {
+			setNetHero(new HeroBody(world,GameModel.getInstance().getNetHero()));
+		}
+
+		
 		this.enemies = new ArrayList<CharacterBody>();
 		for(CharacterModel enemy: GameModel.getInstance().getEnemies()) {
 			if(enemy.getModelType() == ModelType.SLUG)
 				this.enemies.add( new SlugBody(world,enemy));
-			/*
-			else if(enemy.getModelType() == ModelType.GUARD)
-				//add Guard
-			else if(enemy.getModelType() == ModelType.OGRE)
-				//add Ogre
-			*/
+
 				
 		}
 		world.setContactListener(this);
@@ -115,6 +117,18 @@ public class GameController implements ContactListener{
 		for(CharacterBody enemy: this.enemies) {
 			enemy.rayCast(world);
 		}
+	}
+
+	public HeroBody getNetHero() {
+		return netHero;
+	}
+
+	public void setNetHero(HeroBody netHero) {
+		this.netHero = netHero;
+	}
+	
+	public void setMultiplayer(boolean option) {
+		this.multiplayer = option;
 	}
 
 }

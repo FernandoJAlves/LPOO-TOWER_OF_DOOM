@@ -10,11 +10,18 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import game.controller.GameController;
+import game.dataStream.Player1Socket;
+import game.dataStream.Player2Socket;
+import game.dataStream.PlayerSocket;
 import game.main.TowerOfDoom;
 import game.model.GameModel;
 import game.model.HeroModel;
 
 public class GameView extends ScreenAdapter{
+	
+	private boolean multiplayer = false;
+	private boolean player2 = false;
+	private PlayerSocket socket;
 	
     private static final boolean DEBUG_PHYSICS = true;
     private static final int SCREEN_WIDTH = 400;
@@ -29,10 +36,12 @@ public class GameView extends ScreenAdapter{
 	private GUI gui;
 	
 	public GameView(){
+		setSockets();
 		game = TowerOfDoom.getInstance();
 		this.loadAssets();
 		level = new LevelView1();
-		hero = GameModel.getInstance().getHero();
+
+		this.setHero();
 		gui = new GUI();
 		hv = new HeroView();
 		this.createCam();
@@ -44,6 +53,7 @@ public class GameView extends ScreenAdapter{
 	
 	@Override
     public void render(float delta) {
+		this.updateNet();
 		SpriteBatch batch = TowerOfDoom.getInstance().getBatch();
 		this.handleInput();
 		hero.update(delta);
@@ -128,5 +138,36 @@ public class GameView extends ScreenAdapter{
 		}
 		
 	}
+	
+	public void updateNet() {
+		if(this.multiplayer) {
+			if(this.player2) {
+				GameModel.setInstance(((Player2Socket)socket).getGameModel());
+			}
+			else {
+				GameModel.getInstance().setNetHero(((Player1Socket)socket).getHeroModel());
+			}
+		}
+	}
+	
+	public void setSockets() {
+		if(this.multiplayer) {
+			if(this.player2) {
+				this.socket = new Player2Socket();
+			}
+			else {
+				this.socket = new Player1Socket();
+			}
+		}
+	}
+	
+	public void setHero() {
+		if(this.player2) {
+			hero = GameModel.getInstance().getHero();
+		}
+		else {
+			hero = GameModel.getInstance().getHero();
+		}
 		
+	}
 }

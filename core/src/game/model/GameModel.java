@@ -2,9 +2,11 @@ package game.model;
 
 import java.util.ArrayList;
 
+
 public class GameModel {
 	private static GameModel instance;
 	private HeroModel hero;
+	private HeroModel netHero;
 	private ArrayList<CharacterModel> enemies;
 	private LevelModel level;
 	
@@ -22,6 +24,14 @@ public class GameModel {
 		return instance;
 	}
 	
+	public static void setInstance(GameModel game) {
+		GameModel aux = GameModel.getInstance();
+		aux.hero = game.getHero();
+		aux.netHero = game.getNetHero();
+		aux.enemies = game.getEnemies();
+		aux.level = game.getLevel();
+	}
+	
 	public HeroModel getHero() {
 		return this.hero;
 	}
@@ -37,6 +47,20 @@ public class GameModel {
 		default:
 			return new LevelModel1();
 		}
+		
 	}
+	
+	public LevelModel getLevel() {
+		return this.level;
+	}
+
+	public HeroModel getNetHero() {
+		return netHero;
+	}
+
+	public void setNetHero(HeroModel netHero) {
+		this.netHero = netHero;
+	}
+	
 
 }
