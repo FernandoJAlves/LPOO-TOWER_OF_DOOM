@@ -58,5 +58,17 @@ public class SlugModel extends CharacterModel implements Serializable{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void copy(SlugModel slug) {
+		this.x = slug.x;
+		this.y = slug.y;
+		this.speed = slug.speed;
+		this.yspeed = slug.yspeed;
+		this.dir = slug.dir;
+		this.state = slug.state;
+		this.viewRange = slug.viewRange;
+		this.attackRange = slug.attackRange;
+		this.alert = slug.alert;
+	}
 
 }

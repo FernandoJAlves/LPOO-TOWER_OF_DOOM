@@ -3,6 +3,8 @@ package game.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import game.dataStream.GamePacket;
+
 
 public class GameModel implements Serializable{
 	/**
@@ -29,12 +31,18 @@ public class GameModel implements Serializable{
 		return instance;
 	}
 	
-	public static void setInstance(GameModel game) {
-		GameModel aux = GameModel.getInstance();
-		aux.hero = game.getHero();
-		aux.netHero = game.getNetHero();
-		aux.enemies = game.getEnemies();
-		aux.level = game.getLevel();
+	public void setInstance(GamePacket game) {
+		this.hero.copy(game.hero);
+		this.netHero.copy(game.netHero);
+		for(int i = 0; i < this.enemies.size();i++) {
+			if(i >= game.enemies.size()) {
+				this.enemies.remove(i);
+				continue;
+			}
+			if(this.enemies.get(i) instanceof SlugModel) {
+				((SlugModel)this.enemies.get(i)).copy((SlugModel)(game.enemies.get(i)));
+			}
+		}
 	}
 	
 	public HeroModel getHero() {
@@ -75,12 +83,12 @@ public class GameModel implements Serializable{
 	}
 	
 	public void setMultiplayer() {
-<<<<<<< HEAD
-		this.netHero = new HeroModel(528,720);
-=======
 		this.netHero = new HeroModel(500,720);
->>>>>>> 20bbc7492b534d4ced3f6132c87e208bba7bd8af
 		netHero.setPosition(level.getHero2Position());
+	}
+	
+	public GamePacket getPacket() {
+		return new GamePacket(this.hero,this.netHero,this.enemies);
 	}
 
 }

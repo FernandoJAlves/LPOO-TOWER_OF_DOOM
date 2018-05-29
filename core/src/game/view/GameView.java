@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import game.controller.GameController;
+import game.dataStream.GamePacket;
 import game.dataStream.Player1Socket;
 import game.dataStream.Player2Socket;
 import game.dataStream.PlayerSocket;
@@ -53,18 +54,15 @@ public class GameView extends ScreenAdapter{
 		this.createCam();
 	}
 	
-	public void drawEnteties() {
-		
-	}
 	
 	@Override
     public void render(float delta) {
-		this.updateNet();
 		
 		this.handleInput();
-		GameModel.getInstance().update(delta);
-		GameController.getInstance().update(delta);
-		this.sendData();
+		this.updateNetworkModels();
+		this.updateLogic(delta);
+
+		this.updateNetworkController();
 		this.updateDraw();
 		gui.update(delta);
 		this.debugPhysics();
@@ -101,7 +99,7 @@ public class GameView extends ScreenAdapter{
 	private void createCam() {
 		cam = new OrthographicCamera(SCREEN_WIDTH,SCREEN_WIDTH * ((float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getBackBufferWidth()));
 		
-        if (DEBUG_PHYSICS) {
+        if (DEBUG_PHYSICS && !this.player2) {
             debugRenderer = new Box2DDebugRenderer();
             debugCamera = cam.combined.cpy();
             debugCamera.scl(1);
@@ -109,7 +107,7 @@ public class GameView extends ScreenAdapter{
 	}
 	
 	private void debugPhysics() {
-        if (DEBUG_PHYSICS) {
+        if (DEBUG_PHYSICS && !this.player2) {
             debugCamera = cam.combined.cpy();
             debugCamera.scl(1);
             debugRenderer.render(GameController.getInstance().getWorld(), debugCamera);
@@ -139,29 +137,6 @@ public class GameView extends ScreenAdapter{
 		
 	}
 	
-	public void updateNet() {
-		if(this.multiplayer) {
-			if(this.player2) {
-				
-				GameModel game = ((Player2Socket)socket).getGameModel();
-				if(game != null) {
-					GameModel.setInstance(game);
-					System.out.println("Data received");
-				}
-				
-			}
-			else {
-				
-				HeroModel hero = ((Player1Socket)socket).getHeroModel();
-				if(hero != null) {
-					GameModel.getInstance().setNetHero(hero);
-					System.out.println("Data received");
-				}
-				
-			}
-		}
-	}
-	
 	public void setSockets() {
 		if(this.multiplayer) {
 			GameModel.getInstance().setMultiplayer();
@@ -186,13 +161,30 @@ public class GameView extends ScreenAdapter{
 		
 	}
 	
-	public void sendData() {
+	public void updateNetworkModels() {
 		if(this.multiplayer) {
 			if(this.player2) {
 				((Player2Socket)socket).sendHero(GameModel.getInstance().getNetHero());
 			}
 			else {
-				((Player1Socket)socket).sendGameModel(GameModel.getInstance());
+				HeroModel h = ((Player1Socket)socket).getHeroModel();
+				if(h != null) {
+					GameModel.getInstance().getNetHero().copy(h);
+				}
+			}
+		}
+	}
+	
+	public void updateNetworkController() {
+		if(this.multiplayer) {
+			if(this.player2) {
+				GamePacket game = ((Player2Socket)socket).getGamePacket();
+				if(game != null) {
+					GameModel.getInstance().setInstance(game);
+				}
+			}
+			else {
+				((Player1Socket)socket).sendGamePacket(GameModel.getInstance().getPacket());
 			}
 		}
 	}
@@ -206,7 +198,7 @@ public class GameView extends ScreenAdapter{
 		level.draw(batch);
 		hv.update(hero);
 		hv.draw(batch);
-		if(netHero != null) {
+		if(this.multiplayer) {
 			nv.update(netHero);
 			nv.draw(batch);
 		}
@@ -215,7 +207,17 @@ public class GameView extends ScreenAdapter{
 	
 	private void setPlayerTwo() {
 		if(this.player2) {
-			this.updateNet();
+			GamePacket game = ((Player2Socket)socket).getGamePacket();
+			if(game != null) {
+				GameModel.getInstance().setInstance(game);
+			}
+		}
+	}
+	
+	private void updateLogic(float delta) {
+		if(!this.player2) {
+		GameModel.getInstance().update(delta);
+		GameController.getInstance().update(delta);
 		}
 	}
 	

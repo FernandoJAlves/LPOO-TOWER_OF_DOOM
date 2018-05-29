@@ -77,4 +77,13 @@ public class HeroModel extends CharacterModel implements Serializable{
 		return ModelType.HERO;
 	}
 	
+	public void copy(HeroModel hero) {
+		this.x = hero.x;
+		this.y = hero.y;
+		this.speed = hero.speed;
+		this.state = hero.state;
+		this.yspeed = hero.yspeed;
+		this.dir = hero.dir;
+	}
+	
 }

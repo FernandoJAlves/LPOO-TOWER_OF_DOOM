@@ -1,38 +1,35 @@
 package game.dataStream;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
 
-import game.model.GameModel;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
 import game.model.HeroModel;
 
 public class Player1Socket extends PlayerSocket{
-	private ServerSocket ServerSocket;
 	public Player1Socket() {
 		super();
+		this.receivePort = 1234;
+		this.sendPort = 3333;
 		try {
-			this.ServerSocket = new ServerSocket(1234);
-			this.ServerSocket.setSoTimeout(20*1000);
-			this.socket = this.ServerSocket.accept();
-			this.outputStream = new ObjectOutputStream(socket.getOutputStream());
-			this.inputStream = new ObjectInputStream(socket.getInputStream());
-		} catch (IOException e) {
+			this.socket = new DatagramSocket(this.receivePort,this.host);
+			this.socket.setBroadcast(true);
+			this.socket.setSoTimeout(1);
+		} catch (SocketException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(0);
+			e1.printStackTrace();
 		}
 	}
 	
 	public HeroModel getHeroModel() {
-		if(this.available() > 0) {
-			return ((HeroModel) this.readObject());
+		Object obj = this.readObject();
+		if(obj != null) {
+			return ((HeroModel) obj);
 		}
 		return null;
 	}
 	
-	public void sendGameModel(GameModel game) {
+	public void sendGamePacket(GamePacket game) {
 		this.sendObjects(game);
 	}
 }
