@@ -16,12 +16,14 @@ public class HeroView extends CharacterView{
 	private Animation<TextureRegion> walkingAnimation;
 	private Animation<TextureRegion> jumpingAnimation;
 	private Animation<TextureRegion> landingAnimation;
-	private float FRAME_TIME = 0.15f;
+	private Animation<TextureRegion> firingAnimation;
+	
 	private float stateTime = 0;
 	HeroModel.charState state;
 	
 	public HeroView() {
 		super();
+		FRAME_TIME = 0.15f;
 		this.sprite = this.createSprite();
 	}
 
@@ -31,19 +33,12 @@ public class HeroView extends CharacterView{
 		walkingAnimation = this.createAnimation("HeroWalking.png", 6);
 		jumpingAnimation = this.createAnimation("HeroJumping.png", 7);
 		landingAnimation = this.createAnimation("HeroLanding.png", 3);
+		firingAnimation = this.createAnimation("HeroFiring.png", 8);
 		return new Sprite(this.staringAnimation.getKeyFrame(0));
 	}
 	
     
-    private Animation<TextureRegion>createAnimation(String name, int divisions) {
-        Texture thrustTexture = TowerOfDoom.getInstance().getAssetManager().get(name);
-        TextureRegion[][] thrustRegion = TextureRegion.split(thrustTexture, thrustTexture.getWidth() / divisions, thrustTexture.getHeight());
 
-        TextureRegion[] frames = new TextureRegion[divisions];
-        System.arraycopy(thrustRegion[0], 0, frames, 0, divisions);
-
-        return new Animation<TextureRegion>(FRAME_TIME, frames);
-    }
     
     @Override
     public void update(EntityModel model) {
@@ -68,6 +63,9 @@ public class HeroView extends CharacterView{
         case FALL:
         	sprite.setRegion(jumpingAnimation.getKeyFrames()[jumpingAnimation.getKeyFrames().length-1]);
         	break;
+        case ATTACK:
+        	sprite.setRegion(firingAnimation.getKeyFrame(stateTime,false));
+        	break;
 		default:
 			sprite.setRegion(staringAnimation.getKeyFrame(stateTime, true));
 			break;
@@ -81,6 +79,7 @@ public class HeroView extends CharacterView{
 		super.flipAnimation(staringAnimation);
 		super.flipAnimation(jumpingAnimation);
 		super.flipAnimation(landingAnimation);
+		super.flipAnimation(firingAnimation);
 	}
 
 }

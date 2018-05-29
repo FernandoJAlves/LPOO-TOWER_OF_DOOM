@@ -142,13 +142,13 @@ public class GUI extends Stage{
 		        @Override
 		        public boolean keyDown(InputEvent event, int keycode) 
 		        {
-		 		   if(keycode == 21) 
+		           if(keycode == 21) 
 					   keys.replace('a', true);
 		 		   else if(keycode == 22) 
 					   keys.replace('d', true);
 		 		   else if(keycode == 19) 
 					   keys.replace('w', true);
-		 		   else if(keycode == 29) 
+		 		   else if(keycode == 29) //'a' on keyboard
 					   keys.replace('f', true);
 		            return true;
 		        }
@@ -162,7 +162,7 @@ public class GUI extends Stage{
 					   keys.replace('d', false);
 		 		   else if(keycode == 19) 
 					   keys.replace('w', false);
-		 		   else if(keycode == 29) 
+		 		   else if(keycode == 29) //'a' on keyboard
 					   keys.replace('f', false);
 		            return true;
 		        }
