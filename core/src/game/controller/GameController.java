@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import game.model.CharacterModel;
 import game.model.EntityModel;
 import game.model.EntityModel.ModelType;
+import game.model.EntityModel.directionState;
 import game.model.GameModel;
 import game.model.PlasmaModel;
 
@@ -164,7 +165,13 @@ public class GameController implements ContactListener{
         if (GameModel.getInstance().getHero().getStamina() > 0) {
             PlasmaModel plasmaBall = GameModel.getInstance().createPlasmaBall(GameModel.getInstance().getHero());
             PlasmaBody body = new PlasmaBody(world, plasmaBall);
-            body.setLinearVelocity(PLASMA_X_SPEED,PLASMA_Y_SPEED);
+            if(plasmaBall.getDirection() == directionState.LEFT) {
+            	body.setLinearVelocity(-100,PLASMA_Y_SPEED);
+            }
+            else{
+            	body.setLinearVelocity(PLASMA_X_SPEED,PLASMA_Y_SPEED);
+            }
+           
             GameModel.getInstance().getHero().decrementStamina();
         }
     }

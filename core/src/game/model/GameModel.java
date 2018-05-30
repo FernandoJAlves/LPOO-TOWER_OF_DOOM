@@ -122,15 +122,13 @@ public class GameModel implements Serializable{
         plasmaBall.setFlaggedForRemoval(false);
         
         if(hero.getDirection() == directionState.LEFT) {
-        	plasmaBall.setPosition(hero.getX() - 24, hero.getY());
+        	plasmaBall.setPosition(hero.getX() - 30, hero.getY());
         }
         else {
-        	plasmaBall.setPosition(hero.getX() + 24, hero.getY());
+        	plasmaBall.setPosition(hero.getX() + 30, hero.getY());
         }
         plasmaBall.setJumpsLeft(3);
-
         plasmaballs.add(plasmaBall);
-
         return plasmaBall;
     }
     
