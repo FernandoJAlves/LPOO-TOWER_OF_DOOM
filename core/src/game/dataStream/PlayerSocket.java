@@ -21,12 +21,13 @@ public class PlayerSocket {
 	
 	public PlayerSocket() {
 		try {
-			host = InetAddress.getByName("255.225.255.255");
+			host = InetAddress.getByName("172.30.1.250");
 			
 
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 	
@@ -82,7 +83,7 @@ public class PlayerSocket {
 
 		byte[] data = baos.toByteArray();
 		//System.out.println(data.length);
-		DatagramPacket packet = new DatagramPacket(data, data.length,host,this.sendPort);
+		DatagramPacket packet = new DatagramPacket(data, data.length,this.host,this.sendPort);
 		try {
 			this.socket.send(packet);
 			
