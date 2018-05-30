@@ -20,8 +20,8 @@ import game.model.HeroModel;
 
 public class GameView extends ScreenAdapter{
 	
-	private boolean multiplayer = true;
-	private boolean player2 = true;
+	private boolean multiplayer;
+	private boolean player2;
 	private PlayerSocket socket;
 	
     private static final boolean DEBUG_PHYSICS = true;
@@ -38,7 +38,9 @@ public class GameView extends ScreenAdapter{
 	private HeroView nv;
 	private GUI gui;
 	
-	public GameView(){
+	public GameView(boolean mult, boolean p2){
+		this.multiplayer = mult;
+		this.player2 = p2;
 		setSockets();
 
 		this.setPlayerTwo();
@@ -164,12 +166,14 @@ public class GameView extends ScreenAdapter{
 	public void updateNetworkModels() {
 		if(this.multiplayer) {
 			if(this.player2) {
+				System.out.println("Speed: " + GameModel.getInstance().getNetHero().getYSpeed());
 				((Player2Socket)socket).sendHero(GameModel.getInstance().getNetHero());
 			}
 			else {
 				HeroModel h = ((Player1Socket)socket).getHeroModel();
 				if(h != null) {
 					GameModel.getInstance().getNetHero().copyToNet(h);
+					
 				}
 			}
 		}

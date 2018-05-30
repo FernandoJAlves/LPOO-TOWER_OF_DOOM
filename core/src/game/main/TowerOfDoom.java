@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import game.view.GameView;
+import menu.MainMenu;
 
 public class TowerOfDoom extends Game {
 	static TowerOfDoom instance;
@@ -16,7 +16,7 @@ public class TowerOfDoom extends Game {
 	public void create () {	
 		assetManager = new AssetManager();
 		TowerOfDoom.instance = this;	
-		this.setScreen(new GameView());
+		this.setScreen(MainMenu.getInstance());
 		batch = new SpriteBatch();
 
 	}
