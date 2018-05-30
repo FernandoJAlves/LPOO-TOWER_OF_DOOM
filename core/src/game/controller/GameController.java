@@ -165,8 +165,8 @@ public class GameController implements ContactListener{
         if (GameModel.getInstance().getHero().getStamina() > 0) {
             PlasmaModel plasmaBall = GameModel.getInstance().createPlasmaBall(GameModel.getInstance().getHero());
             PlasmaBody body = new PlasmaBody(world, plasmaBall);
-            if(plasmaBall.getDirection() == directionState.LEFT) {
-            	body.setLinearVelocity(-100,PLASMA_Y_SPEED);
+            if(GameModel.getInstance().getHero().getDirection() == directionState.LEFT) {
+            	body.setLinearVelocity(-PLASMA_X_SPEED,PLASMA_Y_SPEED);
             }
             else{
             	body.setLinearVelocity(PLASMA_X_SPEED,PLASMA_Y_SPEED);
