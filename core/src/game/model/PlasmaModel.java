@@ -3,7 +3,10 @@ package game.model;
 import java.io.Serializable;
 
 public class PlasmaModel extends EntityModel implements Serializable{
-
+	
+	private int jumpsLeft;
+	private int state;
+	
 	/**
 	 * 
 	 */
@@ -14,10 +17,22 @@ public class PlasmaModel extends EntityModel implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+	public void setJumpsLeft(int n) {
+		jumpsLeft = n;
+	}
+	
+	public boolean decreaseJumpsLeft() {
+		jumpsLeft--;
+		return jumpsLeft < 0;
+	}
+	
+	public int getState() {
+		return state;
+	}
+	
 	@Override
 	public ModelType getModelType() {
-		// TODO Auto-generated method stub
-		return null;
+		return ModelType.PLASMA;
 	}
 
 }

@@ -3,6 +3,7 @@ package game.controller;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import game.model.EntityModel;
@@ -53,5 +54,12 @@ public class SlugBody extends CharacterBody{
 		}
 		Vector2 point2 = new Vector2(x,y);
 		world.rayCast(callback, body.getPosition(), point2);
+	}
+
+
+	@Override
+	public Shape createShape(float x, float y) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

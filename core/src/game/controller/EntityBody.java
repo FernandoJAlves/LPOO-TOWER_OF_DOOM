@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import game.model.EntityModel;
@@ -17,24 +18,22 @@ public abstract class EntityBody {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.set(model.getX(), model.getY());
+		bodyDef.fixedRotation = true;
 		
 		body = world.createBody(bodyDef);
 		body.setUserData(model);
 	}
 	
-	final void createFixture(Body body,float radius, float width, float height, float density) {
+	final void createFixture(Body body,float radius, float width, float height, float density, float restitution) {
         
-        CircleShape polygon = new CircleShape();
-        polygon.setRadius(radius);
-
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = polygon;
+        fixtureDef.shape = createShape(radius,radius);
 
         fixtureDef.density = density;
 
         body.createFixture(fixtureDef);
 
-        polygon.dispose();
+        //polygon.dispose();
     }
 
 	
@@ -65,6 +64,8 @@ public abstract class EntityBody {
 	public Object getUserData() {
 		return body.getUserData();
 	}
+	
+	public abstract Shape createShape(float x, float y);
 		
 	
 }
