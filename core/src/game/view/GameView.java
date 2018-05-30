@@ -88,6 +88,8 @@ public class GameView extends ScreenAdapter{
 		this.game.getAssetManager().load( "ButtonRight.png" , Texture.class);
 		this.game.getAssetManager().load( "ButtonUp.png" , Texture.class);
 		this.game.getAssetManager().load( "ButtonFire.png" , Texture.class);
+		this.game.getAssetManager().load( "Plasmaball.png" , Texture.class);
+		this.game.getAssetManager().load( "Plasmaball_Explosion.png" , Texture.class);
 		this.game.getAssetManager().finishLoading();
 		
 	}
