@@ -30,6 +30,7 @@ public abstract class EntityBody {
 
         fixtureDef.density = density;
         fixtureDef.friction = 0;
+        fixtureDef.restitution = restitution;
         body.createFixture(fixtureDef);
 
         //polygon.dispose();

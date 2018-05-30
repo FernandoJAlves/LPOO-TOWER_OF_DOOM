@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 import com.badlogic.gdx.math.Vector2;
 
+import game.controller.GameController;
+
 public class HeroModel extends CharacterModel implements Serializable{
 
 	/**
@@ -16,6 +18,8 @@ public class HeroModel extends CharacterModel implements Serializable{
 	public enum charState {STARE,WALK,JUMP,FALL, LAND,ATTACK,DAMAGE};
 	protected charState state;
 	protected float attackTime = 0;
+	private int hitpoints = 10;
+	private int stamina = 10;
 
 	public HeroModel(int x, int y) {
 		super(x, y);
@@ -29,71 +33,27 @@ public class HeroModel extends CharacterModel implements Serializable{
 		switch(this.state) {
 		
 		case STARE:
-			if (c == 'w') {
-				this.yspeed = 85;
-			}
-			if (c == 'a') {
-				speed = -50;
-				this.dir = directionState.LEFT;
-			} else if (c == 'd') {
-				speed = 50;
-				this.dir = directionState.RIGHT;
-			} else {
-				speed = 0;
-			}
-			if(c == 'f') {
-				this.state = charState.ATTACK;
-			}
+			verticalMovement(c);
+			horizontalMovement(c);
+			fireMechanic(c);
 			break;
 		case WALK:
-			if (c == 'w') {
-				this.yspeed = 85;
-			}
-			if (c == 'a') {
-				speed = -50;
-				this.dir = directionState.LEFT;
-			} else if (c == 'd') {
-				speed = 50;
-				this.dir = directionState.RIGHT;
-			} else {
-				speed = 0;
-			}
-			if(c == 'f') {
-				this.state = charState.ATTACK;
-			}
+			verticalMovement(c);
+			horizontalMovement(c);
+			fireMechanic(c);
 			break;
 		case JUMP:
-			if (c == 'a') {
-				speed = -50;
-				this.dir = directionState.LEFT;
-			} else if (c == 'd') {
-				speed = 50;
-				this.dir = directionState.RIGHT;
-			} else {
-				speed = 0;
-			}
-			if(c == 'f') {
-				this.state = charState.ATTACK;
-			}
+			horizontalMovement(c);
+			fireMechanic(c);
 			break;
 		case FALL:
-			if (c == 'a') {
-				speed = -50;
-				this.dir = directionState.LEFT;
-			} else if (c == 'd') {
-				speed = 50;
-				this.dir = directionState.RIGHT;
-			} else {
-				speed = 0;
-			}
-			if(c == 'f') {
-				this.state = charState.ATTACK;
-			}
+			horizontalMovement(c);
+			fireMechanic(c);
 			break;
 		case LAND:
 			break;
 		case ATTACK:
-
+			horizontalMovement(c);
 			break;
 		case DAMAGE:
 			break;
@@ -104,13 +64,37 @@ public class HeroModel extends CharacterModel implements Serializable{
 		}
 	
 	}
+
+	private void fireMechanic(char c) {
+		if(c == 'f' && this.stamina > 0) {
+			this.state = charState.ATTACK;
+		}
+	}
+
+	private void verticalMovement(char c) {
+		if (c == 'w') {
+			this.yspeed = 85;
+		}
+	}
+
+	private void horizontalMovement(char c) {
+		if (c == 'a') {
+			speed = -50;
+			this.dir = directionState.LEFT;
+		} else if (c == 'd') {
+			speed = 50;
+			this.dir = directionState.RIGHT;
+		} else {
+			speed = 0;
+		}
+	}
 	
 	public void update(float delta) {
 		//TODO NANDINHO FAZ O SWITCH
 		if(this.state == charState.ATTACK) {
-			System.out.println(this.state);
 			attackTime += delta;
 			if(attackTime > (8 * 0.15f)) {
+				GameController.getInstance().fire();
 				attackTime = 0;
 				this.state = charState.STARE;
 			}
@@ -151,6 +135,18 @@ public class HeroModel extends CharacterModel implements Serializable{
 	@Override
 	public ModelType getModelType() {
 		return ModelType.HERO;
+	}
+	
+	public int getHitPoints() {
+		return hitpoints;
+	}
+	
+	public int getStamina() {
+		return stamina;
+	}
+	
+	public void decrementStamina() {
+		stamina--;
 	}
 	
 	public void copy(HeroModel hero) {
