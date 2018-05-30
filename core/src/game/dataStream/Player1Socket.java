@@ -14,7 +14,6 @@ public class Player1Socket extends PlayerSocket{
 		try {
 			this.socket = new DatagramSocket(this.receivePort);
 			this.socket.connect(this.host,this.sendPort);
-			this.socket = new DatagramSocket(this.receivePort,this.host);
 			this.socket.setBroadcast(true);
 			this.socket.setSoTimeout(1);
 		} catch (SocketException e1) {

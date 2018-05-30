@@ -166,7 +166,6 @@ public class GameView extends ScreenAdapter{
 	public void updateNetworkModels() {
 		if(this.multiplayer) {
 			if(this.player2) {
-				System.out.println("Speed: " + GameModel.getInstance().getNetHero().getYSpeed());
 				((Player2Socket)socket).sendHero(GameModel.getInstance().getNetHero());
 			}
 			else {
