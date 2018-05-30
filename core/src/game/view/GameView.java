@@ -42,7 +42,7 @@ public class GameView extends ScreenAdapter{
 		this.multiplayer = mult;
 		this.player2 = p2;
 		setSockets();
-
+		
 		this.setPlayerTwo();
 
 		game = TowerOfDoom.getInstance();
@@ -51,9 +51,12 @@ public class GameView extends ScreenAdapter{
 
 		this.setHero();
 		gui = new GUI();
+		
 		hv = new HeroView();
 		nv = new HeroView();
 		this.createCam();
+		
+		this.waitingForPlayer();
 	}
 	
 	
@@ -174,6 +177,7 @@ public class GameView extends ScreenAdapter{
 			else {
 				HeroModel h = ((Player1Socket)socket).getHeroModel();
 				if(h != null) {
+					this.gui.disableMsg();
 					GameModel.getInstance().getNetHero().copyToNet(h);
 					
 				}
@@ -226,5 +230,19 @@ public class GameView extends ScreenAdapter{
 		GameController.getInstance().update(delta);
 		}
 	}
+	
+	public void waitingForPlayer() {
+		if(this.multiplayer) {
+			if(this.player2) {
+				this.gui.message2(null);
+			}
+			else {
+				this.gui.message1(this.socket.getAddress());
+				
+			}
+		}
+	}
+	
+
 	
 }

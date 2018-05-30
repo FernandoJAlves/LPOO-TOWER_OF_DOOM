@@ -93,4 +93,12 @@ public class PlayerSocket {
 		}
 	}
 	
+	public String getAddress() {
+		String str = this.socket.getLocalAddress().getHostAddress();
+		if(str == null) {
+			str = "null";
+		}
+		return str;
+	}
+	
 }
