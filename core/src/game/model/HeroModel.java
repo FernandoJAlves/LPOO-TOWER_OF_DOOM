@@ -108,7 +108,6 @@ public class HeroModel extends CharacterModel implements Serializable{
 	public void update(float delta) {
 		//TODO NANDINHO FAZ O SWITCH
 		if(this.state == charState.ATTACK) {
-			System.out.println(this.attackTime);
 			System.out.println(this.state);
 			attackTime += delta;
 			if(attackTime > (8 * 0.15f)) {
