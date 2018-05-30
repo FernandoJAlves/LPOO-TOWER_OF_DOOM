@@ -29,7 +29,7 @@ public class HeroBody extends CharacterBody{
 	@Override
 	public Shape createShape(float x, float y) {
         PolygonShape polygon = new PolygonShape();
-        polygon.setAsBox(x, y);
+        polygon.setAsBox(18, 23);
         return polygon;
 	}
 

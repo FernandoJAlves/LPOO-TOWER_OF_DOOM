@@ -21,7 +21,7 @@ public class PlayerSocket {
 	
 	public PlayerSocket() {
 		try {
-			host =  InetAddress.getLocalHost();
+			host = InetAddress.getByName("255.225.255.255");
 			
 
 		} catch (UnknownHostException e) {

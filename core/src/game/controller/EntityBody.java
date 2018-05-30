@@ -2,7 +2,6 @@ package game.controller;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -30,7 +29,7 @@ public abstract class EntityBody {
         fixtureDef.shape = createShape(radius,radius);
 
         fixtureDef.density = density;
-
+        fixtureDef.friction = 0;
         body.createFixture(fixtureDef);
 
         //polygon.dispose();
