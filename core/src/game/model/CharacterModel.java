@@ -8,7 +8,7 @@ public abstract class CharacterModel extends EntityModel implements Serializable
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4421535993963098352L;
+	private transient static final long serialVersionUID = 4421535993963098352L;
 
 	public CharacterModel(int x, int y){
 		super(x, y);

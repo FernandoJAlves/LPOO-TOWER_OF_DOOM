@@ -9,6 +9,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 public class PlayerSocket {
 	private int size = 1024;
@@ -31,6 +33,7 @@ public class PlayerSocket {
 	public Object readObject() {
 		byte[] receivedData = new byte[this.size];
 		DatagramPacket incomingPacket = new DatagramPacket(receivedData, receivedData.length);
+		
 		try {
 			socket.receive(incomingPacket);
 		} catch (IOException e1) {
@@ -40,9 +43,11 @@ public class PlayerSocket {
 		}
 		byte[] data = incomingPacket.getData();
 		ByteArrayInputStream in = new ByteArrayInputStream(data);
+		GZIPInputStream gzipIn = null;
 		ObjectInputStream is = null;
 		try {
-			is = new ObjectInputStream(in);
+			gzipIn = new GZIPInputStream(in);
+			is = new ObjectInputStream(gzipIn);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -61,23 +66,22 @@ public class PlayerSocket {
 	
 	public void sendObjects(Object arg0) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(this.size);
+		GZIPOutputStream compressed = null;
 		ObjectOutputStream oos = null;
 		try {
-			oos = new ObjectOutputStream(baos);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
-		try {
+			
+			compressed = new GZIPOutputStream(baos);
+			oos = new ObjectOutputStream(compressed);
 			oos.writeObject(arg0);
+			oos.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return;
 		}
-		byte[] data = baos.toByteArray();
 
+		byte[] data = baos.toByteArray();
+		//System.out.println(data.length);
 		DatagramPacket packet = new DatagramPacket(data, data.length,host,this.sendPort);
 		try {
 			this.socket.send(packet);

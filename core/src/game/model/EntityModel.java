@@ -6,7 +6,7 @@ public abstract class EntityModel implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -959702293194256077L;
+	private transient static final long serialVersionUID = -959702293194256077L;
 	protected float x,y;
 	protected float speed,yspeed;
 	public enum ModelType{HERO, GUARD, OGRE,SLUG};

@@ -10,7 +10,7 @@ public class HeroModel extends CharacterModel implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1120208627717480964L;
+	private transient static final long serialVersionUID = -1120208627717480964L;
 
 
 	public enum charState {STARE,WALK,JUMP,FALL, LAND,ATTACK,DAMAGE};
@@ -108,9 +108,12 @@ public class HeroModel extends CharacterModel implements Serializable{
 	public void update(float delta) {
 		//TODO NANDINHO FAZ O SWITCH
 		if(this.state == charState.ATTACK) {
+			System.out.println(this.attackTime);
+			System.out.println(this.state);
 			attackTime += delta;
 			if(attackTime > (8 * 0.15f)) {
 				attackTime = 0;
+				this.state = charState.STARE;
 			}
 			else {
 				return;
@@ -155,9 +158,19 @@ public class HeroModel extends CharacterModel implements Serializable{
 		this.x = hero.x;
 		this.y = hero.y;
 		this.speed = hero.speed;
-		this.state = hero.state;
+		if(this.attackTime == 0) {
+			this.state = hero.state;
+		}
+		
 		this.yspeed = hero.yspeed;
+	}
+	public void copyToNet(HeroModel hero) {
+		this.copy(hero);
 		this.dir = hero.dir;
+	}
+	
+	public void copyFromNet(HeroModel hero) {
+		this.copy(hero);
 		this.attackTime = hero.attackTime;
 	}
 	

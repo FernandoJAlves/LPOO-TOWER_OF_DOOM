@@ -32,8 +32,8 @@ public class GameModel implements Serializable{
 	}
 	
 	public void setInstance(GamePacket game) {
-		this.hero.copy(game.hero);
-		this.netHero.copy(game.netHero);
+		this.hero.copyToNet(game.hero);
+		this.netHero.copyFromNet(game.netHero);
 		for(int i = 0; i < this.enemies.size();i++) {
 			if(i >= game.enemies.size()) {
 				this.enemies.remove(i);

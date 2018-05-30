@@ -21,7 +21,7 @@ import game.model.HeroModel;
 public class GameView extends ScreenAdapter{
 	
 	private boolean multiplayer = true;
-	private boolean player2 = false;
+	private boolean player2 = true;
 	private PlayerSocket socket;
 	
     private static final boolean DEBUG_PHYSICS = true;
@@ -169,7 +169,7 @@ public class GameView extends ScreenAdapter{
 			else {
 				HeroModel h = ((Player1Socket)socket).getHeroModel();
 				if(h != null) {
-					GameModel.getInstance().getNetHero().copy(h);
+					GameModel.getInstance().getNetHero().copyToNet(h);
 				}
 			}
 		}
