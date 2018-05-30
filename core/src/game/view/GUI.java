@@ -3,17 +3,21 @@ package game.view;
 import java.util.Map;
 import java.util.TreeMap;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import game.main.TowerOfDoom;
+import game.menu.MainMenu;
 
 public class GUI extends Stage{
 	protected Map<Character, Boolean> keys;
@@ -22,10 +26,12 @@ public class GUI extends Stage{
 	private ImageButton leftButton;
 	private ImageButton rightButton;
 	int screenWidth, screenHeight;
+	private Dialog msg;
 	
 	
 	public GUI() {
 		super();
+		this.setMsg();
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 		this.initKeys();
@@ -172,6 +178,37 @@ public class GUI extends Stage{
 	public void update(float delta) {
         this.act(delta); //Perform ui logic
         this.draw(); //Draw the ui
+	}
+	
+	private void setMsg() {
+		Skin skin = new Skin(Gdx.files.internal("skin/clean-crispy-ui.json"));
+		this.msg = new Dialog("Network", skin) {
+		    public void result(Object obj) {
+		    	if(obj instanceof Boolean) {
+		        	TowerOfDoom.getInstance().setScreen(MainMenu.getInstance());
+		    	}
+		    }
+		};
+		
+	}
+	
+	public void message1(String str) {
+
+		msg.text("Your IP: " + str + "\nWaiting for Player 2");
+		msg.button("Cancel",true);
+		msg.show(this);
+	}
+	
+	public void message2(String str) {
+
+		msg.text("Player 1 IP:");
+		msg.button("IP");
+		msg.button("Cancel",true);
+		msg.show(this);
+	}
+	
+	public void disableMsg() {
+		this.msg.setVisible(false);
 	}
 
 }
