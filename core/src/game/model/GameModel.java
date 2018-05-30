@@ -2,8 +2,12 @@ package game.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.utils.Pool;
 
 import game.dataStream.GamePacket;
+import game.model.EntityModel.directionState;
 
 
 public class GameModel implements Serializable{
@@ -15,6 +19,13 @@ public class GameModel implements Serializable{
 	private HeroModel hero;
 	private HeroModel netHero;
 	private ArrayList<CharacterModel> enemies;
+	private List<PlasmaModel> plasmaballs;
+    Pool<PlasmaModel> plasmaballPool = new Pool<PlasmaModel>() {
+        @Override
+        protected PlasmaModel newObject() {
+            return new PlasmaModel(0,0);
+        }
+    };
 	private LevelModel level;
 	
 	private GameModel() {
@@ -22,6 +33,7 @@ public class GameModel implements Serializable{
 		enemies = level.getChars();
 		hero = new HeroModel(488,720);
 		hero.setPosition(level.getHeroPosition());
+		plasmaballs = new ArrayList<PlasmaModel>();
 	}
 	
 	public static GameModel getInstance() {
@@ -80,6 +92,15 @@ public class GameModel implements Serializable{
 		if(this.netHero != null) {
 			this.netHero.update(delta);
 		}
+		
+        for (PlasmaModel plasmaBall : plasmaballs) {
+            if (plasmaBall.decreaseJumpsLeft()) {
+            	if(plasmaBall.decreaseExplosionTime(delta))
+            		plasmaBall.setFlaggedForRemoval(true);
+            }   	
+        }
+
+		
 	}
 	
 	public void setMultiplayer() {
@@ -91,4 +112,35 @@ public class GameModel implements Serializable{
 		return new GamePacket(this.hero,this.netHero,this.enemies);
 	}
 
+    public List<PlasmaModel> getPlasmaballs() {
+        return plasmaballs;
+    }
+    
+    public PlasmaModel createPlasmaBall(HeroModel hero) {
+        PlasmaModel plasmaBall = plasmaballPool.obtain();
+        
+        plasmaBall.setFlaggedForRemoval(false);
+        
+        if(hero.getDirection() == directionState.LEFT) {
+        	plasmaBall.setPosition(hero.getX() - 24, hero.getY());
+        }
+        else {
+        	plasmaBall.setPosition(hero.getX() + 24, hero.getY());
+        }
+        plasmaBall.setJumpsLeft(3);
+
+        plasmaballs.add(plasmaBall);
+
+        return plasmaBall;
+    }
+    
+    public void remove(EntityModel model) {
+        if (model instanceof PlasmaModel) {
+            plasmaballs.remove(model);
+           	plasmaballPool.free((PlasmaModel) model);
+        }
+    }
+	
+	
+	
 }

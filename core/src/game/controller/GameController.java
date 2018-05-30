@@ -14,6 +14,7 @@ import game.model.CharacterModel;
 import game.model.EntityModel;
 import game.model.EntityModel.ModelType;
 import game.model.GameModel;
+import game.model.PlasmaModel;
 
 public class GameController implements ContactListener{
 	private boolean multiplayer = false;
@@ -23,6 +24,9 @@ public class GameController implements ContactListener{
 	private static GameController instance;
 	private World world;
 	private LevelController level;
+	
+	private static final float PLASMA_X_SPEED = 100f;
+	private static final float PLASMA_Y_SPEED = 10f;
 	
 	private GameController() {
 		level = this.levelSelection(1);
@@ -46,8 +50,30 @@ public class GameController implements ContactListener{
 
 	@Override
 	public void beginContact(Contact contact) {
-		// TODO Auto-generated method stub
+        Body bodyA = contact.getFixtureA().getBody();
+        Body bodyB = contact.getFixtureB().getBody();
+        
+        if(pairSlugPlasma(bodyA, bodyB)) {
+        	if(bodyA.getUserData() instanceof PlasmaModel) {
+        		((PlasmaModel)bodyA.getUserData()).setJumpsLeft(0);
+        	}
+        	else {
+        		((PlasmaModel)bodyB.getUserData()).setJumpsLeft(0);
+        	}
+        }
+        else {
+            if (bodyA.getUserData() instanceof PlasmaModel)
+                plasmaCollision(bodyA);
+            if (bodyB.getUserData() instanceof PlasmaModel)
+            	plasmaCollision(bodyB);
+        }
+        
+        
 		
+	}
+
+	private void plasmaCollision(Body bodyA) {
+		((PlasmaModel)bodyA.getUserData()).decreaseJumpsLeft();
 	}
 
 	@Override
@@ -133,5 +159,23 @@ public class GameController implements ContactListener{
 	public void setMultiplayer(boolean option) {
 		this.multiplayer = option;
 	}
+	
+    public void fire() {
+        if (GameModel.getInstance().getHero().getStamina() > 0) {
+            PlasmaModel plasmaBall = GameModel.getInstance().createPlasmaBall(GameModel.getInstance().getHero());
+            PlasmaBody body = new PlasmaBody(world, plasmaBall);
+            body.setLinearVelocity(PLASMA_X_SPEED,PLASMA_Y_SPEED);
+            GameModel.getInstance().getHero().decrementStamina();
+        }
+    }
 
+    public boolean pairSlugPlasma(Body bodyA, Body bodyB) {
+    	if(bodyA.getUserData() instanceof PlasmaModel && bodyB.getUserData() instanceof SlugBody) {
+    		return true;
+    	}
+    	if(bodyB.getUserData() instanceof PlasmaModel && bodyA.getUserData() instanceof SlugBody) {
+    		return true;
+    	}
+    	return false;
+    }
 }
