@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import menu.MainMenu;
+import game.menu.MainMenu;
 
 public class TowerOfDoom extends Game {
 	static TowerOfDoom instance;
