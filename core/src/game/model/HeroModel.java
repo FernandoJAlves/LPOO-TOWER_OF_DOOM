@@ -16,6 +16,8 @@ public class HeroModel extends CharacterModel implements Serializable{
 	public enum charState {STARE,WALK,JUMP,FALL, LAND,ATTACK,DAMAGE};
 	protected charState state;
 	protected float attackTime = 0;
+	private int hitpoints = 10;
+	private int stamina = 10;
 
 	public HeroModel(int x, int y) {
 		super(x, y);
@@ -108,7 +110,6 @@ public class HeroModel extends CharacterModel implements Serializable{
 	public void update(float delta) {
 		//TODO NANDINHO FAZ O SWITCH
 		if(this.state == charState.ATTACK) {
-			System.out.println(this.state);
 			attackTime += delta;
 			if(attackTime > (8 * 0.15f)) {
 				attackTime = 0;
@@ -151,6 +152,18 @@ public class HeroModel extends CharacterModel implements Serializable{
 	@Override
 	public ModelType getModelType() {
 		return ModelType.HERO;
+	}
+	
+	public int getHitPoints() {
+		return hitpoints;
+	}
+	
+	public int getStamina() {
+		return stamina;
+	}
+	
+	public void decrementStamina() {
+		stamina--;
 	}
 	
 	public void copy(HeroModel hero) {
