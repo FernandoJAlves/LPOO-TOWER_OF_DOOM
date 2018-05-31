@@ -18,15 +18,7 @@ public class PlayerSocket {
 	protected int receivePort;
 	
 	public PlayerSocket() {
-		try {
-			host = InetAddress.getByName("255.255.255.255");
-			
 
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(0);
-		}
 	}
 	
 	public Object readObject() {
