@@ -102,7 +102,7 @@ public class PlayerSocket {
 	
 	public void connect(String addr) {
 		try {
-			this.host = InetAddress.getByName(addr);
+			this.host = InetAddress.getByName("255.255.255.255");
 			this.socket.connect(this.host,this.sendPort);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
