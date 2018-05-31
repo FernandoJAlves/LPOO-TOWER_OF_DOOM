@@ -6,6 +6,7 @@ import java.io.Serializable;
 import com.badlogic.gdx.math.Vector2;
 
 import game.controller.GameController;
+import game.dataStream.HeroPacket;
 
 public class HeroModel extends CharacterModel implements Serializable{
 
@@ -149,24 +150,17 @@ public class HeroModel extends CharacterModel implements Serializable{
 		stamina--;
 	}
 	
-	public void copy(HeroModel hero) {
-		this.x = hero.x;
-		this.y = hero.y;
-		this.speed = hero.speed;
-		if(this.attackTime == 0) {
-			this.state = hero.state;
-		}
-		
-		this.yspeed = hero.yspeed;
-	}
-	public void copyToNet(HeroModel hero) {
-		this.copy(hero);
-		this.dir = hero.dir;
+	public HeroPacket createPacket() {
+		return new HeroPacket(this.speed,this.yspeed);
 	}
 	
-	public void copyFromNet(HeroModel hero) {
-		this.copy(hero);
-		this.attackTime = hero.attackTime;
+	public void setHero(HeroPacket packet) {
+		if(this.speed * packet.speed <= 0) {
+			this.speed = packet.speed;
+		}
+		if(Math.round(this.yspeed) == 0) {
+			this.yspeed = packet.yspeed;
+		}
 	}
 	
 }

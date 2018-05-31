@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import game.main.TowerOfDoom;
 import game.view.GameView;
+import game.view.Player2View;
 
 public class MainMenu extends ScreenAdapter{
 	Texture back;
@@ -71,6 +72,10 @@ public class MainMenu extends ScreenAdapter{
 		this.game.getAssetManager().load( "CloseApp_button.png" , Texture.class);
 		this.game.getAssetManager().load( "Find_button.png" , Texture.class);
 		this.game.getAssetManager().load( "menu_background.png" , Texture.class);
+		this.game.getAssetManager().load( "ButtonLeft.png" , Texture.class);
+		this.game.getAssetManager().load( "ButtonRight.png" , Texture.class);
+		this.game.getAssetManager().load( "ButtonUp.png" , Texture.class);
+		this.game.getAssetManager().load( "ButtonFire.png" , Texture.class);
 		this.game.getAssetManager().finishLoading();
 		
 	}
@@ -103,7 +108,7 @@ public class MainMenu extends ScreenAdapter{
 		this.singleButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            	game.setScreen(new GameView(false,false));
+            	game.setScreen(new GameView(false));
                 return true;
                 }
 		});
@@ -131,7 +136,7 @@ public class MainMenu extends ScreenAdapter{
 		this.findButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            	game.setScreen(new GameView(true,true));
+            	game.setScreen(new Player2View());
                 return true;
                 }
 		});
@@ -145,7 +150,7 @@ public class MainMenu extends ScreenAdapter{
 		this.hostButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            	game.setScreen(new GameView(true,false));
+            	game.setScreen(new GameView(true));
                 return true;
                 }
 		});
@@ -198,6 +203,14 @@ public class MainMenu extends ScreenAdapter{
 	public void dispose() {
 		this.back.dispose();
 		//this.menuStage.dispose();
+	}
+	
+	
+	public void returnToMenu() {
+		TowerOfDoom.getInstance().setScreen(MainMenu.getInstance());
+		this.setMainButtons(true);
+		this.setMultiButtons(false);
+		Gdx.input.setInputProcessor(menuStage);
 	}
 	
 	

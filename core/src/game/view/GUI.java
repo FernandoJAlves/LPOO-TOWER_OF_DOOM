@@ -5,6 +5,7 @@ import java.util.TreeMap;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,12 +21,14 @@ import game.main.TowerOfDoom;
 import game.menu.MainMenu;
 
 public class GUI extends Stage{
-	protected Map<Character, Boolean> keys;
+	private Map<Character, Boolean> keys;
+	private String addr;
 	private ImageButton upButton;
 	private ImageButton fireButton;
 	private ImageButton leftButton;
 	private ImageButton rightButton;
-	int screenWidth, screenHeight;
+	private int screenWidth;
+	private int screenHeight;
 	private Dialog msg;
 	
 	
@@ -56,9 +59,10 @@ public class GUI extends Stage{
 		this.keys.put('a', false);
 		this.keys.put('f', false);
 		this.keys.put('d', false);
+		this.keys.put('e', false);
 	}
 	
-	private void initButtons() {
+	public void initButtons() {
 		this.setUpButton();
 		this.setFireButton();
 		this.setLeftButton();
@@ -76,7 +80,7 @@ public class GUI extends Stage{
 	
 	private void setUpButton() {
 		upButton = createButton("ButtonUp.png");
-		upButton.setPosition(12*this.screenWidth/16, this.getHeight()/16);
+		upButton.setPosition(12*this.screenWidth/16, screenHeight/16);
 		this.upButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -92,7 +96,7 @@ public class GUI extends Stage{
 	
 	private void setFireButton() {
 		fireButton = createButton("ButtonFire.png");
-		fireButton.setPosition(14*this.screenWidth/16, this.getHeight()/16);
+		fireButton.setPosition(14*this.screenWidth/16, screenHeight/16);
 		this.fireButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -108,7 +112,7 @@ public class GUI extends Stage{
 	
 	private void setLeftButton() {
 		leftButton = createButton("ButtonLeft.png");
-		leftButton.setPosition(this.screenWidth/16, this.getHeight()/16);
+		leftButton.setPosition(this.screenWidth/16, screenHeight/16);
 		this.leftButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -124,7 +128,7 @@ public class GUI extends Stage{
 	
 	private void setRightButton() {
 		rightButton = createButton("ButtonRight.png");
-		rightButton.setPosition(3*this.screenWidth/16, this.getHeight()/16);
+		rightButton.setPosition(3*this.screenWidth/16, screenHeight/16);
 		this.rightButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -156,6 +160,8 @@ public class GUI extends Stage{
 					   keys.replace('w', true);
 		 		   else if(keycode == 29) //'a' on keyboard
 					   keys.replace('f', true);
+		 		   else if(keycode == 131) //ESC on keyboard
+					   keys.replace('e', true);
 		            return true;
 		        }
 		        
@@ -170,6 +176,8 @@ public class GUI extends Stage{
 					   keys.replace('w', false);
 		 		   else if(keycode == 29) //'a' on keyboard
 					   keys.replace('f', false);
+		 		   else if(keycode == 131) //ESC on keyboard
+					   keys.replace('e', false);
 		            return true;
 		        }
 		    });
@@ -185,7 +193,7 @@ public class GUI extends Stage{
 		this.msg = new Dialog("Network", skin) {
 		    public void result(Object obj) {
 		    	if(obj instanceof Boolean) {
-		        	TowerOfDoom.getInstance().setScreen(MainMenu.getInstance());
+		        	MainMenu.getInstance().returnToMenu();
 		    	}
 		    }
 		};
@@ -199,16 +207,32 @@ public class GUI extends Stage{
 		msg.show(this);
 	}
 	
-	public void message2(String str) {
+	public void message2() {
 
-		msg.text("Player 1 IP:");
-		msg.button("IP");
-		msg.button("Cancel",true);
-		msg.show(this);
+		 TextInputListener textListener = new TextInputListener()
+		    {
+		        @Override
+		        public void input(String input)
+		        {
+		            addr = input;
+		        }
+
+		        @Override
+		        public void canceled() 
+		        {
+		            MainMenu.getInstance().returnToMenu();
+		        }
+		    };
+
+		    Gdx.input.getTextInput(textListener, "Player 1 IP: ", "", null);
 	}
 	
 	public void disableMsg() {
 		this.msg.setVisible(false);
+	}
+	
+	public String getAddr() {
+		return this.addr;
 	}
 
 }

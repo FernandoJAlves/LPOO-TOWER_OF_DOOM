@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.badlogic.gdx.utils.Pool;
 
-import game.dataStream.GamePacket;
 import game.model.EntityModel.directionState;
 
 
@@ -41,20 +40,6 @@ public class GameModel implements Serializable{
 			instance = new GameModel();
 		}
 		return instance;
-	}
-	
-	public void setInstance(GamePacket game) {
-		this.hero.copyToNet(game.hero);
-		this.netHero.copyFromNet(game.netHero);
-		for(int i = 0; i < this.enemies.size();i++) {
-			if(i >= game.enemies.size()) {
-				this.enemies.remove(i);
-				continue;
-			}
-			if(this.enemies.get(i) instanceof SlugModel) {
-				((SlugModel)this.enemies.get(i)).copy((SlugModel)(game.enemies.get(i)));
-			}
-		}
 	}
 	
 	public HeroModel getHero() {
@@ -106,10 +91,6 @@ public class GameModel implements Serializable{
 	public void setMultiplayer() {
 		this.netHero = new HeroModel(500,720);
 		netHero.setPosition(level.getHero2Position());
-	}
-	
-	public GamePacket getPacket() {
-		return new GamePacket(this.hero,this.netHero,this.enemies);
 	}
 
     public List<PlasmaModel> getPlasmaballs() {

@@ -4,7 +4,6 @@ package game.dataStream;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
-import game.model.HeroModel;
 
 public class Player1Socket extends PlayerSocket{
 	public Player1Socket() {
@@ -22,15 +21,11 @@ public class Player1Socket extends PlayerSocket{
 		}
 	}
 	
-	public HeroModel getHeroModel() {
+	public HeroPacket getHeroPacket() {
 		Object obj = this.readObject();
 		if(obj != null) {
-			return ((HeroModel) obj);
+			return ((HeroPacket) obj);
 		}
 		return null;
-	}
-	
-	public void sendGamePacket(GamePacket game) {
-		this.sendObjects(game);
 	}
 }

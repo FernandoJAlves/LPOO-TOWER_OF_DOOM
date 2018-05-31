@@ -9,8 +9,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 public class PlayerSocket {
 	private int size = 1024;
@@ -21,7 +19,7 @@ public class PlayerSocket {
 	
 	public PlayerSocket() {
 		try {
-			host = InetAddress.getByName("172.30.1.250");
+			host = InetAddress.getByName("localhost");
 			
 
 		} catch (UnknownHostException e) {
@@ -44,11 +42,9 @@ public class PlayerSocket {
 		}
 		byte[] data = incomingPacket.getData();
 		ByteArrayInputStream in = new ByteArrayInputStream(data);
-		GZIPInputStream gzipIn = null;
 		ObjectInputStream is = null;
 		try {
-			gzipIn = new GZIPInputStream(in);
-			is = new ObjectInputStream(gzipIn);
+			is = new ObjectInputStream(in);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -67,12 +63,10 @@ public class PlayerSocket {
 	
 	public void sendObjects(Object arg0) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(this.size);
-		GZIPOutputStream compressed = null;
 		ObjectOutputStream oos = null;
 		try {
 			
-			compressed = new GZIPOutputStream(baos);
-			oos = new ObjectOutputStream(compressed);
+			oos = new ObjectOutputStream(baos);
 			oos.writeObject(arg0);
 			oos.close();
 		} catch (IOException e) {
@@ -99,6 +93,22 @@ public class PlayerSocket {
 			str = "null";
 		}
 		return str;
+	}
+	
+	public boolean isConnected() {
+		return this.socket.isConnected();
+	}
+	
+	
+	public void connect(String addr) {
+		try {
+			this.host = InetAddress.getByName(addr);
+			this.socket.connect(this.host,this.sendPort);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

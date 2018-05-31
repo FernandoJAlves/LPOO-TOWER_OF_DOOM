@@ -10,18 +10,17 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import game.controller.GameController;
-import game.dataStream.GamePacket;
+import game.dataStream.HeroPacket;
 import game.dataStream.Player1Socket;
-import game.dataStream.Player2Socket;
 import game.dataStream.PlayerSocket;
 import game.main.TowerOfDoom;
+import game.menu.MainMenu;
 import game.model.GameModel;
 import game.model.HeroModel;
 
 public class GameView extends ScreenAdapter{
 	
 	private boolean multiplayer;
-	private boolean player2;
 	private PlayerSocket socket;
 	
     private static final boolean DEBUG_PHYSICS = true;
@@ -38,13 +37,9 @@ public class GameView extends ScreenAdapter{
 	private HeroView nv;
 	private GUI gui;
 	
-	public GameView(boolean mult, boolean p2){
+	public GameView(boolean mult){
 		this.multiplayer = mult;
-		this.player2 = p2;
 		setSockets();
-		
-		this.setPlayerTwo();
-
 		game = TowerOfDoom.getInstance();
 		this.loadAssets();
 		level = new LevelView1();
@@ -62,12 +57,9 @@ public class GameView extends ScreenAdapter{
 	
 	@Override
     public void render(float delta) {
-		
 		this.handleInput();
 		this.updateNetworkModels();
 		this.updateLogic(delta);
-
-		this.updateNetworkController();
 		this.updateDraw();
 		gui.update(delta);
 		this.debugPhysics();
@@ -87,10 +79,6 @@ public class GameView extends ScreenAdapter{
 		this.game.getAssetManager().load( "HeroLanding.png" , Texture.class);
 		this.game.getAssetManager().load( "HeroFiring.png" , Texture.class);
 		this.game.getAssetManager().load( "level1.png" , Texture.class);
-		this.game.getAssetManager().load( "ButtonLeft.png" , Texture.class);
-		this.game.getAssetManager().load( "ButtonRight.png" , Texture.class);
-		this.game.getAssetManager().load( "ButtonUp.png" , Texture.class);
-		this.game.getAssetManager().load( "ButtonFire.png" , Texture.class);
 		this.game.getAssetManager().load( "Plasmaball.png" , Texture.class);
 		this.game.getAssetManager().load( "Plasmaball_Explosion.png" , Texture.class);
 		this.game.getAssetManager().finishLoading();
@@ -106,7 +94,7 @@ public class GameView extends ScreenAdapter{
 	private void createCam() {
 		cam = new OrthographicCamera(SCREEN_WIDTH,SCREEN_WIDTH * ((float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getBackBufferWidth()));
 		
-        if (DEBUG_PHYSICS && !this.player2) {
+        if (DEBUG_PHYSICS) {
             debugRenderer = new Box2DDebugRenderer();
             debugCamera = cam.combined.cpy();
             debugCamera.scl(1);
@@ -114,7 +102,7 @@ public class GameView extends ScreenAdapter{
 	}
 	
 	private void debugPhysics() {
-        if (DEBUG_PHYSICS && !this.player2) {
+        if (DEBUG_PHYSICS) {
             debugCamera = cam.combined.cpy();
             debugCamera.scl(1);
             debugRenderer.render(GameController.getInstance().getWorld(), debugCamera);
@@ -122,6 +110,10 @@ public class GameView extends ScreenAdapter{
 	}
 	
 	public void handleInput() {
+		
+		if(gui.keyPressed('e')) {
+			MainMenu.getInstance().returnToMenu();
+		}
 		   
 		if(gui.keyPressed('w')) {
 			hero.move('w');
@@ -147,57 +139,27 @@ public class GameView extends ScreenAdapter{
 	public void setSockets() {
 		if(this.multiplayer) {
 			GameModel.getInstance().setMultiplayer();
-			if(this.player2) {
-				this.socket = new Player2Socket();
-			}
-			else {
-				this.socket = new Player1Socket();
-			}
+			this.socket = new Player1Socket();
 		}
 	}
 	
 	public void setHero() {
-		if(this.player2) {
-			hero = GameModel.getInstance().getNetHero();
-			netHero = GameModel.getInstance().getHero();
-		}
-		else {
-			hero = GameModel.getInstance().getHero();
-			netHero = GameModel.getInstance().getNetHero();
-		}
+		hero = GameModel.getInstance().getHero();
+		netHero = GameModel.getInstance().getNetHero();
+		
 		
 	}
 	
 	public void updateNetworkModels() {
 		if(this.multiplayer) {
-			if(this.player2) {
-				System.out.println("Speed: " + GameModel.getInstance().getNetHero().getYSpeed());
-				((Player2Socket)socket).sendHero(GameModel.getInstance().getNetHero());
-			}
-			else {
-				HeroModel h = ((Player1Socket)socket).getHeroModel();
-				if(h != null) {
-					this.gui.disableMsg();
-					GameModel.getInstance().getNetHero().copyToNet(h);
-					
-				}
+			HeroPacket h = ((Player1Socket)socket).getHeroPacket();
+			if(h != null) {
+				this.gui.disableMsg();
+				GameModel.getInstance().getNetHero().setHero(h);
 			}
 		}
 	}
 	
-	public void updateNetworkController() {
-		if(this.multiplayer) {
-			if(this.player2) {
-				GamePacket game = ((Player2Socket)socket).getGamePacket();
-				if(game != null) {
-					GameModel.getInstance().setInstance(game);
-				}
-			}
-			else {
-				((Player1Socket)socket).sendGamePacket(GameModel.getInstance().getPacket());
-			}
-		}
-	}
 	
 	private void updateDraw() {
 		SpriteBatch batch = TowerOfDoom.getInstance().getBatch();
@@ -215,32 +177,16 @@ public class GameView extends ScreenAdapter{
 		batch.end();
 	}
 	
-	private void setPlayerTwo() {
-		if(this.player2) {
-			GamePacket game = ((Player2Socket)socket).getGamePacket();
-			if(game != null) {
-				GameModel.getInstance().setInstance(game);
-			}
-		}
-	}
-	
 	private void updateLogic(float delta) {
-		if(!this.player2) {
 		GameModel.getInstance().update(delta);
 		GameController.getInstance().update(delta);
-		}
 	}
 	
 	public void waitingForPlayer() {
 		if(this.multiplayer) {
-			if(this.player2) {
-				this.gui.message2(null);
-			}
-			else {
-				this.gui.message1(this.socket.getAddress());
-				
-			}
+			this.gui.message1(this.socket.getAddress());
 		}
+			
 	}
 	
 
