@@ -16,6 +16,8 @@ public class ViewFactory {
                 cache.put(model.getModelType(), new HeroView());
             if (model.getModelType() == ModelType.SLUG)
                 cache.put(model.getModelType(), new SlugView());
+            if (model.getModelType() == ModelType.PLASMA)
+                cache.put(model.getModelType(), new PlasmaView());
         }
         return cache.get(model.getModelType());
     }

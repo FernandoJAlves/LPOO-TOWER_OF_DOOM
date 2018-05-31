@@ -1,5 +1,7 @@
 package game.view;
 
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,6 +19,7 @@ import game.main.TowerOfDoom;
 import game.menu.MainMenu;
 import game.model.GameModel;
 import game.model.HeroModel;
+import game.model.PlasmaModel;
 
 public class GameView extends ScreenAdapter{
 	
@@ -168,13 +171,25 @@ public class GameView extends ScreenAdapter{
 		this.updateCam(batch);
 		batch.begin();
 		level.draw(batch);
+		drawEntities(batch);
+		batch.end();
+	}
+
+
+	private void drawEntities(SpriteBatch batch) {
 		hv.update(hero);
 		hv.draw(batch);
 		if(this.multiplayer) {
 			nv.update(netHero);
 			nv.draw(batch);
 		}
-		batch.end();
+		List<PlasmaModel> plasmaBalls = GameModel.getInstance().getPlasmaballs();
+		for(PlasmaModel plasmaB : plasmaBalls) {
+			EntityView view = ViewFactory.makeView(plasmaB);
+			view.update(plasmaB);
+			view.draw(batch);
+		}
+		
 	}
 	
 	private void updateLogic(float delta) {
