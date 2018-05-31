@@ -156,6 +156,7 @@ public class GameView extends ScreenAdapter{
 			if(h != null) {
 				this.gui.disableMsg();
 				GameModel.getInstance().getNetHero().setHero(h);
+				System.out.println(GameModel.getInstance().getNetHero().getSpeed());
 			}
 		}
 	}
