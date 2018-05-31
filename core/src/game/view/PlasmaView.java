@@ -12,7 +12,7 @@ import game.model.PlasmaModel;
 public class PlasmaView extends EntityView{
 	private Animation<TextureRegion> bouncingAnimation;
 	private Animation<TextureRegion> explodingAnimation;
-	private int stateTime = 0;
+	private float stateTime = 0;
 	private int state = 0; //0 = jumping, 1 = exploding
 	
 	
@@ -42,9 +42,11 @@ public class PlasmaView extends EntityView{
     @Override
     public void draw(SpriteBatch batch) {
         stateTime += Gdx.graphics.getDeltaTime();
+        System.out.println(stateTime);
         switch(this.state) {
         case 0:
         	sprite.setRegion(bouncingAnimation.getKeyFrame(stateTime,true));
+        	//sprite.setRegion(bouncingAnimation.getKeyFrames()[1]);
         	break;
         case 1:
         	sprite.setRegion(explodingAnimation.getKeyFrame(stateTime,true));
