@@ -185,4 +185,17 @@ public class GameController implements ContactListener{
     	}
     	return false;
     }
+    
+    public void removeFlagged() {
+        Array<Body> bodies = new Array<Body>();
+        world.getBodies(bodies);
+        for (Body body : bodies) {
+        	if(body.getUserData() instanceof EntityBody) {
+                if (((EntityModel)body.getUserData()).isFlaggedToBeRemoved()) {
+                    GameModel.getInstance().remove((EntityModel) body.getUserData());
+                    world.destroyBody(body);
+                }
+        	}
+        }
+    }
 }

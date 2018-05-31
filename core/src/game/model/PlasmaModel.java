@@ -6,7 +6,6 @@ public class PlasmaModel extends EntityModel implements Serializable{
 	
 	private int jumpsLeft;
 	private int state;
-	private boolean flaggedForRemoval = false;
 	private float explosionTime = 8 * 0.15f;
 	
 	/**
@@ -19,6 +18,10 @@ public class PlasmaModel extends EntityModel implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+	public int getJumpsLeft() {
+		return jumpsLeft;
+	}
+	
 	public void setJumpsLeft(int n) {
 		jumpsLeft = n;
 	}
@@ -36,14 +39,6 @@ public class PlasmaModel extends EntityModel implements Serializable{
 	public int getState() {
 		return state;
 	}
-	
-    public boolean isFlaggedToBeRemoved() {
-        return flaggedForRemoval;
-    }
-    
-    public void setFlaggedForRemoval(boolean value) {
-        this.flaggedForRemoval = value;
-    }
 	
 	@Override
 	public ModelType getModelType() {

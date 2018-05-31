@@ -60,6 +60,7 @@ public class GameView extends ScreenAdapter{
 	
 	@Override
     public void render(float delta) {
+		GameController.getInstance().removeFlagged();
 		this.handleInput();
 		this.updateNetworkModels();
 		this.updateLogic(delta);
