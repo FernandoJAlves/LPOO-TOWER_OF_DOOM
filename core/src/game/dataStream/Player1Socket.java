@@ -12,6 +12,7 @@ public class Player1Socket extends PlayerSocket{
 		this.sendPort = 3333;
 		try {
 			this.socket = new DatagramSocket(this.receivePort);
+			this.socket.connect(this.host, this.sendPort);
 			this.socket.setBroadcast(true);
 			this.socket.setSoTimeout(1);
 		} catch (SocketException e1) {

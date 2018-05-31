@@ -19,7 +19,7 @@ public class PlayerSocket {
 	
 	public PlayerSocket() {
 		try {
-			host = InetAddress.getByName("localhost");
+			host = InetAddress.getByName("255.255.255.255");
 			
 
 		} catch (UnknownHostException e) {
