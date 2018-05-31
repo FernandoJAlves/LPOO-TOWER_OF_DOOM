@@ -8,26 +8,25 @@ import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class PlayerSocket {
 	private int size = 1024;
 	protected DatagramSocket socket;
 	protected InetAddress host;
-	protected int port;
+	protected int sendPort;
+	protected int receivePort;
 	
 	public PlayerSocket() {
-			this.port = 5001;
-			try {
-				this.socket = new DatagramSocket(this.port);
-				this.socket.setBroadcast(true);
-				this.socket.setSoTimeout(1);
-			} catch (SocketException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			host = InetAddress.getByName("255.255.255.255");
+			
 
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(0);
+		}
 	}
 	
 	public Object readObject() {
@@ -78,7 +77,7 @@ public class PlayerSocket {
 
 		byte[] data = baos.toByteArray();
 		//System.out.println(data.length);
-		DatagramPacket packet = new DatagramPacket(data, data.length,this.host,this.port);
+		DatagramPacket packet = new DatagramPacket(data, data.length,this.host,this.sendPort);
 		try {
 			this.socket.send(packet);
 			
@@ -103,24 +102,13 @@ public class PlayerSocket {
 	
 	public void connect(String addr) {
 		try {
-			this.host = InetAddress.getByName(addr);
-			this.socket.connect(this.host,this.port);
+			this.host = InetAddress.getByName("255.255.255.255");
+			this.socket.connect(this.host,this.sendPort);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-	}
-	
-	public void setSocket() {
-		try {
-			this.socket = new DatagramSocket(this.port, this.host);
-			this.socket.setBroadcast(true);
-			this.socket.setSoTimeout(1);
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 }

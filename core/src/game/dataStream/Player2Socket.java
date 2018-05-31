@@ -1,18 +1,23 @@
 package game.dataStream;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
 
 public class Player2Socket extends PlayerSocket{
 	public Player2Socket() {
 		super();
+		this.receivePort = 3333;
+		this.sendPort = 1234;
 		try {
-			this.host = InetAddress.getByName("0.0.0.0");
-		} catch (UnknownHostException e) {
+			this.socket = new DatagramSocket(this.receivePort);
+			this.socket.connect(this.host, this.sendPort);
+			this.socket.setBroadcast(true);
+			this.socket.setSoTimeout(1);
+		} catch (SocketException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
-		this.setSocket();
 	}
 	
 	public void sendHero(InputPacket hero) {
