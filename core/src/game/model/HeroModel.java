@@ -94,7 +94,7 @@ public class HeroModel extends CharacterModel implements Serializable{
 		if(this.state == charState.ATTACK) {
 			attackTime += delta;
 			if(attackTime > (8 * 0.15f)) {
-				GameController.getInstance().fire();
+				GameController.getInstance().fire(this);
 				attackTime = 0;
 				this.state = charState.STARE;
 			}

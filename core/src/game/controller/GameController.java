@@ -15,6 +15,7 @@ import game.model.EntityModel;
 import game.model.EntityModel.ModelType;
 import game.model.EntityModel.directionState;
 import game.model.GameModel;
+import game.model.HeroModel;
 import game.model.PlasmaModel;
 
 public class GameController implements ContactListener{
@@ -167,11 +168,11 @@ public class GameController implements ContactListener{
 		this.multiplayer = option;
 	}
 	
-    public void fire() {
-        if (GameModel.getInstance().getHero().getStamina() > 0) {
-            PlasmaModel plasmaBall = GameModel.getInstance().createPlasmaBall(GameModel.getInstance().getHero());
+    public void fire(HeroModel hero) {
+        if (hero.getStamina() > 0) {
+            PlasmaModel plasmaBall = GameModel.getInstance().createPlasmaBall(hero);
             PlasmaBody body = new PlasmaBody(world, plasmaBall);
-            if(GameModel.getInstance().getHero().getDirection() == directionState.LEFT) {
+            if(hero.getDirection() == directionState.LEFT) {
             	body.setLinearVelocity(-PLASMA_X_SPEED,PLASMA_Y_SPEED);
             }
             else{
@@ -179,7 +180,7 @@ public class GameController implements ContactListener{
             }
             activePlasmaBalls.add(body);
            
-            GameModel.getInstance().getHero().decrementStamina();
+            hero.decrementStamina();
         }
     }
 
