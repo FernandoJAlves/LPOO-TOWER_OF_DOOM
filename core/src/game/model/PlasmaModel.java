@@ -15,6 +15,7 @@ public class PlasmaModel extends EntityModel implements Serializable{
 
 	public PlasmaModel(int x, int y) {
 		super(x, y);
+		state = 0;
 		// TODO Auto-generated constructor stub
 	}
 

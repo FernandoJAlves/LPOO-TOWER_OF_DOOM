@@ -123,6 +123,7 @@ public class GameModel implements Serializable{
     public void remove(EntityModel model) {
         if (model instanceof PlasmaModel) {
             plasmaballs.remove(model);
+            ((PlasmaModel) model).setState(0);
            	plasmaballPool.free((PlasmaModel) model);
         }
     }
