@@ -80,7 +80,15 @@ public class PlayerSocket {
 	}
 	
 	public String getAddress() {
-		String str = this.socket.getLocalAddress().getHostAddress();
+		String str = null;
+		try {
+			str = InetAddress.getByName("0.0.0.0").getHostAddress();
+			//this.socket.connect(this.host,this.sendPort);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(str == null) {
 			str = "null";
 		}
@@ -93,13 +101,7 @@ public class PlayerSocket {
 	
 	
 	public void connect(String addr) {
-		try {
-			this.host = InetAddress.getByName("255.255.255.255");
-			this.socket.connect(this.host,this.sendPort);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		
 	}
 	
