@@ -82,7 +82,7 @@ public class GameModel implements Serializable{
             //System.out.println(plasmaBall.getJumpsLeft());
         	if (plasmaBall.getJumpsLeft() <= 0) {
             	if(plasmaBall.decreaseExplosionTime(delta)) {
-            		System.out.println("hi juan");
+            		//System.out.println("hi juan");
             		plasmaBall.setFlaggedForRemoval(true);
             	}
             		
