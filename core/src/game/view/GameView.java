@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 import game.controller.GameController;
-import game.dataStream.HeroPacket;
+import game.dataStream.InputPacket;
 import game.dataStream.Player1Socket;
 import game.dataStream.PlayerSocket;
 import game.main.TowerOfDoom;
@@ -139,6 +139,30 @@ public class GameView extends ScreenAdapter{
 		
 	}
 	
+	public void handleNetInput(InputPacket h) {
+
+		   
+		if(h.w) {
+			netHero.move('w');
+		}
+		
+		if(h.f) {
+			netHero.move('f');
+		}
+		
+		if(h.a) {
+			netHero.move('a');
+		}
+		
+		else if(h.d) {
+			netHero.move('d');
+		}
+		else {
+			netHero.move('n');
+		}
+		
+	}
+	
 	public void setSockets() {
 		if(this.multiplayer) {
 			GameModel.getInstance().setMultiplayer();
@@ -155,11 +179,11 @@ public class GameView extends ScreenAdapter{
 	
 	public void updateNetworkModels() {
 		if(this.multiplayer) {
-			HeroPacket h = ((Player1Socket)socket).getHeroPacket();
+			InputPacket h = ((Player1Socket)socket).getHeroPacket();
 			if(h != null) {
 				this.gui.disableMsg();
-				GameModel.getInstance().getNetHero().setHero(h);
-				System.out.println(GameModel.getInstance().getNetHero().getSpeed());
+				this.handleNetInput(h);
+				
 			}
 		}
 	}

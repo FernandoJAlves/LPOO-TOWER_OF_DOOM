@@ -7,16 +7,16 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import game.dataStream.InputPacket;
 import game.dataStream.Player2Socket;
 import game.dataStream.PlayerSocket;
 import game.main.TowerOfDoom;
 import game.menu.MainMenu;
-import game.model.HeroModel;
 
 public class Player2View extends ScreenAdapter{
 	private PlayerSocket socket;
-	private HeroModel hero;
 	private GUI gui;
+	private InputPacket packet;
 	private TowerOfDoom game;
 	private Texture background;
 	
@@ -24,8 +24,8 @@ public class Player2View extends ScreenAdapter{
 	public Player2View(){
 		this.socket = new Player2Socket();
 		game = TowerOfDoom.getInstance();
-		this.hero = new HeroModel(0,0);
 		gui = new GUI();
+		this.packet = new InputPacket();
 		gui.initButtons();
 		//this.createCam();
 		this.background = game.getAssetManager().get("menu_background.png");
@@ -53,7 +53,7 @@ public class Player2View extends ScreenAdapter{
 
 	private void sendHero() {
 		if(socket.isConnected()) {
-			((Player2Socket)this.socket).sendHero(this.hero.createPacket());
+			((Player2Socket)this.socket).sendHero(this.packet);
 		}
 		else {
 			if(gui.getAddr() != null) {
@@ -73,23 +73,9 @@ public class Player2View extends ScreenAdapter{
 			MainMenu.getInstance().returnToMenu();
 		}
 		   
-		if(gui.keyPressed('w')) {
-			hero.move('w');
-		}
-		
-		if(gui.keyPressed('f')) {
-			hero.move('f');
-		}
-		
-		if(gui.keyPressed('a')) {
-			hero.move('a');
-		}
-		
-		else if(gui.keyPressed('d')) {
-			hero.move('d');
-		}
-		else {
-			hero.move('n');
-		}
+		this.packet.w = gui.keyPressed('w');
+		this.packet.a = gui.keyPressed('a');
+		this.packet.f = gui.keyPressed('f');
+		this.packet.d = gui.keyPressed('d');
 	}
 }

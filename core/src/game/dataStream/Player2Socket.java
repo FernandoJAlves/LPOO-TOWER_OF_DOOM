@@ -20,7 +20,7 @@ public class Player2Socket extends PlayerSocket{
 		}
 	}
 	
-	public void sendHero(HeroPacket hero) {
+	public void sendHero(InputPacket hero) {
 		this.sendObjects(hero);
 	}
 	

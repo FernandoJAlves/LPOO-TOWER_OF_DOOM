@@ -20,10 +20,10 @@ public class Player1Socket extends PlayerSocket{
 		}
 	}
 	
-	public HeroPacket getHeroPacket() {
+	public InputPacket getHeroPacket() {
 		Object obj = this.readObject();
 		if(obj != null) {
-			return ((HeroPacket) obj);
+			return ((InputPacket) obj);
 		}
 		return null;
 	}
