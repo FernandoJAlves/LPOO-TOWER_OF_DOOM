@@ -12,6 +12,7 @@ public abstract class EntityModel implements Serializable{
 	public enum ModelType{HERO, GUARD, PLASMA,SLUG};
 	public enum directionState{LEFT,RIGHT};
 	protected directionState dir;
+	private boolean flaggedForRemoval = false;
 	
 	public EntityModel(int x, int y){
 		this.x = x;
@@ -53,4 +54,13 @@ public abstract class EntityModel implements Serializable{
 	public void setY(float y2) {
 		this.y = y2;
 	}
+	
+    public boolean isFlaggedToBeRemoved() {
+        return flaggedForRemoval;
+    }
+    
+    public void setFlaggedForRemoval(boolean value) {
+        this.flaggedForRemoval = value;
+    }
+	
 }
