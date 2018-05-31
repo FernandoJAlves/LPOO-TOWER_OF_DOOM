@@ -116,7 +116,6 @@ public class GUI extends Stage{
 		this.leftButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            	System.out.println("Move men");
             	keys.replace('a', true);
                 return true;
             }
