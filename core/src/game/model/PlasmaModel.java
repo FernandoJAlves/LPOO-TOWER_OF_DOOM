@@ -41,6 +41,10 @@ public class PlasmaModel extends EntityModel implements Serializable{
 		return state;
 	}
 	
+	public void setState(int n) {
+		state = n;
+	}
+	
 	@Override
 	public ModelType getModelType() {
 		return ModelType.PLASMA;

@@ -81,6 +81,9 @@ public class GameModel implements Serializable{
         for (PlasmaModel plasmaBall : plasmaballs) {
             //System.out.println(plasmaBall.getJumpsLeft());
         	if (plasmaBall.getJumpsLeft() <= 0) {
+        		plasmaBall.setState(1);
+        		plasmaBall.setXSpeed(0);
+        		plasmaBall.setYSpeed(0);
             	if(plasmaBall.decreaseExplosionTime(delta)) {
             		//System.out.println("hi juan");
             		plasmaBall.setFlaggedForRemoval(true);

@@ -32,6 +32,14 @@ public abstract class EntityModel implements Serializable{
 		return this.speed;
 	}
 	
+	public float getXSpeed() {
+		return this.speed;
+	}
+	
+	public void setXSpeed(float xs2) {
+		this.speed = xs2;
+	}
+	
 	public float getYSpeed() {
 		return this.yspeed;
 	}
