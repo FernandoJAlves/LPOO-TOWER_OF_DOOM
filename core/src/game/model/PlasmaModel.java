@@ -33,6 +33,7 @@ public class PlasmaModel extends EntityModel implements Serializable{
 	
 	public boolean decreaseExplosionTime(float delta) {
 		explosionTime -= delta;
+		//System.out.println(explosionTime);
 		return explosionTime < 0;
 	}
 	
