@@ -25,6 +25,7 @@ public class GameController implements ContactListener{
 	private static GameController instance;
 	private World world;
 	private LevelController level;
+	private ArrayList<PlasmaBody> activePlasmaBalls;
 	
 	private static final float PLASMA_X_SPEED = 100f;
 	private static final float PLASMA_Y_SPEED = 10f;
@@ -42,10 +43,10 @@ public class GameController implements ContactListener{
 		this.enemies = new ArrayList<CharacterBody>();
 		for(CharacterModel enemy: GameModel.getInstance().getEnemies()) {
 			if(enemy.getModelType() == ModelType.SLUG)
-				this.enemies.add( new SlugBody(world,enemy));
-
-				
+				this.enemies.add( new SlugBody(world,enemy));		
 		}
+		activePlasmaBalls = new ArrayList<PlasmaBody>();
+		
 		world.setContactListener(this);
 	}
 
@@ -114,7 +115,8 @@ public class GameController implements ContactListener{
 		hero.setLinearVelocity(((EntityModel)hero.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
 		if(this.multiplayer)
 			netHero.setLinearVelocity(((EntityModel)netHero.getUserData()).getSpeed(), ((EntityModel)netHero.getUserData()).getYSpeed());
-		//for(PlasmaModel plasmaBall : GameModel.getInstance().getPlasmaballs()) {
+		//for(PlasmaBody plasmaBall : activePlasmaBalls) {
+		//	plasma
 		//	plasmaBall.setLinearVelocity(((EntityModel)plasmaBall.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
 		//}
 		
@@ -175,6 +177,7 @@ public class GameController implements ContactListener{
             else{
             	body.setLinearVelocity(PLASMA_X_SPEED,PLASMA_Y_SPEED);
             }
+            activePlasmaBalls.add(body);
            
             GameModel.getInstance().getHero().decrementStamina();
         }

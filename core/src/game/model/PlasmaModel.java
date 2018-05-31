@@ -6,7 +6,7 @@ public class PlasmaModel extends EntityModel implements Serializable{
 	
 	private int jumpsLeft;
 	private int state;
-	private float explosionTime = 8 * 0.15f;
+	private float explosionTime = 1;
 	
 	/**
 	 * 
@@ -44,6 +44,10 @@ public class PlasmaModel extends EntityModel implements Serializable{
 	
 	public void setState(int n) {
 		state = n;
+	}
+	
+	public void resetExplosion() {
+		explosionTime = 1;
 	}
 	
 	@Override

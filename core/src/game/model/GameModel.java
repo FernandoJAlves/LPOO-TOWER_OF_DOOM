@@ -124,6 +124,7 @@ public class GameModel implements Serializable{
         if (model instanceof PlasmaModel) {
             plasmaballs.remove(model);
             ((PlasmaModel) model).setState(0);
+            ((PlasmaModel) model).resetExplosion();
            	plasmaballPool.free((PlasmaModel) model);
         }
     }
