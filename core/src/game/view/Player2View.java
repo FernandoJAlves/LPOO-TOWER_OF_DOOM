@@ -58,7 +58,7 @@ public class Player2View extends ScreenAdapter{
 		else {
 			if(gui.getAddr() != null) {
 				//this.socket.connect(gui.getAddr());
-				gui.message1(coiso);
+				gui.message1("coiso");
 			}
 		}
 		
