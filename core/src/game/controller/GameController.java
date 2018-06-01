@@ -206,4 +206,8 @@ public class GameController implements ContactListener{
         	}
         }
     }
+    
+    public static void delete() {
+    	instance = null;
+    }
 }

@@ -70,12 +70,18 @@ public class Player2View extends ScreenAdapter{
 	
 	public void handleNetInputs() {
 		if(gui.keyPressed('e')) {
-			MainMenu.getInstance().returnToMenu();
+			this.terminate();
 		}
 		   
 		this.packet.w = gui.keyPressed('w');
 		this.packet.a = gui.keyPressed('a');
 		this.packet.f = gui.keyPressed('f');
 		this.packet.d = gui.keyPressed('d');
+	}
+	
+	public void terminate() {
+		this.socket.close();
+		MainMenu.getInstance().returnToMenu();
+		
 	}
 }

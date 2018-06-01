@@ -116,7 +116,7 @@ public class GameView extends ScreenAdapter{
 	public void handleInput() {
 		
 		if(gui.keyPressed('e')) {
-			MainMenu.getInstance().returnToMenu();
+			this.terminate();
 		}
 		   
 		if(gui.keyPressed('w')) {
@@ -228,6 +228,14 @@ public class GameView extends ScreenAdapter{
 			this.gui.message1(this.socket.getAddress());
 		}
 			
+	}
+	
+	public void terminate() {
+		if(this.multiplayer) {
+		this.socket.close();
+		}
+		MainMenu.getInstance().returnToMenu();
+		
 	}
 	
 

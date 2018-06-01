@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import game.controller.GameController;
 import game.main.TowerOfDoom;
+import game.model.GameModel;
 import game.view.GameView;
 import game.view.Player2View;
 
@@ -207,6 +209,8 @@ public class MainMenu extends ScreenAdapter{
 	
 	
 	public void returnToMenu() {
+		GameModel.delete();
+		GameController.delete();
 		TowerOfDoom.getInstance().setScreen(MainMenu.getInstance());
 		this.setMainButtons(true);
 		this.setMultiButtons(false);

@@ -151,4 +151,9 @@ public class PlayerSocket {
 		
 	}
 	
+	public void close() {
+		this.socket.disconnect();
+		this.socket.close();
+	}
+	
 }

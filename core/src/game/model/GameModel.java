@@ -19,15 +19,11 @@ public class GameModel implements Serializable{
 	private HeroModel netHero;
 	private ArrayList<CharacterModel> enemies;
 	private List<PlasmaModel> plasmaballs;
-    Pool<PlasmaModel> plasmaballPool = new Pool<PlasmaModel>() {
-        @Override
-        protected PlasmaModel newObject() {
-            return new PlasmaModel(0,0);
-        }
-    };
+    Pool<PlasmaModel> plasmaballPool;
 	private LevelModel level;
 	
 	private GameModel() {
+		this.setPool();
 		level = initLevel(1);
 		enemies = level.getChars();
 		hero = new HeroModel(488,720);
@@ -127,6 +123,19 @@ public class GameModel implements Serializable{
             ((PlasmaModel) model).resetExplosion();
            	plasmaballPool.free((PlasmaModel) model);
         }
+    }
+    
+    private void setPool() {
+    	this.plasmaballPool = new Pool<PlasmaModel>() {
+            @Override
+            protected PlasmaModel newObject() {
+                return new PlasmaModel(0,0);
+            }
+        };
+    }
+    
+    public static void delete() {
+    	instance = null;
     }
 	
 	
