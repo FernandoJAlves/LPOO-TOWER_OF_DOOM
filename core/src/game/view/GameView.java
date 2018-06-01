@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -55,6 +56,7 @@ public class GameView extends ScreenAdapter{
 		this.createCam();
 		
 		this.waitingForPlayer();
+		this.playMusic();
 	}
 	
 	
@@ -85,6 +87,7 @@ public class GameView extends ScreenAdapter{
 		this.game.getAssetManager().load( "level1.png" , Texture.class);
 		this.game.getAssetManager().load( "Plasmaball.png" , Texture.class);
 		this.game.getAssetManager().load( "Plasmaball_Explosion.png" , Texture.class);
+		this.game.getAssetManager().load( "Sound/attackSound.mp3" , Sound.class);
 		this.game.getAssetManager().finishLoading();
 		
 	}
@@ -234,8 +237,19 @@ public class GameView extends ScreenAdapter{
 		if(this.multiplayer) {
 		this.socket.close();
 		}
+		this.stopMusic();
 		MainMenu.getInstance().returnToMenu();
 		
+	}
+	
+	private void playMusic() {
+		Sound music = game.getAssetManager().get("Sound/stage.mp3");
+		music.play();
+	}
+	
+	private void stopMusic() {
+		Sound music = game.getAssetManager().get("Sound/stage.mp3");
+		music.stop();
 	}
 	
 
