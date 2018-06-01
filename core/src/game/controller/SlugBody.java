@@ -28,13 +28,13 @@ public class SlugBody extends CharacterBody{
 				if(fixture.getUserData() instanceof HeroModel) {
 					//TODO
 					if(Math.abs(body.getPosition().y - point.y) < slug.getAttackRange()) {
-						//slug.move('f')
+						slug.move('f');
 					}
 					if(slug.getDirection() == EntityModel.directionState.RIGHT) {
-						//slug.move('a')
+						slug.move('a');
 					}
 					else {
-						//slug.move('d')
+						slug.move('d');
 					}
 				}
 				return 0;

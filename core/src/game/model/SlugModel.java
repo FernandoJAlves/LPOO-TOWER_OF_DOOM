@@ -60,6 +60,10 @@ public class SlugModel extends CharacterModel implements Serializable{
 	
 	@Override
 	public void update(float delta) {
+		if(this.state == slugState.DAMAGE) {
+			return;
+		}
+		
 		if(this.state == slugState.ATTACK) {
 			attackTime += delta;
 			if(attackTime > (5 * 0.15f)) {
@@ -68,6 +72,15 @@ public class SlugModel extends CharacterModel implements Serializable{
 			}
 			else {
 				return;
+			}
+		}
+		
+		if(!alert) {
+			if(this.xStart - x > 72) {
+				this.move('d');
+			}
+			else if(x - this.xStart > 72) {
+				this.move('a');
 			}
 		}
 		
