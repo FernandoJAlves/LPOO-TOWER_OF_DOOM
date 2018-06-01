@@ -100,7 +100,17 @@ public class GameView extends ScreenAdapter{
 	}
 	
 	private void updateCam(SpriteBatch batch) {
-        cam.position.set(GameModel.getInstance().getHero().getX(), GameModel.getInstance().getHero().getY()+50, 0);
+		float x = GameModel.getInstance().getHero().getX();
+		float y = GameModel.getInstance().getHero().getY();
+		
+		if(x > GameModel.getInstance().getLevel().getXLimit()) {
+			x = GameModel.getInstance().getLevel().getXLimit();
+		}
+		
+		if(y > GameModel.getInstance().getLevel().getYLimit()) {
+			y = GameModel.getInstance().getLevel().getYLimit();
+		}
+        cam.position.set(x, y+50, 0);
         cam.update();
         batch.setProjectionMatrix(cam.combined);
 	}

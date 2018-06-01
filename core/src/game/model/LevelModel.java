@@ -30,4 +30,8 @@ public abstract class LevelModel implements Serializable{
 	public ArrayList<CharacterModel> getChars() {
 		return this.chars;
 	}
+	
+	public abstract int getXLimit();
+	
+	public abstract int getYLimit();
 }

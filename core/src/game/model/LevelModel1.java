@@ -28,5 +28,16 @@ public class LevelModel1 extends LevelModel implements Serializable{
 	public Vector2 getHero2Position() {
 		return new Vector2(308,380);
 	}
+
+	@Override
+	public int getXLimit() {
+		return 3100;
+	}
+
+	@Override
+	public int getYLimit() {
+		// TODO Auto-generated method stub
+		return 400;
+	}
 	
 }
