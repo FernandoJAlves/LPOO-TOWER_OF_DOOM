@@ -66,6 +66,10 @@ public abstract class EntityBody {
 	}
 	
 	public abstract Shape createShape(float x, float y);
+	
+	public Body getBody() {
+		return this.body;
+	}
 		
 	
 }

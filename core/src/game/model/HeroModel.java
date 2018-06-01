@@ -66,7 +66,7 @@ public class HeroModel extends CharacterModel implements Serializable{
 	}
 
 	private void fireMechanic(char c) {
-		if(c == 'f' && this.stamina > 0) {
+		if(c == 'f' && this.stamina >= 1) {
 			this.state = charState.ATTACK;
 		}
 	}
@@ -90,11 +90,18 @@ public class HeroModel extends CharacterModel implements Serializable{
 	}
 	
 	public void update(float delta) {
+		
+		if(this.stamina < 10) {
+			this.stamina+= 0.005;
+		}
 		//TODO NANDINHO FAZ O SWITCH
 		if(this.state == charState.ATTACK) {
 			attackTime += delta;
-			if(attackTime > (8 * 0.15f)) {
+			if(attackTime > 3*0.15f && attackTime < 3*0.15f+delta) {
 				GameController.getInstance().fire(this);
+			}
+			if(attackTime > (8 * 0.15f)) {
+				
 				attackTime = 0;
 				this.state = charState.STARE;
 			}

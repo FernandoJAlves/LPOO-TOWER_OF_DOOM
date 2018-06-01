@@ -1,6 +1,7 @@
 package game.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -8,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 
 import game.model.CharacterModel;
 import game.model.EntityModel;
@@ -116,25 +116,24 @@ public class GameController implements ContactListener{
 		hero.setLinearVelocity(((EntityModel)hero.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
 		if(this.multiplayer)
 			netHero.setLinearVelocity(((EntityModel)netHero.getUserData()).getSpeed(), ((EntityModel)netHero.getUserData()).getYSpeed());
-		//for(PlasmaBody plasmaBall : activePlasmaBalls) {
-		//	plasma
-		//	plasmaBall.setLinearVelocity(((EntityModel)plasmaBall.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
-		//}
+
 		
 		this.rayCastController();
 		world.step(delta, 6, 2);
 		
-        Array<Body> bodies = new Array<Body>();
-        world.getBodies(bodies);
-
-        for (Body body : bodies) {
-        	
-        	if(body.getUserData() instanceof EntityModel) {
-        	EntityModel model = ((EntityModel) body.getUserData());
-            model.setPosition(body.getPosition().x, body.getPosition().y);
-            model.setYSpeed(body.getLinearVelocity().y);
-        	}
-        }
+		this.updateModel(this.hero.getBody());
+		if(this.multiplayer) {
+			this.updateModel(this.netHero.getBody());
+		}
+		
+		for(PlasmaBody plasmaBall : activePlasmaBalls) {
+			if(((PlasmaModel)plasmaBall.getUserData()).getState() == 0)
+				this.updateModel(plasmaBall.getBody());
+			else {
+				plasmaBall.setLinearVelocity(0, 0);
+				plasmaBall.applyForceToCenter(0, 0, false);
+			}
+		}
 	}
 	
 	public World getWorld() {
@@ -169,7 +168,7 @@ public class GameController implements ContactListener{
 	}
 	
     public void fire(HeroModel hero) {
-        if (hero.getStamina() > 0) {
+        if (hero.getStamina() >= 1) {
             PlasmaModel plasmaBall = GameModel.getInstance().createPlasmaBall(hero);
             PlasmaBody body = new PlasmaBody(world, plasmaBall);
             if(hero.getDirection() == directionState.LEFT) {
@@ -195,19 +194,24 @@ public class GameController implements ContactListener{
     }
     
     public void removeFlagged() {
-        Array<Body> bodies = new Array<Body>();
-        world.getBodies(bodies);
-        for (Body body : bodies) {
-        	if(body.getUserData() instanceof EntityModel) {
-                if (((EntityModel)body.getUserData()).isFlaggedToBeRemoved()) {
-                    GameModel.getInstance().remove((EntityModel) body.getUserData());
-                    world.destroyBody(body);
+        for (Iterator<PlasmaBody> body = this.activePlasmaBalls.iterator(); body.hasNext(); ) {
+        	PlasmaBody aux = body.next();
+                if (((EntityModel)aux.getUserData()).isFlaggedToBeRemoved()) {
+                    GameModel.getInstance().remove((EntityModel) aux.getUserData());
+                    world.destroyBody(aux.getBody());
+                    body.remove();
+                    
                 }
-        	}
         }
     }
     
     public static void delete() {
     	instance = null;
+    }
+    
+    private void updateModel(Body body) {
+    	EntityModel model = ((EntityModel) body.getUserData());
+        model.setPosition(body.getPosition().x, body.getPosition().y);
+        model.setYSpeed(body.getLinearVelocity().y);
     }
 }
