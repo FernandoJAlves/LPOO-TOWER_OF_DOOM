@@ -30,19 +30,22 @@ public class SlugBody extends CharacterBody{
 	@Override
 	public Shape createShape(float x, float y) {
         PolygonShape polygon = new PolygonShape();
-        polygon.setAsBox(30, 24);
+        polygon.setAsBox(30, 23);
         return polygon;
 	}
 	
 	
 	private void initRayCast() {
 		callback = new RayCastCallback() {
-
+			
 			@Override
 			public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
-				if(fixture.getUserData() instanceof HeroModel) {
+				
+				if(fixture.getBody().getUserData() instanceof HeroModel) {
+					((SlugModel)body.getUserData()).setAlert(true);
 					//TODO
-					if(Math.abs(body.getPosition().y - point.y) < slug.getAttackRange()) {
+					if(Math.abs(body.getPosition().x - point.x) < slug.getAttackRange()) {
+						//System.out.println("hi nandinho");
 						slug.move('f');
 					}
 					if(slug.getDirection() == EntityModel.directionState.RIGHT) {
@@ -51,6 +54,9 @@ public class SlugBody extends CharacterBody{
 					else {
 						slug.move('a');
 					}
+				}
+				else {
+					((SlugModel)body.getUserData()).setAlert(false);
 				}
 				return 0;
 			}

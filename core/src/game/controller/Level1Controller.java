@@ -68,12 +68,15 @@ public class Level1Controller extends LevelController{
 		//Final wall
 		this.addFloor(142,15,1,8);
 		
+		//First hole "cover"
+		this.addFloor(25,6,13,1);
+		
 		//First hole
-		//this.addHole(x, y, width, height);
+		this.addHole(26, 7, 4, 1);
 		
 		
 		//Door
-		//this.addDoor(x, y, width, height);
+		this.addDoor(141, 14, 1, 8);
 		
 	}
 

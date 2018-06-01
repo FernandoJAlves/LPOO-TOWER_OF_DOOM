@@ -2,9 +2,6 @@ package game.model;
 
 import java.io.Serializable;
 
-import game.controller.GameController;
-import game.model.HeroModel.charState;
-
 public class SlugModel extends CharacterModel implements Serializable{
 	/**
 	 * 
@@ -17,21 +14,21 @@ public class SlugModel extends CharacterModel implements Serializable{
 	private int attackRange;
 	private int viewRange;
 	private int xStart;
-	private int attackTime;
+	private float attackTime;
 
 	public SlugModel(int x, int y) {
 		super(x, y);
 		state = slugState.WALK;
-		this.speed = 0;
+		this.speed = 30;
 		alert = false;
-		attackRange = 40;
-		viewRange = 80;
+		attackRange = 50;
+		viewRange = 120;
 		xStart = x;
 	}
 
 	@Override
 	public void move(char c) {
-
+		//System.out.println(this.state);
 		switch(this.state) {
 		case WALK:
 			if(c == 'a') {
@@ -67,7 +64,8 @@ public class SlugModel extends CharacterModel implements Serializable{
 		
 		if(this.state == slugState.ATTACK) {
 			attackTime += delta;
-			if(attackTime > (5 * 0.15f)) {
+			System.out.println(attackTime);
+			if(attackTime > (5 * 0.18f)) {
 				attackTime = 0;
 				this.state = slugState.WALK;
 			}
