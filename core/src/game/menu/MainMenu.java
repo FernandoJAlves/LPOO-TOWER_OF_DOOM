@@ -37,24 +37,28 @@ public class MainMenu extends ScreenAdapter{
 	private ImageButton closeButton;
 	
 	
-	private MainMenu() {
+	protected MainMenu() {
 		game = TowerOfDoom.getInstance();
-		this.loadAssets();
-		this.createBackground();
+		
+		
 		menuStage = new Stage(new ExtendViewport(640,480));
 		this.cam = new OrthographicCamera(640,480);
 		
 		this.width = this.menuStage.getWidth();
 		this.height = this.menuStage.getHeight();
-		this.setMenuButtons();
+		
 		Gdx.input.setInputProcessor(menuStage);
-		this.playMusic();
+		
 	}
 	
 	
 	public static MainMenu getInstance() {
 		if(instance == null) {
 			instance = new MainMenu();
+			instance.loadAssets();
+			instance.createBackground();
+			instance.setMenuButtons();
+			instance.playMusic();
 		}
 		return instance;
 	}
@@ -230,6 +234,7 @@ public class MainMenu extends ScreenAdapter{
 		this.setMainButtons(true);
 		this.setMultiButtons(false);
 		Gdx.input.setInputProcessor(menuStage);
+		this.playMusic();
 	}
 	
 	private void playMusic() {
