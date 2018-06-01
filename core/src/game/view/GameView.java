@@ -88,6 +88,10 @@ public class GameView extends ScreenAdapter{
 		this.game.getAssetManager().load( "Plasmaball.png" , Texture.class);
 		this.game.getAssetManager().load( "Plasmaball_Explosion.png" , Texture.class);
 		this.game.getAssetManager().load( "Sound/attackSound.mp3" , Sound.class);
+		this.game.getAssetManager().load("Sound/stage.mp3",Sound.class);
+		this.game.getAssetManager().load( "SlugWalking.png" , Texture.class);
+		this.game.getAssetManager().load( "SlugAttacking.png" , Texture.class);
+		this.game.getAssetManager().load( "SlugDying.png" , Texture.class);
 		this.game.getAssetManager().finishLoading();
 		
 	}
