@@ -74,6 +74,12 @@ public class Level1Controller extends LevelController{
 		//First hole
 		this.addHole(26, 7, 4, 1);
 		
+		//Second hole
+		this.addHole(33, 7, 4, 1);
+		
+		//Third hole
+		this.addHole(105, 7, 4, 1);
+		
 		
 		//Door
 		this.addDoor(141, 14, 1, 8);
