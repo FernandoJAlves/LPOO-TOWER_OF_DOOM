@@ -5,6 +5,7 @@ import java.util.TreeMap;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import game.main.TowerOfDoom;
 import game.menu.MainMenu;
@@ -27,20 +29,23 @@ public class GUI extends Stage{
 	private ImageButton fireButton;
 	private ImageButton leftButton;
 	private ImageButton rightButton;
-	private int screenWidth;
-	private int screenHeight;
+	private float screenWidth;
+	private float screenHeight;
 	private Dialog msg;
 	
 	
 	public GUI() {
-		super();
+		super(new ExtendViewport(320,240));
 		this.setMsg();
-		screenWidth = Gdx.graphics.getWidth();
-		screenHeight = Gdx.graphics.getHeight();
+		screenWidth = (float)this.getWidth();
+		screenHeight = (float)this.getHeight();
+		//ratio = screenHeight/screenWidth;
+		this.setView();
 		this.initKeys();
 		switch(Gdx.app.getType()) {
 		   case Android:
 			   this.initButtons();
+			   Gdx.input.setCatchBackKey(true);
 			   break;
 		   case Desktop:
 			   this.initKeyboard();
@@ -67,14 +72,13 @@ public class GUI extends Stage{
 		this.setFireButton();
 		this.setLeftButton();
 		this.setRightButton();
+		this.setBackButton();
 	}
 	
 	private ImageButton createButton(String path) {
 		Texture thrustTexture = TowerOfDoom.getInstance().getAssetManager().get(path);
 		TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(thrustTexture));
 		ImageButton button = new ImageButton(drawable);
-		//button.setScale(3);
-		button.getImage().scaleBy(3);
 		return button;
 	}
 	
@@ -142,6 +146,19 @@ public class GUI extends Stage{
 		this.addActor(rightButton);
 	}
 	
+	private void setBackButton() {
+		this.addListener(new InputListener() {
+			 @Override
+		        public boolean keyDown(InputEvent event, int keycode) 
+		        {
+				 if(keycode == Keys.BACK) {
+					 MainMenu.getInstance().returnToMenu();
+				 }
+				return true;
+		        }}
+		);	
+		}
+	
 	public boolean keyPressed(char key) {
 		return this.keys.get(key);
 	}
@@ -152,15 +169,15 @@ public class GUI extends Stage{
 		        @Override
 		        public boolean keyDown(InputEvent event, int keycode) 
 		        {
-		           if(keycode == 21) 
+		           if(keycode == Keys.LEFT) 
 					   keys.replace('a', true);
-		 		   else if(keycode == 22) 
+		 		   else if(keycode == Keys.RIGHT) 
 					   keys.replace('d', true);
-		 		   else if(keycode == 19) 
+		 		   else if(keycode == Keys.UP) 
 					   keys.replace('w', true);
-		 		   else if(keycode == 29) //'a' on keyboard
+		 		   else if(keycode == Keys.A) //'a' on keyboard
 					   keys.replace('f', true);
-		 		   else if(keycode == 131) //ESC on keyboard
+		 		   else if(keycode == Keys.ESCAPE) //ESC on keyboard
 					   keys.replace('e', true);
 		            return true;
 		        }
@@ -168,15 +185,15 @@ public class GUI extends Stage{
 		        @Override
 		        public boolean keyUp(InputEvent event, int keycode) 
 		        {
-		 		   if(keycode == 21) 
+		 		   if(keycode == Keys.LEFT) 
 					   keys.replace('a', false);
-		 		   else if(keycode == 22) 
+		 		   else if(keycode == Keys.RIGHT) 
 					   keys.replace('d', false);
-		 		   else if(keycode == 19) 
+		 		   else if(keycode == Keys.UP) 
 					   keys.replace('w', false);
-		 		   else if(keycode == 29) //'a' on keyboard
+		 		   else if(keycode == Keys.A) //'a' on keyboard
 					   keys.replace('f', false);
-		 		   else if(keycode == 131) //ESC on keyboard
+		 		   else if(keycode == Keys.ESCAPE) //ESC on keyboard
 					   keys.replace('e', false);
 		            return true;
 		        }
@@ -234,5 +251,9 @@ public class GUI extends Stage{
 	public String getAddr() {
 		return this.addr;
 	}
+	
+	public void setView() {
+	}
+	
 
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import game.controller.GameController;
 import game.main.TowerOfDoom;
@@ -20,7 +22,10 @@ import game.view.GameView;
 import game.view.Player2View;
 
 public class MainMenu extends ScreenAdapter{
+	private OrthographicCamera cam;
 	private Texture back;
+	private float width;
+	private float height;
 	private static MainMenu instance;
 	private final Stage menuStage;
 	private TowerOfDoom game;
@@ -36,7 +41,11 @@ public class MainMenu extends ScreenAdapter{
 		game = TowerOfDoom.getInstance();
 		this.loadAssets();
 		this.createBackground();
-		menuStage = new Stage();
+		menuStage = new Stage(new ExtendViewport(640,480));
+		this.cam = new OrthographicCamera(640,480);
+		
+		this.width = this.menuStage.getWidth();
+		this.height = this.menuStage.getHeight();
 		this.setMenuButtons();
 		Gdx.input.setInputProcessor(menuStage);
 		this.playMusic();
@@ -56,7 +65,7 @@ public class MainMenu extends ScreenAdapter{
 		SpriteBatch batch = TowerOfDoom.getInstance().getBatch();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		//this.updateCam(batch);
+		this.updateCam(batch);
 		batch.begin();
 		batch.draw(this.back, 0, 0);
 		batch.end();
@@ -110,7 +119,7 @@ public class MainMenu extends ScreenAdapter{
 	
 	private void setSingleButton() {
 		this.singleButton = this.createButton("Singleplayer_button.png");
-		singleButton.setPosition(Gdx.graphics.getWidth()/2-this.singleButton.getWidth()/2, 3*Gdx.graphics.getHeight()/4);
+		singleButton.setPosition(this.width/2-this.singleButton.getWidth()/2, 3*this.height/4);
 		this.singleButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -124,7 +133,7 @@ public class MainMenu extends ScreenAdapter{
 	
 	private void setMultiButton() {
 		this.multiButton = this.createButton("Multiplayer_button.png");
-		multiButton.setPosition(Gdx.graphics.getWidth()/2-this.multiButton.getWidth()/2, 2*Gdx.graphics.getHeight()/4);
+		multiButton.setPosition(this.width/2-this.multiButton.getWidth()/2, 2*this.height/4);
 		this.multiButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -139,7 +148,7 @@ public class MainMenu extends ScreenAdapter{
 	
 	private void setFindButton() {
 		this.findButton = this.createButton("Find_button.png");
-		findButton.setPosition(Gdx.graphics.getWidth()/2-this.singleButton.getWidth()/2, 3*Gdx.graphics.getHeight()/4);
+		findButton.setPosition(this.width/2-this.singleButton.getWidth()/2, 3*this.height/4);
 		this.findButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -154,7 +163,7 @@ public class MainMenu extends ScreenAdapter{
 	
 	private void setHostButton() {
 		this.hostButton = this.createButton("Host_button.png");
-		hostButton.setPosition(Gdx.graphics.getWidth()/2-this.hostButton.getWidth()/2, 2*Gdx.graphics.getHeight()/4);
+		hostButton.setPosition(this.width/2-this.hostButton.getWidth()/2, 2*this.height/4);
 		this.hostButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -170,12 +179,11 @@ public class MainMenu extends ScreenAdapter{
 	
 	private void setCloseButton() {
 		this.closeButton = this.createButton("CloseApp_button.png");
-		closeButton.setPosition(Gdx.graphics.getWidth()/2-this.closeButton.getWidth()/2, Gdx.graphics.getHeight()/4);
+		closeButton.setPosition(this.width/2-this.closeButton.getWidth()/2, this.height/4);
 		this.closeButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            	dispose();
-            	game.dispose();
+            	Gdx.app.exit();
                 return true;
                 }
 		});
@@ -184,7 +192,7 @@ public class MainMenu extends ScreenAdapter{
 	
 	private void setReturnButton() {
 		this.returnButton = this.createButton("CloseApp_button.png");
-		returnButton.setPosition(Gdx.graphics.getWidth()/2-this.returnButton.getWidth()/2, Gdx.graphics.getHeight()/4);
+		returnButton.setPosition(this.width/2-this.returnButton.getWidth()/2, this.height/4);
 		this.returnButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -232,6 +240,12 @@ public class MainMenu extends ScreenAdapter{
 	private void stopMusic() {
 		Sound music = game.getAssetManager().get("Sound/menu.mp3");
 		music.stop();
+	}
+	
+	private void updateCam(SpriteBatch batch) {
+        cam.position.set(this.cam.viewportWidth,this.cam.viewportHeight/2, 0);
+        cam.update();
+        batch.setProjectionMatrix(cam.combined);
 	}
 	
 	
