@@ -28,7 +28,7 @@ public class SlugBody extends CharacterBody{
 				if(fixture.getUserData() instanceof HeroModel) {
 					//TODO
 					if(Math.abs(body.getPosition().y - point.y) < slug.getAttackRange()) {
-						//slug.attack()
+						//slug.move('f')
 					}
 					if(slug.getDirection() == EntityModel.directionState.RIGHT) {
 						//slug.move('a')

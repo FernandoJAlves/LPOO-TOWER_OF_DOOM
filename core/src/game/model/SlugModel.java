@@ -2,6 +2,9 @@ package game.model;
 
 import java.io.Serializable;
 
+import game.controller.GameController;
+import game.model.HeroModel.charState;
+
 public class SlugModel extends CharacterModel implements Serializable{
 	/**
 	 * 
@@ -13,18 +16,60 @@ public class SlugModel extends CharacterModel implements Serializable{
 	private boolean alert;
 	private int attackRange;
 	private int viewRange;
+	private int xStart;
+	private int attackTime;
 
 	public SlugModel(int x, int y) {
 		super(x, y);
 		state = slugState.WALK;
 		alert = false;
-		attackRange = 1;
-		viewRange = 3;
+		attackRange = 40;
+		viewRange = 80;
+		xStart = x;
 	}
 
 	@Override
 	public void move(char c) {
 
+		switch(this.state) {
+		case WALK:
+			if(c == 'a') {
+				this.speed = -30;
+				this.dir = directionState.LEFT;
+			}
+			if(c == 'd') {
+				this.speed = 30;
+				this.dir = directionState.RIGHT;
+			}
+			if(c == 'f') {
+				this.state = slugState.ATTACK;
+			}
+			break;
+			
+		case ATTACK:
+			break;
+			
+		case DAMAGE:
+			break;
+			
+		default:
+			break;
+		}
+		
+	}
+	
+	@Override
+	public void update(float delta) {
+		if(this.state == slugState.ATTACK) {
+			attackTime += delta;
+			if(attackTime > (5 * 0.15f)) {
+				attackTime = 0;
+				this.state = slugState.WALK;
+			}
+			else {
+				return;
+			}
+		}
 		
 	}
 
@@ -53,22 +98,8 @@ public class SlugModel extends CharacterModel implements Serializable{
 		return this.attackRange;
 	}
 
-	@Override
-	public void update(float delta) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
-	public void copy(SlugModel slug) {
-		this.x = slug.x;
-		this.y = slug.y;
-		this.speed = slug.speed;
-		this.yspeed = slug.yspeed;
-		this.dir = slug.dir;
-		this.state = slug.state;
-		this.viewRange = slug.viewRange;
-		this.attackRange = slug.attackRange;
-		this.alert = slug.alert;
-	}
+
 
 }

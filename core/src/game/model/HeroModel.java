@@ -18,14 +18,14 @@ public class HeroModel extends CharacterModel implements Serializable{
 	public enum charState {STARE,WALK,JUMP,FALL, LAND,ATTACK,DAMAGE};
 	protected charState state;
 	protected float attackTime = 0;
-	private int hitpoints = 10;
-	private int stamina = 10;
 
 	public HeroModel(int x, int y) {
 		super(x, y);
 		this.speed = 0;
 		this.yspeed = 0;
 		this.state=charState.STARE;
+		this.hitpoints = 10;
+		this.stamina = 10;
 	}
 	
 	public void move(char c) {
@@ -73,7 +73,7 @@ public class HeroModel extends CharacterModel implements Serializable{
 
 	private void verticalMovement(char c) {
 		if (c == 'w') {
-			this.yspeed = 85;
+			this.yspeed = 100;
 		}
 	}
 
@@ -137,17 +137,7 @@ public class HeroModel extends CharacterModel implements Serializable{
 		return ModelType.HERO;
 	}
 	
-	public int getHitPoints() {
-		return hitpoints;
-	}
-	
-	public int getStamina() {
-		return stamina;
-	}
-	
-	public void decrementStamina() {
-		stamina--;
-	}
+
 
 	
 }
