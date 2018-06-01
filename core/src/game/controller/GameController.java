@@ -17,6 +17,7 @@ import game.model.EntityModel.directionState;
 import game.model.GameModel;
 import game.model.HeroModel;
 import game.model.PlasmaModel;
+import game.model.SlugModel;
 
 public class GameController implements ContactListener{
 	private boolean multiplayer = false;
@@ -194,10 +195,11 @@ public class GameController implements ContactListener{
     }
 
     public boolean pairSlugPlasma(Body bodyA, Body bodyB) {
-    	if(bodyA.getUserData() instanceof PlasmaModel && bodyB.getUserData() instanceof SlugBody) {
+    	if(bodyA.getUserData() instanceof PlasmaModel && bodyB.getUserData() instanceof SlugModel) {
     		return true;
     	}
-    	if(bodyB.getUserData() instanceof PlasmaModel && bodyA.getUserData() instanceof SlugBody) {
+    	
+    	if(bodyB.getUserData() instanceof PlasmaModel && bodyA.getUserData() instanceof SlugModel) {
     		return true;
     	}
     	return false;

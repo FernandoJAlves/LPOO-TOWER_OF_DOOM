@@ -2,6 +2,7 @@ package game.controller;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -17,6 +18,20 @@ public class SlugBody extends CharacterBody{
 		super(world, model);
 		this.slug = (SlugModel) model;
 		this.initRayCast();
+		
+		float density = 50f;
+		float height = 1.20f;
+		float width = 2.0f;
+		float restitution = 0f;
+		
+		super.createFixture(body, 0, width, height, density, restitution);
+	}
+	
+	@Override
+	public Shape createShape(float x, float y) {
+        PolygonShape polygon = new PolygonShape();
+        polygon.setAsBox(30, 24);
+        return polygon;
 	}
 	
 	
@@ -57,9 +72,4 @@ public class SlugBody extends CharacterBody{
 	}
 
 
-	@Override
-	public Shape createShape(float x, float y) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

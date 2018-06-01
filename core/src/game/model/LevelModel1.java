@@ -16,7 +16,7 @@ public class LevelModel1 extends LevelModel implements Serializable{
 
 	@Override
 	public void generateChars() {
-		this.addSlug(0, 0);
+		this.addSlug(488,380);
 		
 	}
 	

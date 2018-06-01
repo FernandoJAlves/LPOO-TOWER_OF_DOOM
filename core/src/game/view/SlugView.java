@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import game.model.EntityModel;
+import game.model.HeroModel;
 import game.model.SlugModel;
 
 public class SlugView extends CharacterView{
@@ -21,13 +22,17 @@ public class SlugView extends CharacterView{
 	
 	public SlugView() {
 		super();
-		FRAME_TIME = 0.15f;
+		FRAME_TIME = 0.18f;
 		this.sprite = this.createSprite();
 	}
 	
 	@Override
 	public void update(EntityModel model) {
-		// TODO Auto-generated method stub
+    	super.update(model);
+    	if(state != ((SlugModel)model).getState()) {
+    		state= ((SlugModel)model).getState();
+    		stateTime = 0;
+    	}
 		
 	}
 

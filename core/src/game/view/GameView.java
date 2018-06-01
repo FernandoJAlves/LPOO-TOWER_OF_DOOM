@@ -1,5 +1,6 @@
 package game.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -17,6 +18,8 @@ import game.dataStream.Player1Socket;
 import game.dataStream.PlayerSocket;
 import game.main.TowerOfDoom;
 import game.menu.MainMenu;
+import game.model.CharacterModel;
+import game.model.EntityModel;
 import game.model.GameModel;
 import game.model.HeroModel;
 import game.model.PlasmaModel;
@@ -212,6 +215,16 @@ public class GameView extends ScreenAdapter{
 			nv.update(netHero);
 			nv.draw(batch);
 		}
+		
+		ArrayList<CharacterModel> enemies = GameModel.getInstance().getEnemies();
+		for(CharacterModel enemy : enemies) {
+			if(enemy.getModelType() == EntityModel.ModelType.SLUG) {
+				EntityView view = ViewFactory.makeView(enemy);
+				view.update(enemy);
+				view.draw(batch);
+			}
+		}
+		
 		List<PlasmaModel> plasmaBalls = GameModel.getInstance().getPlasmaballs();
 		for(PlasmaModel plasmaB : plasmaBalls) {
 			EntityView view = ViewFactory.makeView(plasmaB);

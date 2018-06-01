@@ -22,6 +22,7 @@ public class SlugModel extends CharacterModel implements Serializable{
 	public SlugModel(int x, int y) {
 		super(x, y);
 		state = slugState.WALK;
+		this.speed = 0;
 		alert = false;
 		attackRange = 40;
 		viewRange = 80;
