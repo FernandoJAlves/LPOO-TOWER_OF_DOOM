@@ -32,6 +32,8 @@ public abstract class LevelController {
 	    fixtureDef.shape = polygon;
 	    fixtureDef.density = 20;
 	    fixtureDef.restitution = 0f;
+	    fixtureDef.filter.categoryBits = EntityBody.CATEGORY_FLOOR;
+	    fixtureDef.filter.maskBits = -1;
 	    body.createFixture(fixtureDef);
 	    polygon.dispose();
 	    body.setUserData(data);

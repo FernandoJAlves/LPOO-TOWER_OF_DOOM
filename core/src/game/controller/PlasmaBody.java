@@ -14,10 +14,12 @@ public class PlasmaBody extends EntityBody{
 		float height = 0.40f;
 		float width = 0.40f;
 		float restitution = 1f;
+		short category = EntityBody.CATEGORY_PLASMA | EntityBody.CATEGORY_HERO;
+		short mask = EntityBody.CATEGORY_SLUG | EntityBody.CATEGORY_FLOOR;
 		
 		float radius = 10;
 		
-		super.createFixture(body,radius, width, height, density, restitution);
+		super.createFixture(body,radius, width, height, density, restitution,category,mask);
 	}
 
 	@Override

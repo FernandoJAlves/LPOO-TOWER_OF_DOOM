@@ -13,17 +13,21 @@ public abstract class EntityBody {
 
 	final Body body;
 	
+	final static short CATEGORY_HERO = 0x0001; 
+	final static short CATEGORY_SLUG = 0x0002; 
+	final static short CATEGORY_FLOOR = 0x0004; 
+	final static short CATEGORY_PLASMA = 0x0008; 
+	
 	EntityBody(World world, EntityModel model){
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.set(model.getX(), model.getY());
 		bodyDef.fixedRotation = true;
-		
 		body = world.createBody(bodyDef);
 		body.setUserData(model);
 	}
 	
-	final void createFixture(Body body,float radius, float width, float height, float density, float restitution) {
+	final void createFixture(Body body,float radius, float width, float height, float density, float restitution, short category, short mask) {
         
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = createShape(radius,radius);
@@ -31,6 +35,8 @@ public abstract class EntityBody {
         fixtureDef.density = density;
         fixtureDef.friction = 0;
         fixtureDef.restitution = restitution;
+        fixtureDef.filter.categoryBits = category;
+        fixtureDef.filter.maskBits = mask;
         body.createFixture(fixtureDef);
 
         //polygon.dispose();

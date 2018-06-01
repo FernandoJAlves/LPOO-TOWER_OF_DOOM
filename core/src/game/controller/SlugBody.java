@@ -23,8 +23,10 @@ public class SlugBody extends CharacterBody{
 		float height = 1.20f;
 		float width = 2.0f;
 		float restitution = 0f;
+		short category = EntityBody.CATEGORY_SLUG;
+		short mask = EntityBody.CATEGORY_HERO | EntityBody.CATEGORY_FLOOR | EntityBody.CATEGORY_PLASMA;
 		
-		super.createFixture(body, 0, width, height, density, restitution);
+		super.createFixture(body, 0, width, height, density, restitution,category,mask);
 	}
 	
 	@Override

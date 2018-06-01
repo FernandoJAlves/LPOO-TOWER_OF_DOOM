@@ -14,10 +14,12 @@ public class HeroBody extends CharacterBody{
 		float height = 1.60f;
 		float width = 0.75f;
 		float restitution = 0f;
+		short category = EntityBody.CATEGORY_HERO | EntityBody.CATEGORY_PLASMA;
+		short mask = EntityBody.CATEGORY_SLUG | EntityBody.CATEGORY_FLOOR;
 		
 		float radius = 24;
 		
-		super.createFixture(body,radius, width, height, density, restitution);
+		super.createFixture(body,radius, width, height, density, restitution,category,mask);
 	}
 
 	@Override
