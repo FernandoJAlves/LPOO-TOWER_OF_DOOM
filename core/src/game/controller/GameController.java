@@ -3,6 +3,7 @@ package game.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
+import game.main.TowerOfDoom;
 import game.model.CharacterModel;
 import game.model.EntityModel;
 import game.model.EntityModel.ModelType;
@@ -179,6 +181,7 @@ public class GameController implements ContactListener{
 	}
 	
     public void fire(HeroModel hero) {
+    	this.playAttackSound();
         if (hero.getStamina() >= 1) {
             PlasmaModel plasmaBall = GameModel.getInstance().createPlasmaBall(hero);
             PlasmaBody body = new PlasmaBody(world, plasmaBall);
@@ -225,5 +228,10 @@ public class GameController implements ContactListener{
     	EntityModel model = ((EntityModel) body.getUserData());
         model.setPosition(body.getPosition().x, body.getPosition().y);
         model.setYSpeed(body.getLinearVelocity().y);
+    }
+    
+    private void playAttackSound() {
+    	Sound attack = TowerOfDoom.getInstance().getAssetManager().get( "Sound/attackSound.mp3" , Sound.class);
+    	attack.play();
     }
 }

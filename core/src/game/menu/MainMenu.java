@@ -2,6 +2,7 @@ package game.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,16 +20,16 @@ import game.view.GameView;
 import game.view.Player2View;
 
 public class MainMenu extends ScreenAdapter{
-	Texture back;
+	private Texture back;
 	private static MainMenu instance;
 	private final Stage menuStage;
 	private TowerOfDoom game;
-	ImageButton singleButton;
-	ImageButton multiButton;
-	ImageButton findButton;
-	ImageButton hostButton;
-	ImageButton returnButton;
-	ImageButton closeButton;
+	private ImageButton singleButton;
+	private ImageButton multiButton;
+	private ImageButton findButton;
+	private ImageButton hostButton;
+	private ImageButton returnButton;
+	private ImageButton closeButton;
 	
 	
 	private MainMenu() {
@@ -38,6 +39,7 @@ public class MainMenu extends ScreenAdapter{
 		menuStage = new Stage();
 		this.setMenuButtons();
 		Gdx.input.setInputProcessor(menuStage);
+		this.playMusic();
 	}
 	
 	
@@ -66,6 +68,8 @@ public class MainMenu extends ScreenAdapter{
 	
 
 	public void loadAssets() {
+		this.game.getAssetManager().load("Sound/stage.mp3", Sound.class);
+		this.game.getAssetManager().load("Sound/menu.mp3", Sound.class);
 		this.game.getAssetManager().load("Host_button.png", Texture.class);
 		this.game.getAssetManager().load( "LeaveGame_button.png" , Texture.class);
 		this.game.getAssetManager().load( "Multiplayer_button.png" , Texture.class);
@@ -110,6 +114,7 @@ public class MainMenu extends ScreenAdapter{
 		this.singleButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            	stopMusic();
             	game.setScreen(new GameView(false));
                 return true;
                 }
@@ -138,6 +143,7 @@ public class MainMenu extends ScreenAdapter{
 		this.findButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            	stopMusic();
             	game.setScreen(new Player2View());
                 return true;
                 }
@@ -152,6 +158,7 @@ public class MainMenu extends ScreenAdapter{
 		this.hostButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            	stopMusic();
             	game.setScreen(new GameView(true));
                 return true;
                 }
@@ -215,6 +222,16 @@ public class MainMenu extends ScreenAdapter{
 		this.setMainButtons(true);
 		this.setMultiButtons(false);
 		Gdx.input.setInputProcessor(menuStage);
+	}
+	
+	private void playMusic() {
+		Sound music = game.getAssetManager().get("Sound/menu.mp3");
+		music.play();
+	}
+	
+	private void stopMusic() {
+		Sound music = game.getAssetManager().get("Sound/menu.mp3");
+		music.stop();
 	}
 	
 	
