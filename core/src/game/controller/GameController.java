@@ -116,7 +116,13 @@ public class GameController implements ContactListener{
 		hero.setLinearVelocity(((EntityModel)hero.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
 		if(this.multiplayer)
 			netHero.setLinearVelocity(((EntityModel)netHero.getUserData()).getSpeed(), ((EntityModel)netHero.getUserData()).getYSpeed());
-
+		
+		for(CharacterBody enemy : enemies) {
+			enemy.setLinearVelocity(((EntityModel)enemy.getUserData()).getSpeed(), ((EntityModel)enemy.getUserData()).getYSpeed());	
+			if(enemy instanceof SlugBody) {
+				((SlugBody)enemy).rayCast(this.world);
+			}
+		}
 		
 		this.rayCastController();
 		world.step(delta, 6, 2);
@@ -124,6 +130,10 @@ public class GameController implements ContactListener{
 		this.updateModel(this.hero.getBody());
 		if(this.multiplayer) {
 			this.updateModel(this.netHero.getBody());
+		}
+		
+		for(CharacterBody enemy : enemies) {
+			this.updateModel(enemy.getBody());
 		}
 		
 		for(PlasmaBody plasmaBall : activePlasmaBalls) {

@@ -1,8 +1,10 @@
 package game.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import game.model.EntityModel;
@@ -37,10 +39,30 @@ public class SlugView extends CharacterView{
 		return new Sprite(this.walkingAnimation.getKeyFrame(0));
 	}
 
+    @Override
+    public void draw(SpriteBatch batch) {
+        stateTime += Gdx.graphics.getDeltaTime();
+        switch(this.state) {
+        case WALK:
+        	sprite.setRegion(walkingAnimation.getKeyFrame(stateTime,true));
+        	break;
+        case ATTACK:
+        	sprite.setRegion(atackingAnimation.getKeyFrame(stateTime,false));
+        	break;
+        case DAMAGE:
+        	sprite.setRegion(damageAnimation.getKeyFrame(stateTime,false));
+		default:
+			sprite.setRegion(walkingAnimation.getKeyFrame(stateTime, true));
+			break;
+        }
+        sprite.draw(batch);
+    }
+	
 	@Override
 	protected void flipAnimations() {
-		// TODO Auto-generated method stub
-		
+		super.flipAnimation(walkingAnimation);
+		super.flipAnimation(atackingAnimation);
+		super.flipAnimation(damageAnimation);
 	}
 
 }

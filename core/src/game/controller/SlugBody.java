@@ -31,10 +31,10 @@ public class SlugBody extends CharacterBody{
 						slug.move('f');
 					}
 					if(slug.getDirection() == EntityModel.directionState.RIGHT) {
-						slug.move('a');
+						slug.move('d');
 					}
 					else {
-						slug.move('d');
+						slug.move('a');
 					}
 				}
 				return 0;
