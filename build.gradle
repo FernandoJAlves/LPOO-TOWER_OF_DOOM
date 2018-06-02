@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
-	google()
+	    google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.0'
@@ -92,6 +92,7 @@ project(":android") {
         implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         implementation "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
+
         
     }
 }
@@ -99,7 +100,19 @@ project(":android") {
 project(":core") {
     apply plugin: "java"
 
-	sourceSets.test.java.srcDirs = ["/src/game.test"]
+    sourceSets {
+        main {
+            java {
+                exclude '/game/test/**'
+            }
+        }
+
+        test {
+            java {
+                srcDirs =  ['/game/test/']
+            }
+        }
+    }
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -111,8 +124,8 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         
-        testCompile "junit:junit:4.12"
-    	testCompile "org.mockito:mockito-core:2.2.7"
+        testImplementation "junit:junit:4.12"
+    	testImplementation "org.mockito:mockito-core:2.2.7"
     }
 }
 
