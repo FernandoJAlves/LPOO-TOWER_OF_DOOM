@@ -3,6 +3,7 @@ package game.test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -10,15 +11,19 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 
 import game.*;
+import game.controller.GameController;
+import game.controller.HeroBody;
 import game.main.TowerOfDoom;
 import game.model.EntityModel.ModelType;
 import game.model.EntityModel.directionState;
 import game.model.GameModel;
 import game.model.HeroModel;
 import game.model.HeroModel.charState;
+import game.model.SlugModel.slugState;
 import game.model.LevelModel;
 import game.model.LevelModel1;
 import game.model.PlasmaModel;
+import game.model.SlugModel;
 
 public class TowerOfDoomTest {
 
@@ -242,7 +247,7 @@ public class TowerOfDoomTest {
 		assertEquals(game.getLevel().getYLimit(), level.getYLimit());
 		assertEquals(game.getPlasmaballs().size(),0);
 		assertEquals(game.getEnemies().size(),1);
-
+		game.delete();
 	}
 	
 	@Test
@@ -259,17 +264,141 @@ public class TowerOfDoomTest {
 		assertEquals(game.getNetHero().getY(), test.getY(),0.01);
 		assertEquals(game.getNetHero().getDirection(), test.getDirection());
 		game.delete();
-
 	}
 
 	@Test
-	public void testGameModelUpdate() {
+	public void testGameModelUpdateHeros() {
 		GameModel game = GameModel.getInstance();
+		game.setMultiplayer();
+		HeroModel hero = game.getHero();
+		HeroModel nethero = game.getNetHero();
+		game.getHero().move('d');
+		game.getNetHero().move('d');
 		game.update(0);
+		assertEquals(hero.getState(), charState.WALK);
+		assertEquals(nethero.getState(), charState.WALK);
+		game.delete();
+	}
+	
+	@Test
+	public void testGameModelUpdatePlasma1() {
+		GameModel game = GameModel.getInstance();
 		
+		List<PlasmaModel> plasmaBalls = game.getPlasmaballs();
+		plasmaBalls.add(new PlasmaModel(0,0));
+		assertFalse(plasmaBalls.get(0).isFlaggedToBeRemoved());
+		assertEquals(plasmaBalls.get(0).getJumpsLeft(), 0);
+		game.update(10);
+		assertTrue(plasmaBalls.get(0).isFlaggedToBeRemoved());
+		
+		game.delete();
+	}
+	
+	@Test
+	public void testGameModelUpdatePlasma2() {
+		GameModel game = GameModel.getInstance();
+		HeroModel hero = game.getHero();
+		
+		List<PlasmaModel> plasmaBalls = game.getPlasmaballs();
+		PlasmaModel pBall = game.createPlasmaBall(game.getHero());
+		assertFalse(plasmaBalls.get(0).isFlaggedToBeRemoved());
+		assertEquals(plasmaBalls.get(0).getJumpsLeft(), 3);
+		assertEquals(pBall.getX(), hero.getX() + 30, 0.1);
+		assertEquals(pBall.getY(), hero.getY(), 0.1);
+		
+		pBall.setJumpsLeft(0);
+		game.update(10);
+		assertTrue(plasmaBalls.get(0).isFlaggedToBeRemoved());
+		
+		game.delete();
+	}
+	
+	@Test
+	public void testGameModelUpdatePlasma3() {
+		GameModel game = GameModel.getInstance();
+		HeroModel hero = game.getHero();
+		hero.move('a');
+		
+		List<PlasmaModel> plasmaBalls = game.getPlasmaballs();
+		PlasmaModel pBall = game.createPlasmaBall(game.getHero());
+		assertFalse(plasmaBalls.get(0).isFlaggedToBeRemoved());
+		assertEquals(plasmaBalls.get(0).getJumpsLeft(), 3);
+		assertEquals(pBall.getX(), hero.getX() - 30, 0.1);
+		assertEquals(pBall.getY(), hero.getY(), 0.1);
+		
+		pBall.setJumpsLeft(0);
+		game.update(10);
+		assertTrue(plasmaBalls.get(0).isFlaggedToBeRemoved());
+		game.remove(pBall);
+		
+		game.delete();
+	}
+	
+	//SLUG MODEL
+	
+	@Test
+	public void testSlugModelInit() {
+		SlugModel slug = new SlugModel(0,0);
+		
+		assertEquals(slug.getAttackRange(),50);
+		assertEquals(slug.getModelType(), ModelType.SLUG);
+		assertEquals(slug.getState(), slugState.WALK);
+		assertEquals(slug.getViewRange(), 120);
+		assertFalse(slug.isAlert());
 
 	}
 	
+	@Test
+	public void testSlugModelMove() {
+		SlugModel slug = new SlugModel(0,0);
+		slug.move('d');
+		assertEquals(slug.getSpeed(),30,0.01);
+		assertEquals(slug.getDirection(), directionState.RIGHT);
+		
+		slug.move('a');
+		assertEquals(slug.getSpeed(),-30,0.01);
+		assertEquals(slug.getDirection(), directionState.LEFT);
+		
+		slug.move('f');
+		assertEquals(slug.getState(), slugState.ATTACK);
+
+	}
 	
+	@Test
+	public void testSlugModelAlert() {
+		SlugModel slug = new SlugModel(0,0);
+		slug.setPosition(-73, 0);
+		slug.update(1);
+		assertEquals(slug.getSpeed(),30,0.01);
+		assertEquals(slug.getDirection(), directionState.RIGHT);
+		slug.setPosition(73, 0);
+		slug.update(1);
+		assertEquals(slug.getSpeed(),-30,0.01);
+		assertEquals(slug.getDirection(), directionState.LEFT);
+		slug.setAlert(true);
+		slug.setPosition(-73, 0);
+		slug.update(1);
+		assertEquals(slug.getSpeed(),-30,0.01);
+		assertEquals(slug.getDirection(), directionState.LEFT);
+
+
+	}
+
+	//CONTROLLER
+	
+	@Test
+	public void testGameController() {
+		GameModel game = GameModel.getInstance();
+		
+		/*
+		HeroBody heroBody = GameController.getInstance().getHero();
+		assertEquals(heroBody.getAngle(), 0, 0.1);
+		assertEquals(heroBody.getX(),0,0.1);
+		assertEquals(heroBody.getY(), 0, 0.1);
+		
+		*/
+		
+
+	}
 	
 }
