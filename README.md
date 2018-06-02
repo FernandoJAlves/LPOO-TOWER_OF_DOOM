@@ -75,11 +75,11 @@ UML:
 		
 		Assumindo que a aplicação está ligada, irá ver o seguinte menu inicial:
 			
-![alt text](android/assets/StartMenu.png)
+![alt text](screenshots/StartMenu.png)
 
 		Clicando em "Singleplayer" irá iniciar o jogo em modo de jogador único. Em desktop para controlar o Hero, terá de usar as setas do teclado, e a tecla "A" para atacar (lançar bolas plasma). Em Android, terá no ecrã 4 botões como podemos ver na imagem seguinte:
 		
-![alt text](android/assets/game_over_background.png)
+![alt text](screenshots/game_over_background.png)
 
 		Os botões realizam as seguintes ações (listando da esquerda para a direita): andar para esquerda, andar para a direita, saltar e atacar.
 		
@@ -102,26 +102,26 @@ UML:
 
 		Voltando ao menu principal, clicando em "Multiplayer" irá abrir um segundo menu que pede para especificar se o utilizador pretende dar "Host" a um jogo, ou se pretende procurar um servidor para jogar.
 		
-![alt text](android/assets/MultiplayerMenu.png)		 
+![alt text](screenshots/MultiplayerMenu.png)		 
 				
 		Se o utilizador escolher "Host", então entrará no jogo e esperará que surja um Player 2. Enquanto espera aparece uma janela que mostra o IP que o Player 2 terá de inserir para entrar no jogo, e um botão de cancelar que retorna ao menu principal caso o utilizador não queira esperar mais:
 		
-![alt text](android/assets/HostMenu.png)	
+![alt text](screenshots/HostMenu.png)	
 
 		Se o utilizador escolher "Find", então irá aparecer uma janela a pedir o IP do servidor a que se	quer conectar:
 		
-![alt text](android/assets/FindMenu.png)
+![alt text](screenshots/FindMenu.png)
 
 		
 		A forma de jogador entre 1 jogador e 2 jogadores é a mesma. No entanto, o ecrã apenas é desenhado no lado do Host, o Player 2 apenas vê os botões de controlo no seu ecrã.
 		
 		Ecrã Player 1:			
 		
-![alt text](android/assets/game_over_background.png)		
+![alt text](screenshots/game_over_background.png)		
 		
 		Ecrã Player 2:
 		
-![alt text](android/assets/Player2screen.png)
+![alt text](screenshots/Player2screen.png)
 
 
 		
