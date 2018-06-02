@@ -46,7 +46,7 @@ public class GameModel implements Serializable{
 		return this.enemies;
 	}
 	
-	private LevelModel initLevel(int levelNum) {
+	public LevelModel initLevel(int levelNum) {
 		switch(levelNum) {
 		case 1:
 			return new LevelModel1();

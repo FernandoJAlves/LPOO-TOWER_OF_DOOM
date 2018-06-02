@@ -92,7 +92,7 @@ public class HeroModel extends CharacterModel implements Serializable{
 	public void update(float delta) {
 		
 		if(this.stamina < 10) {
-			this.stamina+= 0.005;
+			this.stamina += (delta/10);
 		}
 		//TODO NANDINHO FAZ O SWITCH
 		if(this.state == charState.ATTACK) {
