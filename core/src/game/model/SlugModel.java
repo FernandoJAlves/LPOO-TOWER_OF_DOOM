@@ -15,6 +15,7 @@ public class SlugModel extends CharacterModel implements Serializable{
 	private int viewRange;
 	private int xStart;
 	private float attackTime;
+	private float damageTime;
 
 	public SlugModel(int x, int y) {
 		super(x, y);
@@ -24,6 +25,7 @@ public class SlugModel extends CharacterModel implements Serializable{
 		attackRange = 50;
 		viewRange = 120;
 		xStart = x;
+		hitpoints = 5;
 	}
 
 	@Override
@@ -42,6 +44,11 @@ public class SlugModel extends CharacterModel implements Serializable{
 			if(c == 'f') {
 				this.state = slugState.ATTACK;
 			}
+			if(c == 'o') {
+				this.speed = 0;
+				this.decrementHitpoints();
+				this.state = slugState.DAMAGE;
+			}
 			break;
 			
 		case ATTACK:
@@ -58,13 +65,27 @@ public class SlugModel extends CharacterModel implements Serializable{
 	
 	@Override
 	public void update(float delta) {
-		if(this.state == slugState.DAMAGE) {
+		switch(this.state) {
+		case DAMAGE:
+			damageTime += delta;
+			if(damageTime > (3 * 0.18f)) {
+				System.out.println(this.hitpoints);
+				damageTime = 0;
+				this.state = slugState.WALK;
+				if(this.dir == directionState.LEFT) {
+					this.speed = -30;
+				}
+				else {
+					this.speed = 30;
+				}
+				if(this.hitpoints <= 0) {
+					this.setFlaggedForRemoval(true);
+				}
+			}
 			return;
-		}
-		
-		if(this.state == slugState.ATTACK) {
+		case ATTACK:
 			attackTime += delta;
-			System.out.println(attackTime);
+			//System.out.println(attackTime);
 			if(attackTime > (5 * 0.18f)) {
 				attackTime = 0;
 				this.state = slugState.WALK;
@@ -72,6 +93,10 @@ public class SlugModel extends CharacterModel implements Serializable{
 			else {
 				return;
 			}
+			break;
+		
+		default:
+			break;
 		}
 		
 		if(!alert) {

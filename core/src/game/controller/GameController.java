@@ -62,9 +62,11 @@ public class GameController implements ContactListener{
         if(pairSlugPlasma(bodyA, bodyB)) {
         	if(bodyA.getUserData() instanceof PlasmaModel) {
         		((PlasmaModel)bodyA.getUserData()).setJumpsLeft(0);
+        		((SlugModel)bodyB.getUserData()).move('o');
         	}
         	else {
         		((PlasmaModel)bodyB.getUserData()).setJumpsLeft(0);
+        		((SlugModel)bodyA.getUserData()).move('o');
         	}
         }
         else {
@@ -218,6 +220,18 @@ public class GameController implements ContactListener{
                     
                 }
         }
+        
+        for (Iterator<CharacterBody> body = this.enemies.iterator(); body.hasNext(); ) {
+        	CharacterBody aux = body.next();
+        	if(aux instanceof SlugBody) {
+                if (((EntityModel)aux.getUserData()).isFlaggedToBeRemoved()) {
+                    GameModel.getInstance().remove((EntityModel) aux.getUserData());
+                    world.destroyBody(aux.getBody());
+                    body.remove();
+                }
+        	}
+        }
+        
     }
     
     public static void delete() {
