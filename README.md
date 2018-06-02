@@ -35,6 +35,8 @@ UML:
 			Usámos um Object Pool para os projéteis do Hero.
 
 			Inicialmente íamos usar um State para gerir os vários estados do nosso Hero em função dos diferentes inputs, mas achámos que 1 classe por cada estado era exagero, visto apenas termos cerca de 6 estados e as suas transições eram pouco complexas, por isso decidimos usar um switch na função de move (tanto do Hero como da Slug) do estado atual, em que cada case incluiria possíveis transições para outros estados.
+			
+			Usámos uma Factory para (... JUAN HELP!)
 		
 		
 		
@@ -66,5 +68,15 @@ UML:
 
 
 	- User manual
-
+	
+		O primeiro passo é iniciar o programa/aplicação (descrição de como fazer isto encontra-se na secção "Setup/Installation procedure" acima.
+		
+		Assumindo que a aplicação está ligada, irá ver o seguinte menu inicial:
+		
+		![alt text](https://github.com/Raidenkyu/LPOO1718_T3G5-FinalProj/blob/master/android/assets/game_over_background.png)
+	
+		test123
+		
+				![alt text](android/assets/game_over_background.png)
+		
 
