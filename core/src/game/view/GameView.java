@@ -117,6 +117,7 @@ public class GameView extends ScreenAdapter{
 		this.game.getAssetManager().load( "SlugWalking.png" , Texture.class);
 		this.game.getAssetManager().load( "SlugAttacking.png" , Texture.class);
 		this.game.getAssetManager().load( "SlugDying.png" , Texture.class);
+		this.game.getAssetManager().load( "HeroDamage.png" , Texture.class);
 		this.game.getAssetManager().finishLoading();
 		
 	}
