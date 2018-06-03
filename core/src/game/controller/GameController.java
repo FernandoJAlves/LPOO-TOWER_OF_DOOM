@@ -419,4 +419,14 @@ public class GameController implements ContactListener{
     	Sound attack = TowerOfDoom.getInstance().getAssetManager().get( "Sound/attackSound.mp3" , Sound.class);
     	attack.play();
     }
+    
+    /**
+     * Plays the damage sound
+     * 
+     */
+    public void playDamageSound() {
+    	Sound attack = TowerOfDoom.getInstance().getAssetManager().get( "Sound/DamageSound.mp3" , Sound.class);
+    	attack.play();
+    }
+    
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -104,7 +105,6 @@ public class GameView extends ScreenAdapter{
 	public void loadAssets() {
 		this.game.getAssetManager().load("HeroStaring.png", Texture.class);
 		this.game.getAssetManager().load( "HeroSprite.png" , Texture.class);
-		this.game.getAssetManager().load( "Stage2.png" , Texture.class);
 		this.game.getAssetManager().load( "HeroWalking.png" , Texture.class);
 		this.game.getAssetManager().load( "HeroJumping.png" , Texture.class);
 		this.game.getAssetManager().load( "HeroLanding.png" , Texture.class);
@@ -113,7 +113,9 @@ public class GameView extends ScreenAdapter{
 		this.game.getAssetManager().load( "Plasmaball.png" , Texture.class);
 		this.game.getAssetManager().load( "Plasmaball_Explosion.png" , Texture.class);
 		this.game.getAssetManager().load( "Sound/attackSound.mp3" , Sound.class);
-		this.game.getAssetManager().load("Sound/stage.mp3",Sound.class);
+		this.game.getAssetManager().load( "Sound/DamageSound.mp3" , Sound.class);
+		this.game.getAssetManager().load( "Sound/WinMusic.mp3" , Music.class);
+		this.game.getAssetManager().load( "Sound/LossMusic.mp3" , Music.class);
 		this.game.getAssetManager().load( "SlugWalking.png" , Texture.class);
 		this.game.getAssetManager().load( "SlugAttacking.png" , Texture.class);
 		this.game.getAssetManager().load( "SlugDying.png" , Texture.class);
@@ -350,7 +352,7 @@ public class GameView extends ScreenAdapter{
 	 * Plays music
 	 */
 	private void playMusic() {
-		Sound music = game.getAssetManager().get("Sound/stage.mp3");
+		Music music = game.getAssetManager().get("Sound/stage.mp3");
 		music.play();
 	}
 	
@@ -358,7 +360,7 @@ public class GameView extends ScreenAdapter{
 	 * Stops music
 	 */
 	private void stopMusic() {
-		Sound music = game.getAssetManager().get("Sound/stage.mp3");
+		Music music = game.getAssetManager().get("Sound/stage.mp3");
 		music.stop();
 	}
 	
@@ -379,11 +381,11 @@ public class GameView extends ScreenAdapter{
 		}
 		if(GameModel.getInstance().getState() == GameModel.gameState.WIN) {
 			this.terminate();
-			TowerOfDoom.getInstance().setScreen(new Cutscene("game_won_background.png"));
+			TowerOfDoom.getInstance().setScreen(new Cutscene("game_won_background.png","Sound/WinMusic.mp3"));
 		}
 		if(GameModel.getInstance().getState() == GameModel.gameState.LOSS) {
 			this.terminate();
-			TowerOfDoom.getInstance().setScreen(new Cutscene("game_over_background.png"));
+			TowerOfDoom.getInstance().setScreen(new Cutscene("game_over_background.png","Sound/LossMusic.mp3"));
 		}
 		
 	}

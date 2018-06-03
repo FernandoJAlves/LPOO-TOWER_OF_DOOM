@@ -84,16 +84,22 @@ public class HeroModel extends CharacterModel {
 	private void damageMechanic(char c) {
 		if(c == 'o') {
 			this.speed = -75;
-			this.yspeed = 100;
-			this.decrementHitpoints();
-			this.state = charState.DAMAGE;
+			this.applyDamage();
 		}
 		else if(c == 'p') {
 			this.speed = 75;
-			this.yspeed = 100;
-			this.decrementHitpoints();
-			this.state = charState.DAMAGE;
+			this.applyDamage();
 		}
+	}
+	
+	/**
+	 *  Applies Damage effect to the hero
+	 */
+	private void applyDamage() {
+		this.yspeed = 100;
+		this.decrementHitpoints();
+		GameController.getInstance().playDamageSound();
+		this.state = charState.DAMAGE;
 	}
 	
 	

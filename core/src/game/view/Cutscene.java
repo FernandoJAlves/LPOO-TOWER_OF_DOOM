@@ -2,6 +2,7 @@ package game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -20,12 +21,16 @@ import game.menu.MainMenu;
 /**
  * Cutscene - class responsible for cutscenes
  * @param path- the path to the texture used in the cutscene
+ * @param musicPath- the path to the music used in the cutscene
  */
 public class Cutscene extends ScreenAdapter {
 	private Stage stage;
 	private Image back;
-	public Cutscene(String path) {
+	private Music music;
+	public Cutscene(String path, String musicPath) {
 		Texture img = TowerOfDoom.getInstance().getAssetManager().get(path);
+		this.music = TowerOfDoom.getInstance().getAssetManager().get(musicPath);
+		music.play();
 		this.stage = this.setStage();
 		this.back = new Image(img);
 		back.setSize(stage.getWidth(),stage.getHeight());
@@ -82,9 +87,11 @@ public class Cutscene extends ScreenAdapter {
 		  back.addAction(Actions.sequence(Actions.color(Color.BLACK,2),Actions.run(new Runnable() {
               @Override
               public void run() {
+            	  music.stop();
             	  MainMenu.getInstance().returnToMenu();
               }
           })));
 
 	}
+
 }
