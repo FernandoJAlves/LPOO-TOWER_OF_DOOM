@@ -20,6 +20,7 @@ import game.model.GameModel;
 import game.model.HeroModel;
 import game.model.PlasmaModel;
 import game.model.SlugModel;
+import game.model.SlugModel.slugState;
 
 /**
  * 
@@ -85,6 +86,21 @@ public class GameController implements ContactListener{
         }
         else if(pairHeroDoor(bodyA, bodyB)) {
         	GameModel.getInstance().setGameWon();
+        }
+        else if(pairSlugHero(bodyA, bodyB)) {
+        	if(bodyA.getUserData() instanceof HeroModel) {
+        		if(((HeroModel)bodyA.getUserData()).getX() > ((SlugModel)bodyB.getUserData()).getX())
+        			((HeroModel)bodyA.getUserData()).move('o');
+        		else {
+        			((HeroModel)bodyA.getUserData()).move('p');
+        		}
+        	}else {
+        		if(((HeroModel)bodyB.getUserData()).getX() > ((SlugModel)bodyA.getUserData()).getX())
+        			((HeroModel)bodyB.getUserData()).move('o');
+        		else {
+        			((HeroModel)bodyB.getUserData()).move('p');
+        		}
+        	}
         }
         else {
             if (bodyA.getUserData() instanceof PlasmaModel)
@@ -329,6 +345,25 @@ public class GameController implements ContactListener{
     	}
     	return false;
     }
+    
+    /**
+     * Checks if a pair of 2 bodies is a Slug/Hero Pair
+     * 
+     * @param bodyA - BodyA to test
+     * @param bodyB - BodyB to test
+     * @return The value of the comparation
+     */
+    public boolean pairSlugHero(Body bodyA, Body bodyB) {
+    	if(bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof SlugModel && ((SlugModel)bodyB.getUserData()).getState() == slugState.ATTACK) {
+    		return true;
+    	}
+    	
+    	if(bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof SlugModel && ((SlugModel)bodyA.getUserData()).getState() == slugState.ATTACK) {
+    		return true;
+    	}
+    	return false;
+    }
+    
     
     /**
      * Removes flagged bodies from the world
