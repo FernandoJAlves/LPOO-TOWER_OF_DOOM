@@ -7,7 +7,7 @@ import java.util.TreeMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Input.TextInputListener;
-import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -259,7 +259,7 @@ public class GUI extends Stage{
 		this.msg = new Dialog("Network", skin) {
 		    public void result(Object obj) {
 		    	if(obj instanceof Boolean) {
-		    		Music sound = TowerOfDoom.getInstance().getAssetManager().get("Sound/stage.mp3");
+		    		Sound sound = TowerOfDoom.getInstance().getAssetManager().get("Sound/stage.mp3");
 		    		sound.stop();
 		    		((GameView)TowerOfDoom.getInstance().getScreen()).terminate();
 		        	MainMenu.getInstance().returnToMenu();
@@ -296,7 +296,7 @@ public class GUI extends Stage{
 		        @Override
 		        public void canceled() 
 		        {
-		        	((GameView)TowerOfDoom.getInstance().getScreen()).terminate();
+		        	((Player2View)TowerOfDoom.getInstance().getScreen()).terminate();
 		            MainMenu.getInstance().returnToMenu();
 		        }
 		    };
