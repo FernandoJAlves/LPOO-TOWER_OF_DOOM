@@ -9,19 +9,29 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import game.model.EntityModel;
 import game.model.PlasmaModel;
 
+/**
+ * 
+ * PlasmaView.java - Class that handles the Plasmas' View
+ *
+ */
 public class PlasmaView extends EntityView{
 	private Animation<TextureRegion> bouncingAnimation;
 	private Animation<TextureRegion> explodingAnimation;
 	private float stateTime = 0;
 	private int state = 0; //0 = jumping, 1 = exploding
 	
-	
+	/**
+	 * Constructor for PlasmaView
+	 */
 	public PlasmaView() {
 		super();
 		FRAME_TIME = 0.15f;
 		this.sprite = this.createSprite();
 	}
 	
+	/**
+	 * Override for createSprite method
+	 */
 	@Override
 	public Sprite createSprite() {
 		bouncingAnimation = this.createAnimation("Plasmaball.png", 2);
@@ -29,6 +39,9 @@ public class PlasmaView extends EntityView{
 		return new Sprite(this.bouncingAnimation.getKeyFrame(0));
 	}
 	
+	/**
+	 * Override for update method
+	 */
     @Override
     public void update(EntityModel model) {
     	super.update(model);
@@ -39,6 +52,9 @@ public class PlasmaView extends EntityView{
     	
     }
     
+	/**
+	 * Override for draw method
+	 */
     @Override
     public void draw(SpriteBatch batch) {
         stateTime += Gdx.graphics.getDeltaTime();
@@ -59,7 +75,9 @@ public class PlasmaView extends EntityView{
     
     
 	
-
+	/**
+	 * Override for flipAnimations method
+	 */
 	@Override
 	protected void flipAnimations() {
 		// TODO Auto-generated method stub

@@ -9,6 +9,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import game.model.EntityModel;
 import game.model.SlugModel;
 
+/**
+ * 
+ * SlugView.java - Class that handles the Slug view
+ *
+ */
 public class SlugView extends CharacterView{
 
 	private Animation<TextureRegion> walkingAnimation;
@@ -18,12 +23,18 @@ public class SlugView extends CharacterView{
 	private float stateTime = 0;
 	SlugModel.slugState state;
 	
+	/**
+	 * Constructor for SlugView
+	 */
 	public SlugView() {
 		super();
 		FRAME_TIME = 0.18f;
 		this.sprite = this.createSprite();
 	}
 	
+	/**
+	 * Overrides the update method
+	 */
 	@Override
 	public void update(EntityModel model) {
     	super.update(model);
@@ -34,6 +45,9 @@ public class SlugView extends CharacterView{
 		
 	}
 
+	/**
+	 * Overrides the createSprite method
+	 */
 	@Override
 	public Sprite createSprite() {
 		walkingAnimation = this.createAnimation("SlugWalking.png", 5);
@@ -42,6 +56,9 @@ public class SlugView extends CharacterView{
 		return new Sprite(this.walkingAnimation.getKeyFrame(0));
 	}
 
+	/**
+	 * Overrides the draw method
+	 */
     @Override
     public void draw(SpriteBatch batch) {
         stateTime += Gdx.graphics.getDeltaTime();
@@ -62,6 +79,9 @@ public class SlugView extends CharacterView{
         sprite.draw(batch);
     }
 	
+	/**
+	 * Overrides the flipAnimations method
+	 */
 	@Override
 	protected void flipAnimations() {
 		super.flipAnimation(walkingAnimation);
