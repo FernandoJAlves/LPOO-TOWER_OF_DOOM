@@ -6,6 +6,8 @@ import java.io.Serializable;
 import com.badlogic.gdx.math.Vector2;
 
 import game.controller.GameController;
+import game.model.EntityModel.directionState;
+import game.model.SlugModel.slugState;
 
 /**
  * 
@@ -23,6 +25,7 @@ public class HeroModel extends CharacterModel implements Serializable{
 	public enum charState {STARE,WALK,JUMP,FALL, LAND,ATTACK,DAMAGE};
 	protected charState state;
 	protected float attackTime = 0;
+	protected float damageTime = 0;
 
 	/**
 	 * Constructor for HeroModel
@@ -50,19 +53,23 @@ public class HeroModel extends CharacterModel implements Serializable{
 			verticalMovement(c);
 			horizontalMovement(c);
 			fireMechanic(c);
+			damageMechanic(c);
 			break;
 		case WALK:
 			verticalMovement(c);
 			horizontalMovement(c);
 			fireMechanic(c);
+			damageMechanic(c);
 			break;
 		case JUMP:
 			horizontalMovement(c);
 			fireMechanic(c);
+			damageMechanic(c);
 			break;
 		case FALL:
 			horizontalMovement(c);
 			fireMechanic(c);
+			damageMechanic(c);
 			break;
 		case LAND:
 			break;
@@ -79,6 +86,25 @@ public class HeroModel extends CharacterModel implements Serializable{
 	
 	}
 
+	/**
+	 * Handles input for damage
+	 * 
+	 * @param c - input
+	 */
+	private void damageMechanic(char c) {
+		if(c == 'o') {
+			this.speed = -75;
+			this.yspeed = 100;
+			this.state = charState.DAMAGE;
+		}
+		else if(c == 'p') {
+			this.speed = 75;
+			this.yspeed = 100;
+			this.state = charState.DAMAGE;
+		}
+	}
+	
+	
 	/**
 	 * Handles input for firing
 	 * 
@@ -141,6 +167,18 @@ public class HeroModel extends CharacterModel implements Serializable{
 				return;
 			}
 
+		}
+		
+		if(this.state == charState.DAMAGE) {
+			damageTime += delta;
+			if(damageTime > (6 * 0.15f)) {
+				damageTime = 0;
+				this.state = charState.FALL;
+				if(this.hitpoints <= 0) {
+					GameModel.getInstance().setGameOver();
+				}
+			}
+			return;
 		}
 
 		if(this.yspeed > 1) {
