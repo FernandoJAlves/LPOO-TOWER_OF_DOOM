@@ -21,6 +21,7 @@ public class SlugModel extends CharacterModel implements Serializable{
 	private int xStart;
 	private float attackTime;
 	private float damageTime;
+	private float stateTime = 0;
 
 	/**
 	 * Constructor for SlugModel
@@ -56,11 +57,13 @@ public class SlugModel extends CharacterModel implements Serializable{
 			}
 			if(c == 'f') {
 				this.state = slugState.ATTACK;
+				this.stateTime = 0;
 			}
 			if(c == 'o') {
 				this.speed = 0;
 				this.decrementHitpoints();
 				this.state = slugState.DAMAGE;
+				this.stateTime = 0;
 			}
 			break;
 			
@@ -87,6 +90,7 @@ public class SlugModel extends CharacterModel implements Serializable{
 			if(damageTime > (3 * 0.18f)) {
 				damageTime = 0;
 				this.state = slugState.WALK;
+				this.stateTime = 0;
 				if(this.dir == directionState.LEFT) {
 					this.speed = -30;
 				}
@@ -102,6 +106,7 @@ public class SlugModel extends CharacterModel implements Serializable{
 			attackTime += delta;
 			if(attackTime > (5 * 0.18f)) {
 				attackTime = 0;
+				this.stateTime = 0;
 				this.state = slugState.WALK;
 			}
 			else {
@@ -175,6 +180,24 @@ public class SlugModel extends CharacterModel implements Serializable{
 	 */
 	public int getAttackRange() {
 		return this.attackRange;
+	}
+
+	/**
+	 * Gets the stateTime
+	 * 
+	 * @return The stateTime
+	 */
+	public float getStateTime() {
+		return stateTime;
+	}
+
+
+	/**
+	 *  Sets the stateTime
+	 * @param stateTime
+	 */
+	public void setStateTime(float stateTime) {
+		this.stateTime = stateTime;
 	}
 
 

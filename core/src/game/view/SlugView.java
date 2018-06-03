@@ -38,11 +38,11 @@ public class SlugView extends CharacterView{
 	@Override
 	public void update(EntityModel model) {
     	super.update(model);
-    	if(state != ((SlugModel)model).getState()) {
-    		state= ((SlugModel)model).getState();
-    		stateTime = 0;
-    	}
-		
+    	this.stateTime = ((SlugModel)model).getStateTime();
+        stateTime += Gdx.graphics.getDeltaTime();
+    	((SlugModel)model).setStateTime(stateTime);
+    	state= ((SlugModel)model).getState();
+
 	}
 
 	/**
@@ -61,7 +61,6 @@ public class SlugView extends CharacterView{
 	 */
     @Override
     public void draw(SpriteBatch batch) {
-        stateTime += Gdx.graphics.getDeltaTime();
         switch(this.state) {
         case WALK:
         	sprite.setRegion(walkingAnimation.getKeyFrame(stateTime,true));

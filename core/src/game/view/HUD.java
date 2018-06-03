@@ -142,6 +142,7 @@ public class HUD implements Disposable{
    private void setNetHealthBar() {
 	   this.netHealthBar = this.createBar(Color.RED, Color.GREEN);
 	   this.netHealthBar.setPosition(this.WIDTH-this.netHealthBar.getWidth()-5, this.HEIGHT-40,Align.left);
+	   this.netHealthBar.setValue(1);
 	   this.stage.addActor(this.netHealthBar);
    }
    
@@ -178,6 +179,7 @@ public class HUD implements Disposable{
     private void setNetStaminaBar() {
  	   this.netStaminaBar = this.createBar(Color.GRAY, Color.BLUE);
  	   this.netStaminaBar.setPosition(this.WIDTH-this.netHealthBar.getWidth()-5, this.HEIGHT-90,Align.left);
+ 	   this.netStaminaBar.setValue(1);
  	   this.stage.addActor(this.netStaminaBar);
     }
     

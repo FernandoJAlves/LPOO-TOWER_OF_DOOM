@@ -45,6 +45,9 @@ public class PlasmaView extends EntityView{
     @Override
     public void update(EntityModel model) {
     	super.update(model);
+    	this.stateTime = ((PlasmaModel)model).getStateTime();
+        stateTime += Gdx.graphics.getDeltaTime();
+        ((PlasmaModel)model).setStateTime(this.stateTime);
     	if(state != ((PlasmaModel)model).getState()) {
     		state = ((PlasmaModel)model).getState();
     		stateTime  = 0;
@@ -57,7 +60,6 @@ public class PlasmaView extends EntityView{
 	 */
     @Override
     public void draw(SpriteBatch batch) {
-        stateTime += Gdx.graphics.getDeltaTime();
         switch(this.state) {
         case 0:
         	sprite.setRegion(bouncingAnimation.getKeyFrame(stateTime,true));
