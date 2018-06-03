@@ -227,6 +227,61 @@ public class TowerOfDoomTest {
 		assertEquals(hero.getStamina(), 1,0.01);
 		hero.move('f');
 		assertEquals(hero.getState(), charState.ATTACK);
+	}
+	
+	@Test
+	public void testHeroModelDamage1() {
+		HeroModel hero = new HeroModel(0, 0);
+		
+		hero.update(10);
+		assertEquals(hero.getHitPoints(),10,0.01);
+		hero.move('o');
+		assertEquals(hero.getState(), charState.DAMAGE);
+		assertEquals(hero.getHitPoints(), 9,0.1);
+		hero.update(2);
+		hero.setYSpeed(0);
+		hero.move('d');
+		hero.update(1);
+		assertEquals(hero.getState(), charState.WALK);
+		hero.move('p');
+		assertEquals(hero.getState(), charState.DAMAGE);
+		assertEquals(hero.getHitPoints(), 8,0.1);
+	}
+	
+	@Test
+	public void testHeroModelDamage2() {
+		HeroModel hero = new HeroModel(0, 0);
+		
+		hero.update(10);
+		assertEquals(hero.getHitPoints(),10,0.01);
+		hero.move('w');
+		hero.update(1);
+		assertEquals(hero.getState(), charState.JUMP);
+		hero.move('p');
+		assertEquals(hero.getState(), charState.DAMAGE);
+		assertEquals(hero.getHitPoints(), 9,0.1);
+		hero.update(2);
+		hero.move('o');
+		assertEquals(hero.getState(), charState.DAMAGE);
+		assertEquals(hero.getHitPoints(), 8,0.1);
+	}
+	
+	@Test
+	public void testHeroModelDamage3() {
+		HeroModel hero = new HeroModel(0, 0);
+		
+		for(int i = 0; i < 9; i++) {
+			hero.decrementHitpoints();
+		}
+		assertEquals(hero.getHitPoints(),1,0.01);
+		hero.update(1);
+		hero.move('p');
+		assertEquals(hero.getState(), charState.DAMAGE);
+		assertEquals(hero.getHitPoints(), 0,0.1);
+		hero.update(6 * 0.15f);
+		assertEquals(GameModel.getInstance().getState(), GameModel.gameState.PLAYING);
+		hero.update(1);
+		assertEquals(GameModel.getInstance().getState(), GameModel.gameState.LOSS);
 		
 	}
 	
@@ -246,7 +301,7 @@ public class TowerOfDoomTest {
 		assertEquals(game.getLevel().getXLimit(), level.getXLimit());
 		assertEquals(game.getLevel().getYLimit(), level.getYLimit());
 		assertEquals(game.getPlasmaballs().size(),0);
-		assertEquals(game.getEnemies().size(),1);
+		assertEquals(game.getEnemies().size(),3);
 		game.delete();
 	}
 	
