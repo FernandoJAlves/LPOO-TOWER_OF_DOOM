@@ -133,8 +133,8 @@ public class MainMenu extends ScreenAdapter{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             	stopMusic();
-            	//game.setScreen(new GameView(false));
-            	game.setScreen(new Cutscene("game_over_background.png"));
+            	game.setScreen(new GameView(false));
+            	//game.setScreen(new Cutscene("game_over_background.png"));
                 return true;
                 }
 		});
