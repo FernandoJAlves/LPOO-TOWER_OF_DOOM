@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import game.controller.GameController;
 import game.main.TowerOfDoom;
 import game.model.GameModel;
+import game.view.Cutscene;
 import game.view.GameView;
 import game.view.Player2View;
 
@@ -97,6 +98,8 @@ public class MainMenu extends ScreenAdapter{
 		this.game.getAssetManager().load( "ButtonRight.png" , Texture.class);
 		this.game.getAssetManager().load( "ButtonUp.png" , Texture.class);
 		this.game.getAssetManager().load( "ButtonFire.png" , Texture.class);
+		this.game.getAssetManager().load( "game_over_background.png" , Texture.class);
+		this.game.getAssetManager().load( "game_won_background.png" , Texture.class);
 		this.game.getAssetManager().finishLoading();
 		
 	}
@@ -130,7 +133,8 @@ public class MainMenu extends ScreenAdapter{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             	stopMusic();
-            	game.setScreen(new GameView(false));
+            	//game.setScreen(new GameView(false));
+            	game.setScreen(new Cutscene("game_over_background.png"));
                 return true;
                 }
 		});

@@ -78,13 +78,15 @@ public class HUD implements Disposable{
     
     private void setElements(HeroModel nh) {
     	this.setHealthLabel();
-    	this.setNetHealthLabel();
     	this.setHealthBar();
-    	this.setNetHealthBar();
     	this.setStaminaLabel();
-    	this.setNetStaminaLabel();
     	this.setStaminaBar();
-    	this.setNetStaminaBar();
+    	if(nh != null) {
+    		this.setNetHealthLabel();
+    		this.setNetHealthBar();
+    		this.setNetStaminaLabel();
+        	this.setNetStaminaBar();
+    	}
     }
     
     private void setHealthLabel() {
