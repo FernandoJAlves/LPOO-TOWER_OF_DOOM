@@ -158,7 +158,7 @@ public class MainMenu extends ScreenAdapter{
 	
 	private void setFindButton() {
 		this.findButton = this.createButton("Find_button.png");
-		findButton.setPosition(this.width/2-this.singleButton.getWidth()/2, 3*this.height/4);
+		findButton.setPosition(this.width/2-this.findButton.getWidth()/2, 3*this.height/4);
 		this.findButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

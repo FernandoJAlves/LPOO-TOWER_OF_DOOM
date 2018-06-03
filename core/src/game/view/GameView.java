@@ -26,6 +26,11 @@ import game.model.GameModel;
 import game.model.HeroModel;
 import game.model.PlasmaModel;
 
+/**
+ * 
+ * GameView.java - Class that handles the GameView
+ *
+ */
 public class GameView extends ScreenAdapter{
 	
 	private boolean multiplayer;
@@ -47,6 +52,10 @@ public class GameView extends ScreenAdapter{
 	private GUI gui;
 	private HUD hud;
 	
+	/**
+	 * Constructor for GameView
+	 * @param mult - True if multiplayer, false otherwise
+	 */
 	public GameView(boolean mult){
 		this.multiplayer = mult;
 		setSockets();
@@ -66,7 +75,9 @@ public class GameView extends ScreenAdapter{
 		this.playMusic();
 	}
 	
-	
+	/**
+	 * Override of the render method
+	 */
 	@Override
     public void render(float delta) {
 		GameController.getInstance().removeFlagged();
@@ -79,11 +90,17 @@ public class GameView extends ScreenAdapter{
 		this.debugPhysics();
 	}
 	
+	/**
+	 * Override of the dispose method
+	 */
 	@Override
 	public void dispose() {
 		this.level.dispose();
 	}
 	
+	/**
+	 * Loads the assets
+	 */
 	public void loadAssets() {
 		this.game.getAssetManager().load("HeroStaring.png", Texture.class);
 		this.game.getAssetManager().load( "HeroSprite.png" , Texture.class);
@@ -104,6 +121,10 @@ public class GameView extends ScreenAdapter{
 		
 	}
 	
+	/**
+	 * Updates the camera
+	 * @param batch - Batch used to set the projection matrix
+	 */
 	private void updateCam(SpriteBatch batch) {
 		float x = GameModel.getInstance().getHero().getX();
 		float y = GameModel.getInstance().getHero().getY();
@@ -120,6 +141,9 @@ public class GameView extends ScreenAdapter{
         batch.setProjectionMatrix(cam.combined);
 	}
 	
+	/**
+	 * Creates a camera
+	 */
 	private void createCam() {
 		cam = new OrthographicCamera(SCREEN_WIDTH,SCREEN_WIDTH * ((float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getBackBufferWidth()));
 		
@@ -130,6 +154,9 @@ public class GameView extends ScreenAdapter{
         }
 	}
 	
+	/**
+	 * Activate debug physics
+	 */
 	private void debugPhysics() {
         if (DEBUG_PHYSICS) {
             debugCamera = cam.combined.cpy();
@@ -138,6 +165,9 @@ public class GameView extends ScreenAdapter{
         }
 	}
 	
+	/**
+	 * Handles the input
+	 */
 	public void handleInput() {
 		
 		if(gui.keyPressed('e')) {
@@ -165,9 +195,11 @@ public class GameView extends ScreenAdapter{
 		
 	}
 	
+	/**
+	 * Handles the net hero input
+	 * @param h - InputPacket from net hero
+	 */
 	public void handleNetInput(InputPacket h) {
-
-		   
 		if(h.w) {
 			netHero.move('w');
 		}
@@ -186,9 +218,11 @@ public class GameView extends ScreenAdapter{
 		else {
 			netHero.move('n');
 		}
-		
 	}
 	
+	/**
+	 * Sets the sockets
+	 */
 	public void setSockets() {
 		if(this.multiplayer) {
 			GameModel.getInstance().setMultiplayer();
@@ -196,13 +230,17 @@ public class GameView extends ScreenAdapter{
 		}
 	}
 	
+	/**
+	 * Sets the Heros
+	 */
 	public void setHero() {
 		hero = GameModel.getInstance().getHero();
 		netHero = GameModel.getInstance().getNetHero();
-		
-		
 	}
 	
+	/**
+	 * Updates the newwork models
+	 */
 	public void updateNetworkModels() {
 		if(this.multiplayer) {
 			InputPacket h = ((Player1Socket)socket).getHeroPacket();
@@ -214,7 +252,9 @@ public class GameView extends ScreenAdapter{
 		}
 	}
 	
-	
+	/**
+	 * Updates the draw
+	 */
 	private void updateDraw() {
 		SpriteBatch batch = TowerOfDoom.getInstance().getBatch();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -226,7 +266,10 @@ public class GameView extends ScreenAdapter{
 		batch.end();
 	}
 
-
+	/**
+	 * Draw entities
+	 * @param batch - The sprite batch
+	 */
 	private void drawEntities(SpriteBatch batch) {
 		hv.update(hero);
 		hv.draw(batch);
@@ -253,18 +296,27 @@ public class GameView extends ScreenAdapter{
 		
 	}
 	
+	/**
+	 * Updates the game logic
+	 * @param delta - Time since last update
+	 */
 	private void updateLogic(float delta) {
 		GameModel.getInstance().update(delta);
 		GameController.getInstance().update(delta);
 	}
 	
+	/**
+	 * Waits for player 2;
+	 */
 	public void waitingForPlayer() {
 		if(this.multiplayer) {
 			this.gui.message1(this.socket.getAddress());
 		}
-			
 	}
 	
+	/**
+	 * Pauses the game
+	 */
 	public void pause() {
 		if(!this.multiplayer) {
 		this.gui.resetEscapeButton();
@@ -273,12 +325,18 @@ public class GameView extends ScreenAdapter{
 		}
 	}
 	
+	/**
+	 * Resumes the game
+	 */
 	public void resume() {
 		TowerOfDoom.getInstance().setScreen(this);
 		this.playMusic();
 		Gdx.input.setInputProcessor(gui);
 	}
 	
+	/**
+	 * Terminates the games and returns to menu
+	 */
 	public void terminate() {
 		if(this.multiplayer) {
 		this.socket.close();
@@ -288,17 +346,26 @@ public class GameView extends ScreenAdapter{
 		
 	}
 	
+	/**
+	 * Plays music
+	 */
 	private void playMusic() {
 		Sound music = game.getAssetManager().get("Sound/stage.mp3");
 		music.play();
 	}
 	
+	/**
+	 * Stops music
+	 */
 	private void stopMusic() {
 		Sound music = game.getAssetManager().get("Sound/stage.mp3");
 		music.stop();
 	}
 	
-	
+	/**
+	 * Determines if in multiplayer
+	 * @return True if multiplayer, false otherwise
+	 */
 	public boolean isMultiplayer() {
 		return this.multiplayer;
 	}

@@ -9,6 +9,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import game.model.EntityModel;
 import game.model.HeroModel;
 
+/**
+ * 
+ * HeroView.java - Class that handles the hero's View
+ *
+ */
 public class HeroView extends CharacterView{
 	private Animation<TextureRegion> staringAnimation;
 	private Animation<TextureRegion> walkingAnimation;
@@ -19,12 +24,18 @@ public class HeroView extends CharacterView{
 	private float stateTime = 0;
 	HeroModel.charState state;
 	
+	/**
+	 * Constructor for HeroView
+	 */
 	public HeroView() {
 		super();
 		FRAME_TIME = 0.15f;
 		this.sprite = this.createSprite();
 	}
 
+	/**
+	 * Override for createSprite method
+	 */
 	@Override
 	public Sprite createSprite() {
 		staringAnimation = this.createAnimation("HeroStaring.png", 6);
@@ -37,7 +48,9 @@ public class HeroView extends CharacterView{
 	
     
 
-    
+    /**
+     * Override for update method
+     */
     @Override
     public void update(EntityModel model) {
     	super.update(model);
@@ -48,6 +61,9 @@ public class HeroView extends CharacterView{
     	
     }
     
+    /**
+     * Override for draw method
+     */
     @Override
     public void draw(SpriteBatch batch) {
         stateTime += Gdx.graphics.getDeltaTime();
@@ -71,6 +87,9 @@ public class HeroView extends CharacterView{
         sprite.draw(batch);
     }
 
+    /**
+     * Flips the animations
+     */
 	@Override
 	protected void flipAnimations() {
 		super.flipAnimation(walkingAnimation);
