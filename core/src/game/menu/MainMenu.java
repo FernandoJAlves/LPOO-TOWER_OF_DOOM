@@ -2,7 +2,7 @@ package game.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -91,8 +91,8 @@ public class MainMenu extends ScreenAdapter{
 	 * Loads all the assets for the game
 	 */
 	public void loadAssets() {
-		this.game.getAssetManager().load("Sound/stage.mp3", Sound.class);
-		this.game.getAssetManager().load("Sound/menu.mp3", Sound.class);
+		this.game.getAssetManager().load("Sound/stage.mp3", Music.class);
+		this.game.getAssetManager().load("Sound/menu.mp3", Music.class);
 		this.game.getAssetManager().load("Host_button.png", Texture.class);
 		this.game.getAssetManager().load( "LeaveGame_button.png" , Texture.class);
 		this.game.getAssetManager().load( "Multiplayer_button.png" , Texture.class);
@@ -258,12 +258,12 @@ public class MainMenu extends ScreenAdapter{
 	}
 	
 	private void playMusic() {
-		Sound music = game.getAssetManager().get("Sound/menu.mp3");
+		Music music = game.getAssetManager().get("Sound/menu.mp3");
 		music.play();
 	}
 	
 	private void stopMusic() {
-		Sound music = game.getAssetManager().get("Sound/menu.mp3");
+		Music music = game.getAssetManager().get("Sound/menu.mp3");
 		music.stop();
 	}
 	
