@@ -48,10 +48,8 @@ public class PlasmaView extends EntityView{
     	this.stateTime = ((PlasmaModel)model).getStateTime();
         stateTime += Gdx.graphics.getDeltaTime();
         ((PlasmaModel)model).setStateTime(this.stateTime);
-    	if(state != ((PlasmaModel)model).getState()) {
-    		state = ((PlasmaModel)model).getState();
-    		stateTime  = 0;
-    	}
+        state = ((PlasmaModel)model).getState();
+
     	
     }
     

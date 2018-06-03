@@ -86,6 +86,7 @@ public class PlasmaModel extends EntityModel implements Serializable{
 	 */
 	public void setState(int n) {
 		state = n;
+		this.stateTime = 0;
 	}
 	
 	/**
