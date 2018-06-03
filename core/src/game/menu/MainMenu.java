@@ -18,10 +18,13 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import game.controller.GameController;
 import game.main.TowerOfDoom;
 import game.model.GameModel;
-import game.view.Cutscene;
 import game.view.GameView;
 import game.view.Player2View;
-
+/**
+ * 
+ * MainMenu - class responsible for the interface for the game options
+ *
+ */
 public class MainMenu extends ScreenAdapter{
 	private OrthographicCamera cam;
 	private Texture back;
@@ -36,8 +39,7 @@ public class MainMenu extends ScreenAdapter{
 	private ImageButton hostButton;
 	protected ImageButton returnButton;
 	protected ImageButton closeButton;
-	
-	
+
 	protected MainMenu() {
 		game = TowerOfDoom.getInstance();
 		
@@ -52,7 +54,10 @@ public class MainMenu extends ScreenAdapter{
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @return The singleton instance of the MainMenu
+	 */
 	public static MainMenu getInstance() {
 		if(instance == null) {
 			instance = new MainMenu();
@@ -64,7 +69,9 @@ public class MainMenu extends ScreenAdapter{
 		return instance;
 	}
 	
-	
+	/**
+	 *  Renders the MainMenu
+	 */
 	@Override
     public void render(float delta) {
 		SpriteBatch batch = TowerOfDoom.getInstance().getBatch();
@@ -80,7 +87,9 @@ public class MainMenu extends ScreenAdapter{
 	
 	
 	
-
+	/**
+	 * Loads all the assets for the game
+	 */
 	public void loadAssets() {
 		this.game.getAssetManager().load("Sound/stage.mp3", Sound.class);
 		this.game.getAssetManager().load("Sound/menu.mp3", Sound.class);
@@ -227,12 +236,17 @@ public class MainMenu extends ScreenAdapter{
 	}
 	
 	@Override
+	/**
+	 * Disposes the menu
+	 */
 	public void dispose() {
 		this.back.dispose();
 		//this.menuStage.dispose();
 	}
 	
-	
+	/**
+	 * Terminates all game instances and set the game screen to MainMenu
+	 */
 	public void returnToMenu() {
 		GameModel.delete();
 		GameController.delete();
