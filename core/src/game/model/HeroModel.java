@@ -7,6 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 
 import game.controller.GameController;
 
+/**
+ * 
+ * HeroModel.java - Class the includes all the logic for HeroModel
+ *
+ */
 public class HeroModel extends CharacterModel implements Serializable{
 
 	/**
@@ -19,6 +24,12 @@ public class HeroModel extends CharacterModel implements Serializable{
 	protected charState state;
 	protected float attackTime = 0;
 
+	/**
+	 * Constructor for HeroModel
+	 * 
+	 * @param x - X value
+	 * @param y - Y value
+	 */
 	public HeroModel(int x, int y) {
 		super(x, y);
 		this.speed = 0;
@@ -28,6 +39,9 @@ public class HeroModel extends CharacterModel implements Serializable{
 		this.stamina = 10;
 	}
 	
+	/**
+	 * Override of the abstract function move
+	 */
 	public void move(char c) {
 		
 		switch(this.state) {
@@ -65,18 +79,33 @@ public class HeroModel extends CharacterModel implements Serializable{
 	
 	}
 
+	/**
+	 * Handles input for firing
+	 * 
+	 * @param c - input
+	 */
 	private void fireMechanic(char c) {
 		if(c == 'f' && this.stamina >= 1) {
 			this.state = charState.ATTACK;
 		}
 	}
 
+	/**
+	 * Handles input for vertical movement
+	 * 
+	 * @param c - input
+	 */
 	private void verticalMovement(char c) {
 		if (c == 'w') {
 			this.yspeed = 100;
 		}
 	}
 
+	/**
+	 * Handles input for horizontal movement
+	 * 
+	 * @param c - input
+	 */
 	private void horizontalMovement(char c) {
 		if (c == 'a') {
 			speed = -50;
@@ -89,12 +118,15 @@ public class HeroModel extends CharacterModel implements Serializable{
 		}
 	}
 	
+	/**
+	 * Override of the update abstract method
+	 */
 	public void update(float delta) {
 		
 		if(this.stamina < 10) {
 			this.stamina += (delta/10);
 		}
-		//TODO NANDINHO FAZ O SWITCH
+
 		if(this.state == charState.ATTACK) {
 			attackTime += delta;
 			if(attackTime > 3*0.15f && attackTime < 3*0.15f+delta) {
@@ -127,18 +159,30 @@ public class HeroModel extends CharacterModel implements Serializable{
 			return;
 		}
 
-		
 	}
 	
+	/**
+	 * Gets the state
+	 * 
+	 * @return The charState
+	 */
 	public charState getState() {
 		return this.state;
 	}
 	
+	/**
+	 * Sets the position
+	 * 
+	 * @param vec - Wanted position
+	 */
 	public void setPosition(Vector2 vec) {
 		this.x = vec.x;
 		this.y = vec.y;
 	}
 
+	/**
+	 * Override of getModelType abstract method
+	 */
 	@Override
 	public ModelType getModelType() {
 		return ModelType.HERO;

@@ -8,7 +8,11 @@ import com.badlogic.gdx.utils.Pool;
 
 import game.model.EntityModel.directionState;
 
-
+/**
+ * 
+ * GameModel.java - Class tha handles the GameModel logic
+ *
+ */
 public class GameModel implements Serializable{
 	/**
 	 * 
@@ -22,6 +26,9 @@ public class GameModel implements Serializable{
     Pool<PlasmaModel> plasmaballPool;
 	private LevelModel level;
 	
+	/**
+	 * Constructor for the GameModel
+	 */
 	private GameModel() {
 		this.setPool();
 		level = initLevel(1);
@@ -31,6 +38,11 @@ public class GameModel implements Serializable{
 		plasmaballs = new ArrayList<PlasmaModel>();
 	}
 	
+	/**
+	 * Singleton - Gets the GameModel instance, creates one if null
+	 * 
+	 * @return The instance
+	 */
 	public static GameModel getInstance() {
 		if(instance == null) {
 			instance = new GameModel();
@@ -38,14 +50,30 @@ public class GameModel implements Serializable{
 		return instance;
 	}
 	
+	/**
+	 * Gets the hero model
+	 * 
+	 * @return The hero model
+	 */
 	public HeroModel getHero() {
 		return this.hero;
 	}
 	
+	/**
+	 * Gets the arraylist of enemies
+	 * 
+	 * @return The arraylist 
+	 */
 	public ArrayList<CharacterModel> getEnemies(){
 		return this.enemies;
 	}
 	
+	/**
+	 * Initiliazes the level
+	 * 
+	 * @param levelNum - wanted level
+	 * @return The LevelModel
+	 */
 	public LevelModel initLevel(int levelNum) {
 		switch(levelNum) {
 		case 1:
@@ -56,18 +84,38 @@ public class GameModel implements Serializable{
 		
 	}
 	
+	/**
+	 * Gets the level model
+	 * 
+	 * @return The level model
+	 */
 	public LevelModel getLevel() {
 		return this.level;
 	}
 
+	/**
+	 * Gets the nethero model
+	 * 
+	 * @return The nethero model
+	 */
 	public HeroModel getNetHero() {
 		return netHero;
 	}
 
+	/**
+	 * Sets the nethero
+	 * 
+	 * @param netHero we want to get the values from
+	 */
 	public void setNetHero(HeroModel netHero) {
 		this.netHero = netHero;
 	}
 	
+	/**
+	 * Update method for game model
+	 * 
+	 * @param delta - Time since last update
+	 */
 	public void update(float delta){
 		this.hero.update(delta);
 		if(this.netHero != null) {
@@ -93,15 +141,29 @@ public class GameModel implements Serializable{
 		
 	}
 	
+	/**
+	 * Sets game to multiplayer
+	 */
 	public void setMultiplayer() {
 		this.netHero = new HeroModel(500,720);
 		netHero.setPosition(level.getHero2Position());
 	}
 
+	/**
+	 * Gets the list of plasmaBalls
+	 * 
+	 * @return List of plasmaBalls
+	 */
     public List<PlasmaModel> getPlasmaballs() {
         return plasmaballs;
     }
     
+    /**
+     * Create a plasma ball
+     * 
+     * @param hero - used to know where to create the plasma ball
+     * @return The created PlasmaModel 
+     */
     public PlasmaModel createPlasmaBall(HeroModel hero) {
         PlasmaModel plasmaBall = plasmaballPool.obtain();
         
@@ -118,6 +180,10 @@ public class GameModel implements Serializable{
         return plasmaBall;
     }
     
+    /**
+     * Removes an entity from the world
+     * @param model - Model to be removed
+     */
     public void remove(EntityModel model) {
         if (model instanceof PlasmaModel) {
             plasmaballs.remove(model);
@@ -131,6 +197,9 @@ public class GameModel implements Serializable{
         }
     }
     
+    /**
+     * Sets the pool of PlasmaModels
+     */
     private void setPool() {
     	this.plasmaballPool = new Pool<PlasmaModel>() {
             @Override
@@ -140,6 +209,9 @@ public class GameModel implements Serializable{
         };
     }
     
+    /**
+     * Deletes the instance of GameModel
+     */
     public static void delete() {
     	instance = null;
     }

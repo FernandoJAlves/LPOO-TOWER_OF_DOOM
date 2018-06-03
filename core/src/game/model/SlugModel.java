@@ -2,6 +2,11 @@ package game.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * SlugModel.java - Class the includes all the logic for SlugModel
+ *
+ */
 public class SlugModel extends CharacterModel implements Serializable{
 	/**
 	 * 
@@ -17,6 +22,12 @@ public class SlugModel extends CharacterModel implements Serializable{
 	private float attackTime;
 	private float damageTime;
 
+	/**
+	 * Constructor for SlugModel
+	 * 
+	 * @param x - X value
+	 * @param y - Y value
+	 */
 	public SlugModel(int x, int y) {
 		super(x, y);
 		state = slugState.WALK;
@@ -28,6 +39,9 @@ public class SlugModel extends CharacterModel implements Serializable{
 		hitpoints = 5;
 	}
 
+	/**
+	 * Override of the abstract function move
+	 */
 	@Override
 	public void move(char c) {
 		//System.out.println(this.state);
@@ -63,6 +77,9 @@ public class SlugModel extends CharacterModel implements Serializable{
 		
 	}
 	
+	/**
+	 * Override of the update abstract method
+	 */
 	@Override
 	public void update(float delta) {
 		switch(this.state) {
@@ -110,27 +127,55 @@ public class SlugModel extends CharacterModel implements Serializable{
 		
 	}
 
+	/**
+	 * Override of getModelType abstract method
+	 */
 	@Override
 	public ModelType getModelType() {
 		return EntityModel.ModelType.SLUG;
 	}
 	
+	/**
+	 * Sets the value of alert
+	 * 
+	 * @param a - The wanted boolean value
+	 */
 	public void setAlert(boolean a) {
 		this.alert = a;
 	}
 	
+	/**
+	 * Returns alert
+	 * 
+	 * @return Alert value
+	 */
 	public boolean isAlert() {
 		return this.alert;
 	}
 	
+	/**
+	 * Gets the state
+	 * 
+	 * @return The slugState
+	 */
 	public slugState getState() {
 		return this.state;
 	}
 	
+	/**
+	 * Gets the viewRange
+	 * 
+	 * @return The viewRange
+	 */
 	public int getViewRange() {
 		return this.viewRange;
 	}
 	
+	/**
+	 * Gets the attackRange
+	 * 
+	 * @return The attackRange
+	 */
 	public int getAttackRange() {
 		return this.attackRange;
 	}
