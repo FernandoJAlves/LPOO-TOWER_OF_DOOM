@@ -1,17 +1,12 @@
 package game.model;
 
-import java.io.Serializable;
 
 /**
  * 
  * EntityModel.java - Abstract class for entities
  *
  */
-public abstract class EntityModel implements Serializable{
-	/**
-	 * 
-	 */
-	private transient static final long serialVersionUID = -959702293194256077L;
+public abstract class EntityModel{
 	protected float x,y;
 	protected float speed,yspeed;
 	public enum ModelType{HERO, GUARD, PLASMA,SLUG};

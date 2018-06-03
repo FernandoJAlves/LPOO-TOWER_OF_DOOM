@@ -1,6 +1,5 @@
 package game.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +9,10 @@ import game.model.EntityModel.directionState;
 
 /**
  * 
- * GameModel.java - Class tha handles the GameModel logic
+ * GameModel.java - Class that handles the GameModel logic
  *
  */
-public class GameModel implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5144259653074020691L;
+public class GameModel {
 	private static GameModel instance;
 	private HeroModel hero;
 	private HeroModel netHero;
@@ -38,7 +33,7 @@ public class GameModel implements Serializable{
 		hero = new HeroModel(488,720);
 		hero.setPosition(level.getHeroPosition());
 		plasmaballs = new ArrayList<PlasmaModel>();
-		state = gameState.PLAYING;
+		setState(gameState.PLAYING);
 	}
 	
 	/**
@@ -78,6 +73,7 @@ public class GameModel implements Serializable{
 	 * @return The LevelModel
 	 */
 	public LevelModel initLevel(int levelNum) {
+		this.state = gameState.PLAYING;
 		switch(levelNum) {
 		case 1:
 			return new LevelModel1();
@@ -223,14 +219,30 @@ public class GameModel implements Serializable{
      * Sets gameState to LOSS
      */
 	public void setGameOver() {
-		state = gameState.LOSS;
+		setState(gameState.LOSS);
 	}
 	
     /**
      * Sets gameState to WIN
      */
 	public void setGameWon() {
-		state = gameState.WIN;
+		setState(gameState.WIN);
+	}
+
+	/**
+	 *  Gets the gameState
+	 * @return the gameState
+	 */
+	public gameState getState() {
+		return state;
+	}
+
+	/**
+	 * Sets the gameState
+	 * @param state - the new state
+	 */
+	public void setState(gameState state) {
+		this.state = state;
 	}
 	
 }

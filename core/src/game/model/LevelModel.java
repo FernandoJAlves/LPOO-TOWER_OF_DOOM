@@ -1,6 +1,5 @@
 package game.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
@@ -10,11 +9,7 @@ import com.badlogic.gdx.math.Vector2;
  * LevelModel.java - Abstract class with all the logic for LevelModels
  *
  */
-public abstract class LevelModel implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4316961198719715398L;
+public abstract class LevelModel{
 	protected ArrayList<CharacterModel> chars;
 	
 	/**
@@ -77,4 +72,9 @@ public abstract class LevelModel implements Serializable{
 	 * @return Y limit value
 	 */
 	public abstract int getYLimit();
+	
+	/**
+	 *  Abstract method that shifts to the the next level
+	 */
+	public abstract void nextLevel();
 }

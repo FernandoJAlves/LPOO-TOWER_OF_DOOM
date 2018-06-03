@@ -18,7 +18,6 @@ import game.dataStream.InputPacket;
 import game.dataStream.Player1Socket;
 import game.dataStream.PlayerSocket;
 import game.main.TowerOfDoom;
-import game.menu.MainMenu;
 import game.menu.PauseMenu;
 import game.model.CharacterModel;
 import game.model.EntityModel;
@@ -80,6 +79,7 @@ public class GameView extends ScreenAdapter{
 	 */
 	@Override
     public void render(float delta) {
+		this.launchCutscene();
 		GameController.getInstance().removeFlagged();
 		this.handleInput();
 		this.updateNetworkModels();
@@ -343,7 +343,6 @@ public class GameView extends ScreenAdapter{
 		this.socket.close();
 		}
 		this.stopMusic();
-		MainMenu.getInstance().returnToMenu();
 		
 	}
 	
@@ -369,6 +368,24 @@ public class GameView extends ScreenAdapter{
 	 */
 	public boolean isMultiplayer() {
 		return this.multiplayer;
+	}
+	
+	/**
+	 * If game not playing lauches a cutscene
+	 */
+	private void launchCutscene() {
+		if(GameModel.getInstance().getState() == GameModel.gameState.PLAYING) {
+			return;
+		}
+		if(GameModel.getInstance().getState() == GameModel.gameState.WIN) {
+			this.terminate();
+			TowerOfDoom.getInstance().setScreen(new Cutscene("game_won_background.png"));
+		}
+		if(GameModel.getInstance().getState() == GameModel.gameState.LOSS) {
+			this.terminate();
+			TowerOfDoom.getInstance().setScreen(new Cutscene("game_over_background.png"));
+		}
+		
 	}
 	
 }

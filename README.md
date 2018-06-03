@@ -9,14 +9,14 @@ UML:
 	- Setup/Installation procedure
 	
 		- Desktop
+			Caso esteja em sistema operativo experimente correr o executável com o comando: "java -jar TowerOfDoom.jar"
+			Se estiver em Windows, duplo clique no executável deve chegar
 	
-		- Java
-	
-	
-	
-	
-	
-	
+		- Android
+			Extraia o ficheiro TowerOfDoom.apk para o seu telemóvel. 
+			Para poder instalar o jogo deve primeiro ativar a permissão de instalação de aplicações de fontes desconhecidas.
+			Após instalado é só clicar no ícon do jogo e está pronto a começar a jogar.
+
 	
 	- Development documentation
 	
@@ -28,7 +28,7 @@ UML:
 			
 			Usámos Model/View/Controller (MVC) para a arquitetura base do nosso projeto.
 	
-			Usámos um Singleton nas classes GameController e GameModel visto que apenas queríamos 1 instância do jogo.
+			Usámos um Singleton nas classes GameController,GameModel,MainMenu e TowerOfDoom visto que apenas queríamos 1 instância do jogo.
 	
 			Usámos um Observer para tratar colisões dos nossos Model (visto que estamos a usar o Box2d) sem que os diferentes objetos se tornassem fortemente acoplados.
 	
@@ -38,7 +38,7 @@ UML:
 	
 			Inicialmente íamos usar um State para gerir os vários estados do nosso Hero em função dos diferentes inputs, mas achámos que 1 classe por cada estado era exagero, visto apenas termos cerca de 6 estados e as suas transições eram pouco complexas, por isso decidimos usar um switch na função de move (tanto do Hero como da Slug) do estado atual, em que cada case incluiria possíveis transições para outros estados.
 			
-			Usámos uma Factory para (... JUAN HELP!)
+			Usámos uma Factory para as classes corresposndentes a todos os inimigos e projecteis
 		
 		
 		

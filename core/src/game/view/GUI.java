@@ -259,6 +259,7 @@ public class GUI extends Stage{
 		    	if(obj instanceof Boolean) {
 		    		Sound sound = TowerOfDoom.getInstance().getAssetManager().get("Sound/stage.mp3");
 		    		sound.stop();
+		    		((GameView)TowerOfDoom.getInstance().getScreen()).terminate();
 		        	MainMenu.getInstance().returnToMenu();
 		    	}
 		    }
@@ -293,6 +294,7 @@ public class GUI extends Stage{
 		        @Override
 		        public void canceled() 
 		        {
+		        	((GameView)TowerOfDoom.getInstance().getScreen()).terminate();
 		            MainMenu.getInstance().returnToMenu();
 		        }
 		    };

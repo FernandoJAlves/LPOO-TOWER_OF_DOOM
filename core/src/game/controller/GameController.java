@@ -20,7 +20,6 @@ import game.model.GameModel;
 import game.model.HeroModel;
 import game.model.PlasmaModel;
 import game.model.SlugModel;
-import game.model.SlugModel.slugState;
 
 /**
  * 

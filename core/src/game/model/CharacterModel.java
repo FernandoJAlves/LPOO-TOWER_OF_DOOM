@@ -1,19 +1,13 @@
 package game.model;
 
-import java.io.Serializable;
 
 /**
  * 
  * CharacterModel.java - Abstract Character Model class
  *
  */
-public abstract class CharacterModel extends EntityModel implements Serializable{
+public abstract class CharacterModel extends EntityModel{
 
-	
-	/**
-	 * 
-	 */
-	private transient static final long serialVersionUID = 4421535993963098352L;
 	
 	protected int hitpoints;
 	protected float stamina;

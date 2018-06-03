@@ -1,23 +1,17 @@
 package game.model;
 
-import java.io.Serializable;
 
 /**
  * 
  * PlasmaModel.java - Class with all the logic for PlasmaModels
  *
  */
-public class PlasmaModel extends EntityModel implements Serializable{
+public class PlasmaModel extends EntityModel{
 	
 	private int jumpsLeft;
 	private int state;
 	private float explosionTime = 1;
 	private float stateTime = 0;
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -56992925497861864L;
 
 	/**
 	 * Constructor for PlasmaModel

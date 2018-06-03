@@ -1,17 +1,12 @@
 package game.model;
 
-import java.io.Serializable;
 
 /**
  * 
  * SlugModel.java - Class the includes all the logic for SlugModel
  *
  */
-public class SlugModel extends CharacterModel implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8278827726645127363L;
+public class SlugModel extends CharacterModel{
 
 	public enum slugState {WALK,ATTACK,DAMAGE};
 	private slugState state;

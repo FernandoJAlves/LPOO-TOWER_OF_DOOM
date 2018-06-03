@@ -1,6 +1,5 @@
 package game.model;
 
-import java.io.Serializable;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -9,12 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  * LevelModel1.java - Class with all the logic for LevelModel1
  *
  */
-public class LevelModel1 extends LevelModel implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4305558602974902560L;
-
+public class LevelModel1 extends LevelModel{
 	/**
 	 * Constructor for LevelModel1
 	 * 
@@ -62,6 +56,13 @@ public class LevelModel1 extends LevelModel implements Serializable{
 	public int getYLimit() {
 		// TODO Auto-generated method stub
 		return 400;
+	}
+	
+	/**
+	 * Abstract method that shifts to the the next level
+	 */
+	public void nextLevel() {
+		
 	}
 	
 }

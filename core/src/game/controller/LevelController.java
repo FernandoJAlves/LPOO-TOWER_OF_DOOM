@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import game.menu.MainMenu;
 
 /**
  * 
@@ -151,10 +150,5 @@ public abstract class LevelController {
 		return this.world;
 	}
 	
-	/**
-	 * Returns to menu
-	 */
-	public void nextLevel() {
-		MainMenu.getInstance().returnToMenu();
-	}
+
 }

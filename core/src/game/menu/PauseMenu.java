@@ -47,6 +47,7 @@ public class PauseMenu extends MainMenu{
 		this.returnButton.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            	game.terminate();
             	MainMenu.getInstance().returnToMenu();
                 return true;
                 }

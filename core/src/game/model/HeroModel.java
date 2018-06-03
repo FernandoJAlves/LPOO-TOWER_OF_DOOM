@@ -1,25 +1,15 @@
 package game.model;
 
 
-import java.io.Serializable;
-
 import com.badlogic.gdx.math.Vector2;
 
 import game.controller.GameController;
-import game.model.EntityModel.directionState;
-import game.model.SlugModel.slugState;
-
 /**
  * 
  * HeroModel.java - Class the includes all the logic for HeroModel
  *
  */
-public class HeroModel extends CharacterModel implements Serializable{
-
-	/**
-	 * 
-	 */
-	private transient static final long serialVersionUID = -1120208627717480964L;
+public class HeroModel extends CharacterModel {
 
 
 	public enum charState {STARE,WALK,JUMP,FALL, LAND,ATTACK,DAMAGE};
