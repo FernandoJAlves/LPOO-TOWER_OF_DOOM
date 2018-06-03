@@ -184,7 +184,9 @@ public class GUI extends Stage{
 		        public boolean keyDown(InputEvent event, int keycode) 
 		        {
 				 if(keycode == Keys.BACK) {
-					 MainMenu.getInstance().returnToMenu();
+					 if(TowerOfDoom.getInstance().getScreen() instanceof GameView) {
+						 ((GameView)TowerOfDoom.getInstance().getScreen()).pause();
+					 }
 				 }
 				return true;
 		        }}
