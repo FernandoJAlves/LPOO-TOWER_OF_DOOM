@@ -41,11 +41,8 @@ public class SlugView extends CharacterView{
     	this.stateTime = ((SlugModel)model).getStateTime();
         stateTime += Gdx.graphics.getDeltaTime();
     	((SlugModel)model).setStateTime(stateTime);
-    	if(state != ((SlugModel)model).getState()) {
-    		state= ((SlugModel)model).getState();
-    		stateTime = 0;
-    	}
-		
+    	state= ((SlugModel)model).getState();
+
 	}
 
 	/**

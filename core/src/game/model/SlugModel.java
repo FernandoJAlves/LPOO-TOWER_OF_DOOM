@@ -58,11 +58,13 @@ public class SlugModel extends CharacterModel implements Serializable{
 			}
 			if(c == 'f') {
 				this.state = slugState.ATTACK;
+				this.stateTime = 0;
 			}
 			if(c == 'o') {
 				this.speed = 0;
 				this.decrementHitpoints();
 				this.state = slugState.DAMAGE;
+				this.stateTime = 0;
 			}
 			break;
 			
@@ -90,6 +92,7 @@ public class SlugModel extends CharacterModel implements Serializable{
 				System.out.println(this.hitpoints);
 				damageTime = 0;
 				this.state = slugState.WALK;
+				this.stateTime = 0;
 				if(this.dir == directionState.LEFT) {
 					this.speed = -30;
 				}
@@ -106,6 +109,7 @@ public class SlugModel extends CharacterModel implements Serializable{
 			//System.out.println(attackTime);
 			if(attackTime > (5 * 0.18f)) {
 				attackTime = 0;
+				this.stateTime = 0;
 				this.state = slugState.WALK;
 			}
 			else {
