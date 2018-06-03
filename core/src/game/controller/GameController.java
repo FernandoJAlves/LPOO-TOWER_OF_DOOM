@@ -90,15 +90,15 @@ public class GameController implements ContactListener{
         else if(pairSlugHero(bodyA, bodyB)) {
         	if(bodyA.getUserData() instanceof HeroModel) {
         		if(((HeroModel)bodyA.getUserData()).getX() > ((SlugModel)bodyB.getUserData()).getX())
-        			((HeroModel)bodyA.getUserData()).move('o');
-        		else {
         			((HeroModel)bodyA.getUserData()).move('p');
+        		else {
+        			((HeroModel)bodyA.getUserData()).move('o');
         		}
         	}else {
         		if(((HeroModel)bodyB.getUserData()).getX() > ((SlugModel)bodyA.getUserData()).getX())
-        			((HeroModel)bodyB.getUserData()).move('o');
-        		else {
         			((HeroModel)bodyB.getUserData()).move('p');
+        		else {
+        			((HeroModel)bodyB.getUserData()).move('o');
         		}
         	}
         }
@@ -354,11 +354,11 @@ public class GameController implements ContactListener{
      * @return The value of the comparation
      */
     public boolean pairSlugHero(Body bodyA, Body bodyB) {
-    	if(bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof SlugModel && ((SlugModel)bodyB.getUserData()).getState() == slugState.ATTACK) {
+    	if(bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof SlugModel) {
     		return true;
     	}
     	
-    	if(bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof SlugModel && ((SlugModel)bodyA.getUserData()).getState() == slugState.ATTACK) {
+    	if(bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof SlugModel) {
     		return true;
     	}
     	return false;

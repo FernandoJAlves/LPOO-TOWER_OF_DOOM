@@ -95,11 +95,13 @@ public class HeroModel extends CharacterModel implements Serializable{
 		if(c == 'o') {
 			this.speed = -75;
 			this.yspeed = 100;
+			this.decrementHitpoints();
 			this.state = charState.DAMAGE;
 		}
 		else if(c == 'p') {
 			this.speed = 75;
 			this.yspeed = 100;
+			this.decrementHitpoints();
 			this.state = charState.DAMAGE;
 		}
 	}
