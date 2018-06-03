@@ -1,16 +1,18 @@
+Documentation:  https://raidenkyu.github.io/LPOO1718_T3G5-FinalProj/
+
 
 	- Setup/Installation procedure
 	
 		- Desktop
-			Caso esteja em sistema operativo Linux experimente correr o execut·vel com o comando: 
+			Caso esteja em sistema operativo Linux experimente correr o execut√°vel com o comando: 
 	"java -jar TowerOfDoom.jar"
-			Se estiver em Windows, duplo clique no execut·vel deve chegar
+			Se estiver em Windows, duplo clique no execut√°vel deve chegar
 	
 		- Android
-			Extraia o ficheiro TowerOfDoom.apk para o seu telemÛvel. 
-			Para poder instalar o jogo deve primeiro ativar a permiss„o de instalaÁ„o de aplicaÁıes 
+			Extraia o ficheiro TowerOfDoom.apk para o seu telem√≥vel. 
+			Para poder instalar o jogo deve primeiro ativar a permiss√£o de instala√ß√£o de aplica√ß√µes 
 	de fontes desconhecidas.
-			ApÛs instalado È sÛ clicar no Ìcon do jogo e est· pronto a comeÁar a jogar.
+			Ap√≥s instalado √© s√≥ clicar no √≠con do jogo e est√° pronto a come√ßar a jogar.
 
 	
 	- Development documentation
@@ -21,41 +23,41 @@
 		
 		- Design Patterns Used
 			
-			Us·mos Model/View/Controller (MVC) para a arquitetura base do nosso projeto.
+			Us√°mos Model/View/Controller (MVC) para a arquitetura base do nosso projeto.
 	
-			Us·mos um Singleton nas classes GameController,GameModel,MainMenu e TowerOfDoom visto que
-	apenas querÌamos 1 inst‚ncia de cada uma dessas classes.
+			Us√°mos um Singleton nas classes GameController,GameModel,MainMenu e TowerOfDoom visto que
+	apenas quer√≠amos 1 inst√¢ncia de cada uma dessas classes.
 	
-			Us·mos um Observer para tratar colisıes dos nossos Model (visto que estamos a usar o
+			Us√°mos um Observer para tratar colis√µes dos nossos Model (visto que estamos a usar o
 	Box2d) sem que os diferentes objetos se tornassem fortemente acoplados.
 	
-			Us·mos um Flyweigth para poupar memÛria, visto termos objetos que partilham os seus
-	sprites correspondentes, apenas sofrendo modificaÁıes de direÁ„o em funÁ„o da direÁ„o do Model.
+			Us√°mos um Flyweigth para poupar mem√≥ria, visto termos objetos que partilham os seus
+	sprites correspondentes, apenas sofrendo modifica√ß√µes de dire√ß√£o em fun√ß√£o da dire√ß√£o do Model.
 	
-			Us·mos um Object Pool para os projÈteis do Hero.
+			Us√°mos um Object Pool para os proj√©teis do Hero.
 	
-			Inicialmente Ìamos usar um State para gerir os v·rios estados do nosso Hero em funÁ„o dos
-	diferentes inputs, mas ach·mos que 1 classe por cada estado era exagero, visto apenas termos
-	cerca de 6 estados e as suas transiÁıes eram pouco complexas, por isso decidimos usar um switch
-	na funÁ„o de move (tanto do Hero como da Slug) do estado atual, em que cada case incluiria
-	possÌveis transiÁıes para outros estados.
+			Inicialmente √≠amos usar um State para gerir os v√°rios estados do nosso Hero em fun√ß√£o dos
+	diferentes inputs, mas ach√°mos que 1 classe por cada estado era exagero, visto apenas termos
+	cerca de 6 estados e as suas transi√ß√µes eram pouco complexas, por isso decidimos usar um switch
+	na fun√ß√£o de move (tanto do Hero como da Slug) do estado atual, em que cada case incluiria
+	poss√≠veis transi√ß√µes para outros estados.
 			
-			Us·mos uma Factory para as classes corresposndentes a todos os inimigos e projecteis
+			Us√°mos uma Factory para as classes corresposndentes a todos os inimigos e projecteis
 		
 		
 		
 		- Major Dificulties
 		
-		Tivemos m˙ltiplas dificuldades na realizaÁ„o deste projeto, como seria de esperar. Uma das
-	mais sÈrias foi a falta de tempo. No final deste semestre tivemos m˙ltiplas entregas
+		Tivemos m√∫ltiplas dificuldades na realiza√ß√£o deste projeto, como seria de esperar. Uma das
+	mais s√©rias foi a falta de tempo. No final deste semestre tivemos m√∫ltiplas entregas
 	consecutivas de projetos de diferentes cadeiras, o que diminuiu bastante o tempo que pudemos
-	dedicar a este projeto. AlÈm disso, os exames comeÁam dias depois da entrega, o que diminuiu
-	ainda mais o tempo disponÌvel. Devido a esta primeira dificuldade, rapidamente se tornou Ûbvio
-	que tÌnhamos outro problema, fomos demasiado ambiciosos. QuerÌamos ter implementado mais 2
-	levels ao jogo, e mais 3 ou 4 enemies com AI diferentes, mas o tempo simplesmente n„o chegou
-	para tudo. Conseguimos no entanto implementar funcionalidade de multijogador, algo que n„o
-	estavamos ‡ espera de conseguir realizar.
-		AlÈm disto, n„o fomos capazes de implementar testes unit·rios ao package Game.Controller
+	dedicar a este projeto. Al√©m disso, os exames come√ßam dias depois da entrega, o que diminuiu
+	ainda mais o tempo dispon√≠vel. Devido a esta primeira dificuldade, rapidamente se tornou √≥bvio
+	que t√≠nhamos outro problema, fomos demasiado ambiciosos. Quer√≠amos ter implementado mais 2
+	levels ao jogo, e mais 3 ou 4 enemies com AI diferentes, mas o tempo simplesmente n√£o chegou
+	para tudo. Conseguimos no entanto implementar funcionalidade de multijogador, algo que n√£o
+	estavamos √† espera de conseguir realizar.
+		Al√©m disto, n√£o fomos capazes de implementar testes unit√°rios ao package Game.Controller
 	devido a problemas com a biblioteca libGDX. No entanto realizamos testes na package
 	Game.Model, com resultados seguintes:
 	
@@ -64,100 +66,100 @@
 		
 		- Lessons Learned
 		
-		Aprendemos que devemos ser menos ambiciosos nestes projetos, porque o tempo nem sempre est·
+		Aprendemos que devemos ser menos ambiciosos nestes projetos, porque o tempo nem sempre est√°
 	do nosso lado e podemos acabar por prometer mais do que conseguimos cumprir.
 		No entanto ambos achamos que este projeto nos ajudou bastante a compreender melhor design de
-	jogos (e aplicaÁıes em geral), pre-planear a estrutura levou a que tivÈssemos muito menos casos
-	de "cÛdigo esparguete" a tentar disfaÁar erros no nosso design. A estrutura MVC provou ser
-	bastante ˙til neste aspeto, sabÌamos sempre onde devÌamos colocar uma dada funÁ„o, dependendo da
+	jogos (e aplica√ß√µes em geral), pre-planear a estrutura levou a que tiv√©ssemos muito menos casos
+	de "c√≥digo esparguete" a tentar disfa√ßar erros no nosso design. A estrutura MVC provou ser
+	bastante √∫til neste aspeto, sab√≠amos sempre onde dev√≠amos colocar uma dada fun√ß√£o, dependendo da
 	sua funcionalidade.
 		
 		
 		
 		- Overall time spent developing
 		
-		Estimamos ter gasto cerca de 220 horas na realizaÁ„o deste projeto
+		Estimamos ter gasto cerca de 220 horas na realiza√ß√£o deste projeto
 		
 		
 		
 		- Work distribution amongst team members
 		
-		Ambos os elementos trabalharam de igual forma na realizaÁ„o deste projeto
+		Ambos os elementos trabalharam de igual forma na realiza√ß√£o deste projeto
 		
 	
 	
 	
 	- User manual
 	
-		O primeiro passo È iniciar o programa/aplicaÁ„o (descriÁ„o de como fazer isto encontra-se na
-	secÁ„o "Setup/Installation procedure" acima.
+		O primeiro passo √© iniciar o programa/aplica√ß√£o (descri√ß√£o de como fazer isto encontra-se na
+	sec√ß√£o "Setup/Installation procedure" acima.
 		
-		Assumindo que a aplicaÁ„o est· ligada, ir· ver o seguinte menu inicial:
+		Assumindo que a aplica√ß√£o est√° ligada, ir√° ver o seguinte menu inicial:
 			
 ![alt text](screenshots/StartMenu.png)
 
-		Clicando em "Singleplayer" ir· iniciar o jogo em modo de jogador ˙nico. Em desktop para
-	controlar o Hero, ter· de usar as setas do teclado, e a tecla "A" para atacar (lanÁar bolas
-	plasma). Em Android, ter· no ecr„ 4 botıes como podemos ver na imagem seguinte:
+		Clicando em "Singleplayer" ir√° iniciar o jogo em modo de jogador √∫nico. Em desktop para
+	controlar o Hero, ter√° de usar as setas do teclado, e a tecla "A" para atacar (lan√ßar bolas
+	plasma). Em Android, ter√° no ecr√£ 4 bot√µes como podemos ver na imagem seguinte:
 		
 ![alt text](screenshots/)
 
-		Os botıes realizam as seguintes aÁıes (listando da esquerda para a direita): andar para
+		Os bot√µes realizam as seguintes a√ß√µes (listando da esquerda para a direita): andar para
 	esquerda, andar para a direita, saltar e atacar.
 		
 		
-		O objetivo do jogo È chegar ao final do nÌvel sem morrer. O Hero morre se cair num poÁo ou
+		O objetivo do jogo √© chegar ao final do n√≠vel sem morrer. O Hero morre se cair num po√ßo ou
 	se levar dano suficiente dos enemies.
 		
-		A parte inicial do nÌvel serve para famialirizar o Hero com as mec‚nicas de jogo, como os
-	controlos, a velocidade do Hero, a altura dos seus saltos, etc... Por este motivo n„o existem
-	enemies nesta secÁ„o.
-		ApÛs passar esta parte do nÌvel, comeÁam a aparecer os enemies. A Slug tem como
-	comportamento normal percorrer uma dada ·rea do nÌvel de forma cÌclica. No entanto se algum Hero
-	entrar no seu campo de vis„o, ela ir· segui-lo indefinitamente, sÛ voltando ao seu comportamento
+		A parte inicial do n√≠vel serve para famialirizar o Hero com as mec√¢nicas de jogo, como os
+	controlos, a velocidade do Hero, a altura dos seus saltos, etc... Por este motivo n√£o existem
+	enemies nesta sec√ß√£o.
+		Ap√≥s passar esta parte do n√≠vel, come√ßam a aparecer os enemies. A Slug tem como
+	comportamento normal percorrer uma dada √°rea do n√≠vel de forma c√≠clica. No entanto se algum Hero
+	entrar no seu campo de vis√£o, ela ir√° segui-lo indefinitamente, s√≥ voltando ao seu comportamento
 	inicial se deixar de "ver" o Hero. Se a Slug tiver seguido o Hero para longe da sua zona de
-	"roaming", e deixar de ver o Hero, ent„o ir· voltar a essa zona e retomar o comportamento
+	"roaming", e deixar de ver o Hero, ent√£o ir√° voltar a essa zona e retomar o comportamento
 	normal.
 		A Slug sofre dano quando entra em contacto com uma Plasma Ball de um Hero, e causa dano se
-	estiver prÛxima o suficiente do Hero.
+	estiver pr√≥xima o suficiente do Hero.
 
-		No caso do Hero ganhar o jogo, o seguinte ecr„ surge:
+		No caso do Hero ganhar o jogo, o seguinte ecr√£ surge:
 		
 ![alt text](android/assets/game_won_background.png)		
 		
-		E no caso de ficar sem HP ou cair num pit, o seguinte ecr„ surge:
+		E no caso de ficar sem HP ou cair num pit, o seguinte ecr√£ surge:
 		
 ![alt text](android/assets/game_over_background.png)			
 
 
 
-		Voltando ao menu principal, clicando em "Multiplayer" ir· abrir um segundo menu que pede
+		Voltando ao menu principal, clicando em "Multiplayer" ir√° abrir um segundo menu que pede
 	para especificar se o utilizador pretende dar "Host" a um jogo, ou se pretende procurar um
 	servidor para jogar.
 		
 ![alt text](screenshots/MultiplayerMenu.png)		 
 				
-		Se o utilizador escolher "Host", ent„o entrar· no jogo e esperar· que surja um Player 2.
-	Enquanto espera aparece uma janela que mostra o IP que o Player 2 ter· de inserir para entrar no
-	jogo, e um bot„o de cancelar que retorna ao menu principal caso o utilizador n„o queira esperar
+		Se o utilizador escolher "Host", ent√£o entrar√° no jogo e esperar√° que surja um Player 2.
+	Enquanto espera aparece uma janela que mostra o IP que o Player 2 ter√° de inserir para entrar no
+	jogo, e um bot√£o de cancelar que retorna ao menu principal caso o utilizador n√£o queira esperar
 	mais:
 		
 ![alt text](screenshots/HostMenu.png)	
 
-		Se o utilizador escolher "Find", ent„o ir· aparecer uma janela a pedir o IP do servidor a
+		Se o utilizador escolher "Find", ent√£o ir√° aparecer uma janela a pedir o IP do servidor a
 	que se	quer conectar:
 		
 ![alt text](screenshots/FindMenu.png)
 
 		
-		A forma de jogador entre 1 jogador e 2 jogadores È a mesma. No entanto, o ecr„ apenas È
-	desenhado no lado do Host, o Player 2 apenas vÍ os botıes de controlo no seu ecr„.
+		A forma de jogador entre 1 jogador e 2 jogadores √© a mesma. No entanto, o ecr√£ apenas √©
+	desenhado no lado do Host, o Player 2 apenas v√™ os bot√µes de controlo no seu ecr√£.
 		
-		Ecr„ Player 1:			
+		Ecr√£ Player 1:			
 		
 ![alt text](screenshots/)		
 		
-		Ecr„ Player 2:
+		Ecr√£ Player 2:
 		
 ![alt text](screenshots/Player2screen.png)
 
