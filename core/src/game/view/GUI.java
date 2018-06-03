@@ -39,8 +39,6 @@ public class GUI extends Stage{
 		this.setMsg();
 		screenWidth = (float)this.getWidth();
 		screenHeight = (float)this.getHeight();
-		//ratio = screenHeight/screenWidth;
-		this.setView();
 		this.initKeys();
 		switch(Gdx.app.getType()) {
 		   case Android:
@@ -252,7 +250,8 @@ public class GUI extends Stage{
 		return this.addr;
 	}
 	
-	public void setView() {
+	public void resetEscapeButton() {
+		this.keys.replace('e', false);
 	}
 	
 

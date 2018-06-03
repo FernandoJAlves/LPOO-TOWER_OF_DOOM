@@ -24,17 +24,17 @@ import game.view.Player2View;
 public class MainMenu extends ScreenAdapter{
 	private OrthographicCamera cam;
 	private Texture back;
-	private float width;
-	private float height;
+	protected float width;
+	protected float height;
 	private static MainMenu instance;
-	private final Stage menuStage;
+	protected final Stage menuStage;
 	private TowerOfDoom game;
 	private ImageButton singleButton;
 	private ImageButton multiButton;
 	private ImageButton findButton;
 	private ImageButton hostButton;
-	private ImageButton returnButton;
-	private ImageButton closeButton;
+	protected ImageButton returnButton;
+	protected ImageButton closeButton;
 	
 	
 	protected MainMenu() {
@@ -88,6 +88,8 @@ public class MainMenu extends ScreenAdapter{
 		this.game.getAssetManager().load( "Multiplayer_button.png" , Texture.class);
 		this.game.getAssetManager().load( "ReturnToGame_button.png" , Texture.class);
 		this.game.getAssetManager().load( "Singleplayer_button.png" , Texture.class);
+		this.game.getAssetManager().load( "ReturnToMenu_button.png" , Texture.class);
+		this.game.getAssetManager().load( "ReturnToGame_button.png" , Texture.class);
 		this.game.getAssetManager().load( "CloseApp_button.png" , Texture.class);
 		this.game.getAssetManager().load( "Find_button.png" , Texture.class);
 		this.game.getAssetManager().load( "menu_background.png" , Texture.class);
@@ -181,7 +183,7 @@ public class MainMenu extends ScreenAdapter{
 		
 	}
 	
-	private void setCloseButton() {
+	protected void setCloseButton() {
 		this.closeButton = this.createButton("CloseApp_button.png");
 		closeButton.setPosition(this.width/2-this.closeButton.getWidth()/2, this.height/4);
 		this.closeButton.addListener(new ClickListener(){
@@ -195,7 +197,7 @@ public class MainMenu extends ScreenAdapter{
 	}
 	
 	private void setReturnButton() {
-		this.returnButton = this.createButton("CloseApp_button.png");
+		this.returnButton = this.createButton("ReturnToMenu_button.png");
 		returnButton.setPosition(this.width/2-this.returnButton.getWidth()/2, this.height/4);
 		this.returnButton.addListener(new ClickListener(){
             @Override
@@ -208,7 +210,7 @@ public class MainMenu extends ScreenAdapter{
 		this.menuStage.addActor(this.returnButton);
 	}
 	
-	private ImageButton createButton(String path) {
+	protected ImageButton createButton(String path) {
 		Texture thrustTexture = TowerOfDoom.getInstance().getAssetManager().get(path);
 		TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(thrustTexture));
 		ImageButton button = new ImageButton(drawable);
@@ -216,7 +218,7 @@ public class MainMenu extends ScreenAdapter{
 		return button;
 	}
 	
-	public void createBackground() {
+	protected void createBackground() {
 		this.back = TowerOfDoom.getInstance().getAssetManager().get("menu_background.png");
 	}
 	

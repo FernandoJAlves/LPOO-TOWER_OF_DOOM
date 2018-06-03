@@ -19,6 +19,7 @@ import game.dataStream.Player1Socket;
 import game.dataStream.PlayerSocket;
 import game.main.TowerOfDoom;
 import game.menu.MainMenu;
+import game.menu.PauseMenu;
 import game.model.CharacterModel;
 import game.model.EntityModel;
 import game.model.GameModel;
@@ -136,7 +137,7 @@ public class GameView extends ScreenAdapter{
 	public void handleInput() {
 		
 		if(gui.keyPressed('e')) {
-			this.terminate();
+			this.pause();
 		}
 		   
 		if(gui.keyPressed('w')) {
@@ -260,6 +261,20 @@ public class GameView extends ScreenAdapter{
 			
 	}
 	
+	public void pause() {
+		if(!this.multiplayer) {
+		this.gui.resetEscapeButton();
+		this.stopMusic();
+		TowerOfDoom.getInstance().setScreen(new PauseMenu(this));
+		}
+	}
+	
+	public void resume() {
+		TowerOfDoom.getInstance().setScreen(this);
+		this.playMusic();
+		Gdx.input.setInputProcessor(gui);
+	}
+	
 	public void terminate() {
 		if(this.multiplayer) {
 		this.socket.close();
@@ -279,6 +294,9 @@ public class GameView extends ScreenAdapter{
 		music.stop();
 	}
 	
-
+	
+	public boolean isMultiplayer() {
+		return this.multiplayer;
+	}
 	
 }
