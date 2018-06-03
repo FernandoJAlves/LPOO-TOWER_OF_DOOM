@@ -23,8 +23,8 @@ public class LevelModel1 extends LevelModel{
 	@Override
 	public void generateChars() {
 		this.addSlug(1440,380);
-		this.addSlug(2064,380);
 		this.addSlug(2256,380);
+		this.addSlug(2904,380);
 	}
 	
 	/**
