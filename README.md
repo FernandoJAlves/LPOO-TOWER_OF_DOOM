@@ -18,7 +18,7 @@ Documentation:  https://raidenkyu.github.io/LPOO1718_T3G5-FinalProj/
 	- Development documentation
 	
 		- UML
-![alt text](screenshots/CodeCoverage.png)
+![alt text](FinalUML.png)
 		
 		
 		
