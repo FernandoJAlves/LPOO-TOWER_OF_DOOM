@@ -18,7 +18,7 @@ import game.menu.MainMenu;
 
 
 /**
- * @brief Cutscene - class responsible for cutscenes
+ * Cutscene - class responsible for cutscenes
  * @param path- the path to the texture used in the cutscene
  */
 public class Cutscene extends ScreenAdapter {
@@ -38,13 +38,10 @@ public class Cutscene extends ScreenAdapter {
 		
 	}
 	
-	
-	@Override
 	/**
-	 * @brief Renders the game custcene
-	 * 
-	 * @param delta the elapsed time
+	 * Renders the cutscene
 	 */
+	@Override
     public void render(float delta) {
 		Batch batch = this.stage.getBatch();
 		batch.setColor(batch.getColor().r,batch.getColor().g,batch.getColor().b,0);
@@ -52,7 +49,7 @@ public class Cutscene extends ScreenAdapter {
         this.stage.draw(); //Draw the ui
 	}
 	/**
-	 * @brief Sets the stage
+	 * Sets the stage
 	 * @return the new stage
 	 */
 	public Stage setStage() {
@@ -79,7 +76,7 @@ public class Cutscene extends ScreenAdapter {
 		return st;
 	}
 	/**
-	 * @brief [Activates fadeout action
+	 * Activates fadeout action
 	 */
 	private void fadeOut() {
 		  back.addAction(Actions.sequence(Actions.color(Color.BLACK,2),Actions.run(new Runnable() {

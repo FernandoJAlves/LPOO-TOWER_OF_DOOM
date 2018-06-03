@@ -12,6 +12,11 @@ import java.net.NetworkInterface;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
+/**
+ * 
+ * PlayerSocket - class responsible for the communication between players
+ *
+ */
 public class PlayerSocket {
 	private int size = 1024;
 	protected DatagramSocket socket;
@@ -19,6 +24,9 @@ public class PlayerSocket {
 	protected int sendPort;
 	protected int receivePort;
 	
+	/**
+	 *  Constructs the PlayerSocket object
+	 */
 	public PlayerSocket() {
 		try {
 			host = InetAddress.getByName("localhost");
@@ -31,6 +39,10 @@ public class PlayerSocket {
 		}
 	}
 	
+	/**
+	 * Receives objects from the other player through the socket
+	 * @return The object received from the other player
+	 */
 	public Object readObject() {
 		byte[] receivedData = new byte[this.size];
 		DatagramPacket incomingPacket = new DatagramPacket(receivedData, receivedData.length);
@@ -63,6 +75,10 @@ public class PlayerSocket {
 		return null;
 	}
 	
+	/**
+	 *  Sends objects to the other player through the socket
+	 * @param arg0 - The object to be sent to the other player
+	 */
 	public void sendObjects(Object arg0) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(this.size);
 		ObjectOutputStream oos = null;
@@ -88,7 +104,10 @@ public class PlayerSocket {
 			//e.printStackTrace();
 		}
 	}
-	
+	/**
+	 *  Finds the IP address of the PC in the current execution
+	 * @return The IP address in String format
+	 */
 	public String getAddress() {
 		try {
 	        InetAddress candidateAddress = null;
@@ -135,11 +154,18 @@ public class PlayerSocket {
 		return "";
 	}
 	
+	/**
+	 * Checks if the sockets are connected
+	 * @return true if connected, otherwise false
+	 */
 	public boolean isConnected() {
 		return this.socket.isConnected();
 	}
 	
-	
+	/**
+	 * Makes a connection between sockets
+	 * @param addr - the address the socket tries to connect
+	 */
 	public void connect(String addr) {
 		try {
 			this.host = InetAddress.getByName(addr);
@@ -151,6 +177,9 @@ public class PlayerSocket {
 		
 	}
 	
+	/**
+	 *  Closes the connection
+	 */
 	public void close() {
 		this.socket.disconnect();
 		this.socket.close();

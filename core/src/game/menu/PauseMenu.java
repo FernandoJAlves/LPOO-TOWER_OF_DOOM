@@ -10,6 +10,10 @@ import game.view.GameView;
 public class PauseMenu extends MainMenu{
 	private GameView game;
 	private ImageButton backButton;
+	/**
+	 * Constructs The PauseMenu object
+	 * @param The actual instance of the GameView
+	 */
 	public PauseMenu(GameView g) {
 		super();
 		game = g;
