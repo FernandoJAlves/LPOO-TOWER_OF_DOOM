@@ -21,6 +21,7 @@ public class SlugModel extends CharacterModel implements Serializable{
 	private int xStart;
 	private float attackTime;
 	private float damageTime;
+	private float stateTime = 0;
 
 	/**
 	 * Constructor for SlugModel
@@ -178,6 +179,24 @@ public class SlugModel extends CharacterModel implements Serializable{
 	 */
 	public int getAttackRange() {
 		return this.attackRange;
+	}
+
+	/**
+	 * Gets the stateTime
+	 * 
+	 * @return The stateTime
+	 */
+	public float getStateTime() {
+		return stateTime;
+	}
+
+
+	/**
+	 *  Sets the stateTime
+	 * @param stateTime
+	 */
+	public void setStateTime(float stateTime) {
+		this.stateTime = stateTime;
 	}
 
 

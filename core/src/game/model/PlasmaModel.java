@@ -12,6 +12,7 @@ public class PlasmaModel extends EntityModel implements Serializable{
 	private int jumpsLeft;
 	private int state;
 	private float explosionTime = 1;
+	private float stateTime = 0;
 	
 	/**
 	 * 
@@ -100,6 +101,22 @@ public class PlasmaModel extends EntityModel implements Serializable{
 	@Override
 	public ModelType getModelType() {
 		return ModelType.PLASMA;
+	}
+
+	/**
+	 * Gets the stateTime
+	 * @return stateTime
+	 */
+	public float getStateTime() {
+		return stateTime;
+	}
+
+	/**
+	 * Sets the stateTime
+	 * @param stateTime
+	 */
+	public void setStateTime(float stateTime) {
+		this.stateTime = stateTime;
 	}
 
 }
