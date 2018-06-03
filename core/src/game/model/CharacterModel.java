@@ -35,4 +35,8 @@ public abstract class CharacterModel extends EntityModel implements Serializable
 		stamina--;
 	}
 	
+	public void decrementHitpoints() {
+		hitpoints--;
+	}
+	
 }

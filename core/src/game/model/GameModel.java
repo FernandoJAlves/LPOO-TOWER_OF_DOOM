@@ -125,6 +125,10 @@ public class GameModel implements Serializable{
             ((PlasmaModel) model).resetExplosion();
            	plasmaballPool.free((PlasmaModel) model);
         }
+        if(model instanceof SlugModel) {
+        	enemies.remove(model);
+        	
+        }
     }
     
     private void setPool() {

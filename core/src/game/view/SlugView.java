@@ -54,6 +54,7 @@ public class SlugView extends CharacterView{
         	break;
         case DAMAGE:
         	sprite.setRegion(damageAnimation.getKeyFrame(stateTime,false));
+        	break;
 		default:
 			sprite.setRegion(walkingAnimation.getKeyFrame(stateTime, true));
 			break;
