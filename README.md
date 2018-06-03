@@ -1,4 +1,4 @@
-Documentation:  https://raidenkyu.github.io/LPOO1718_T3G5-FinalProj/
+Documentation:  https://raidenkyu.github.io/LPOO1718_T3G5-FinalProj/ 
 
 [![BCH compliance](https://bettercodehub.com/edge/badge/Raidenkyu/LPOO1718_T3G5-FinalProj?branch=master&token=7a3186593f43cb221c433a6f92e8fea6ee2bd63f)](https://bettercodehub.com/)
 
