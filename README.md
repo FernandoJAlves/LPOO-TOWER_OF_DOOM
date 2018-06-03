@@ -1,5 +1,7 @@
 Documentation:  https://raidenkyu.github.io/LPOO1718_T3G5-FinalProj/
 
+[![BCH compliance](https://bettercodehub.com/edge/badge/Raidenkyu/LPOO1718_T3G5-FinalProj?branch=master&token=7a3186593f43cb221c433a6f92e8fea6ee2bd63f)](https://bettercodehub.com/)
+
 
 	- Setup/Installation procedure
 	
@@ -103,7 +105,7 @@ Documentation:  https://raidenkyu.github.io/LPOO1718_T3G5-FinalProj/
 	controlar o Hero, terá de usar as setas do teclado, e a tecla "A" para atacar (lançar bolas
 	plasma). Em Android, terá no ecrã 4 botões como podemos ver na imagem seguinte:
 		
-![alt text](screenshots/)
+![alt text](screenshots/SingleplayerAndroid.png)
 
 		Os botões realizam as seguintes ações (listando da esquerda para a direita): andar para
 	esquerda, andar para a direita, saltar e atacar.
@@ -158,7 +160,7 @@ Documentation:  https://raidenkyu.github.io/LPOO1718_T3G5-FinalProj/
 		
 		Ecrã Player 1:			
 		
-![alt text](screenshots/)		
+![alt text](screenshots/Player1screen.png)		
 		
 		Ecrã Player 2:
 		
