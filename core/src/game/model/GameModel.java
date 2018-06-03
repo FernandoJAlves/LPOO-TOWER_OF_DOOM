@@ -25,6 +25,8 @@ public class GameModel implements Serializable{
 	private List<PlasmaModel> plasmaballs;
     Pool<PlasmaModel> plasmaballPool;
 	private LevelModel level;
+	public enum gameState {PLAYING, WIN, LOSS};
+	private gameState state;
 	
 	/**
 	 * Constructor for the GameModel
@@ -36,6 +38,7 @@ public class GameModel implements Serializable{
 		hero = new HeroModel(488,720);
 		hero.setPosition(level.getHeroPosition());
 		plasmaballs = new ArrayList<PlasmaModel>();
+		state = gameState.PLAYING;
 	}
 	
 	/**
@@ -216,6 +219,18 @@ public class GameModel implements Serializable{
     	instance = null;
     }
 	
+    /**
+     * Sets gameState to LOSS
+     */
+	public void setGameOver() {
+		state = gameState.LOSS;
+	}
 	
+    /**
+     * Sets gameState to WIN
+     */
+	public void setGameWon() {
+		state = gameState.WIN;
+	}
 	
 }

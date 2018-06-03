@@ -80,6 +80,12 @@ public class GameController implements ContactListener{
         		((SlugModel)bodyA.getUserData()).move('o');
         	}
         }
+        else if(pairHeroHole(bodyA, bodyB)) {
+        	GameModel.getInstance().setGameOver();
+        }
+        else if(pairHeroDoor(bodyA, bodyB)) {
+        	GameModel.getInstance().setGameWon();
+        }
         else {
             if (bodyA.getUserData() instanceof PlasmaModel)
                 plasmaCollision(bodyA);
@@ -283,6 +289,42 @@ public class GameController implements ContactListener{
     	}
     	
     	if(bodyB.getUserData() instanceof PlasmaModel && bodyA.getUserData() instanceof SlugModel) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    /**
+     * Checks if a pair of 2 bodies is a Hero/Hole Pair
+     * 
+     * @param bodyA - BodyA to test
+     * @param bodyB - BodyB to test
+     * @return The value of the comparation
+     */
+    public boolean pairHeroHole(Body bodyA, Body bodyB) {
+    	if(bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof String && bodyB.getUserData().equals("hole")) {
+    		return true;
+    	}
+    	
+    	if(bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof String && bodyA.getUserData().equals("hole")) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    /**
+     * Checks if a pair of 2 bodies is a Hero/Door Pair
+     * 
+     * @param bodyA - BodyA to test
+     * @param bodyB - BodyB to test
+     * @return The value of the comparation
+     */
+    public boolean pairHeroDoor(Body bodyA, Body bodyB) {
+    	if(bodyA.getUserData() instanceof HeroModel && bodyB.getUserData() instanceof String && bodyB.getUserData().equals("door")) {
+    		return true;
+    	}
+    	
+    	if(bodyB.getUserData() instanceof HeroModel && bodyA.getUserData() instanceof String && bodyA.getUserData().equals("door")) {
     		return true;
     	}
     	return false;

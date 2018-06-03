@@ -20,6 +20,7 @@ public class HeroView extends CharacterView{
 	private Animation<TextureRegion> jumpingAnimation;
 	private Animation<TextureRegion> landingAnimation;
 	private Animation<TextureRegion> firingAnimation;
+	private Animation<TextureRegion> damageAnimation;
 	
 	private float stateTime = 0;
 	HeroModel.charState state;
@@ -43,6 +44,7 @@ public class HeroView extends CharacterView{
 		jumpingAnimation = this.createAnimation("HeroJumping.png", 7);
 		landingAnimation = this.createAnimation("HeroLanding.png", 3);
 		firingAnimation = this.createAnimation("HeroFiring.png", 8);
+		damageAnimation = this.createAnimation("HeroDamage.png",4);
 		return new Sprite(this.staringAnimation.getKeyFrame(0));
 	}
 	
@@ -80,6 +82,9 @@ public class HeroView extends CharacterView{
         case ATTACK:
         	sprite.setRegion(firingAnimation.getKeyFrame(stateTime,false));
         	break;
+        case DAMAGE:
+        	sprite.setRegion(damageAnimation.getKeyFrame(stateTime,false));
+        	break;
 		default:
 			sprite.setRegion(staringAnimation.getKeyFrame(stateTime, true));
 			break;
@@ -97,6 +102,7 @@ public class HeroView extends CharacterView{
 		super.flipAnimation(jumpingAnimation);
 		super.flipAnimation(landingAnimation);
 		super.flipAnimation(firingAnimation);
+		super.flipAnimation(damageAnimation);
 	}
 
 }

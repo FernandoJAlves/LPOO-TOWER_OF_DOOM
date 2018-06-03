@@ -45,7 +45,6 @@ public class SlugModel extends CharacterModel implements Serializable{
 	 */
 	@Override
 	public void move(char c) {
-		//System.out.println(this.state);
 		switch(this.state) {
 		case WALK:
 			if(c == 'a') {
@@ -89,7 +88,6 @@ public class SlugModel extends CharacterModel implements Serializable{
 		case DAMAGE:
 			damageTime += delta;
 			if(damageTime > (3 * 0.18f)) {
-				System.out.println(this.hitpoints);
 				damageTime = 0;
 				this.state = slugState.WALK;
 				this.stateTime = 0;
@@ -106,7 +104,6 @@ public class SlugModel extends CharacterModel implements Serializable{
 			return;
 		case ATTACK:
 			attackTime += delta;
-			//System.out.println(attackTime);
 			if(attackTime > (5 * 0.18f)) {
 				attackTime = 0;
 				this.stateTime = 0;
