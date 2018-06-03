@@ -147,8 +147,8 @@ public class HUD implements Disposable{
     	this.healthBar.setValue(h.getHitPoints()/this.maxHealth);
     	this.staminaBar.setValue(h.getStamina()/this.maxStamina);
     	if(nh != null) {
-    	   	this.healthBar.setValue(nh.getHitPoints()/this.maxHealth);
-        	this.staminaBar.setValue(nh.getStamina()/this.maxStamina);
+    	   	this.netHealthBar.setValue(nh.getHitPoints()/this.maxHealth);
+        	this.netStaminaBar.setValue(nh.getStamina()/this.maxStamina);
     	}
     }
     
