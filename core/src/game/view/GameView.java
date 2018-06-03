@@ -43,7 +43,9 @@ public class GameView extends ScreenAdapter{
 	private HeroModel netHero;
 	private HeroView hv;
 	private HeroView nv;
+	
 	private GUI gui;
+	private HUD hud;
 	
 	public GameView(boolean mult){
 		this.multiplayer = mult;
@@ -54,6 +56,7 @@ public class GameView extends ScreenAdapter{
 
 		this.setHero();
 		gui = new GUI();
+		hud = new HUD(hero, netHero);
 		
 		hv = new HeroView();
 		nv = new HeroView();
@@ -71,6 +74,7 @@ public class GameView extends ScreenAdapter{
 		this.updateNetworkModels();
 		this.updateLogic(delta);
 		this.updateDraw();
+		this.hud.update(delta,this.hero,this.netHero);
 		gui.update(delta);
 		this.debugPhysics();
 	}

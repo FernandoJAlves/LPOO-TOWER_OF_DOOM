@@ -109,7 +109,7 @@ project(":core") {
 
         test {
             java {
-                srcDirs =  ['/game/test/']
+                srcDirs =  ['/game/']
             }
         }
     }
