@@ -35,7 +35,7 @@ public class GameView extends ScreenAdapter{
 	private boolean multiplayer;
 	private PlayerSocket socket;
 	
-    private static final boolean DEBUG_PHYSICS = true;
+    private static final boolean DEBUG_PHYSICS = false;
     private static final int SCREEN_WIDTH = 400;
     private Box2DDebugRenderer debugRenderer;
     private Matrix4 debugCamera;
