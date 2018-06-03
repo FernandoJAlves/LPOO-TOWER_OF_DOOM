@@ -1,10 +1,23 @@
 package game.controller;
 
+/**
+ * 
+ * Level1Controller.java - Controlls the logic expecific to level1
+ *
+ */
 public class Level1Controller extends LevelController{
+	/**
+	 * Constructor of Level1 
+	 *
+	 */
 	public Level1Controller(){
 		super();
 	}
 
+	/**
+	 * Override of the generateBodies function
+	 * 
+	 */
 	@Override
 	protected void generateBodies() {
 		//TODO POVOATE with bodies

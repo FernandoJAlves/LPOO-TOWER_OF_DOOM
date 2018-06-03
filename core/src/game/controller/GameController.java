@@ -21,6 +21,11 @@ import game.model.HeroModel;
 import game.model.PlasmaModel;
 import game.model.SlugModel;
 
+/**
+ * 
+ * GameController.java - The class responsible for manage the game logic
+ *
+ */
 public class GameController implements ContactListener{
 	private boolean multiplayer = false;
 	private HeroBody hero;
@@ -34,6 +39,9 @@ public class GameController implements ContactListener{
 	private static final float PLASMA_X_SPEED = 100f;
 	private static final float PLASMA_Y_SPEED = 10f;
 	
+	/**
+	 * Constructor for GameController
+	 */
 	private GameController() {
 		level = this.levelSelection(1);
 		this.world = level.getWorld();
@@ -54,6 +62,9 @@ public class GameController implements ContactListener{
 		world.setContactListener(this);
 	}
 
+	/**
+	 * Override of the beginContact function in libGDX
+	 */
 	@Override
 	public void beginContact(Contact contact) {
         Body bodyA = contact.getFixtureA().getBody();
@@ -79,7 +90,12 @@ public class GameController implements ContactListener{
         
 		
 	}
-
+	
+	/**
+	 * Handles the collision of a plasma ball with a non-enemy body
+	 * 
+	 * @param bodyA - The body of the plasma ball
+	 */
 	private void plasmaCollision(Body bodyA) {
 		((PlasmaModel)bodyA.getUserData()).decreaseJumpsLeft();
 	}
@@ -102,14 +118,29 @@ public class GameController implements ContactListener{
 		
 	}
 	
+	/**
+	 * Gets the Hero
+	 * 
+	 * @return The Hero's body
+	 */
 	public HeroBody getHero() {
 		return this.hero;
 	}
 	
+	/**
+	 * Gets the array of enemies
+	 * 
+	 * @return The array of enemies
+	 */
 	public ArrayList<CharacterBody> getEnemies(){
 		return this.enemies;
 	}
 	
+	/**
+	 * Singleton - Gets the GameController, creates one if one does not exists
+	 * 
+	 * @return The GameController instance
+	 */
 	public static GameController getInstance() {
 		if(instance == null) {
 			instance = new GameController();
@@ -117,6 +148,11 @@ public class GameController implements ContactListener{
 		return instance;
 	}
 	
+	/**
+	 * Update function of the game controller
+	 * 
+	 * @param delta - Time since last update
+	 */
 	public void update(float delta) {
 		hero.setLinearVelocity(((EntityModel)hero.getUserData()).getSpeed(), ((EntityModel)hero.getUserData()).getYSpeed());
 		if(this.multiplayer)
@@ -151,10 +187,21 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Gets the World
+	 * 
+	 * @return The world
+	 */
 	public World getWorld() {
 		return this.level.getWorld();
 	}
 	
+	/**
+	 * Selects the level
+	 * 
+	 * @param num - The wanted level
+	 * @return The level controller
+	 */
 	private LevelController levelSelection(int num) {
 		switch(num) {
 		case 1:
@@ -164,24 +211,48 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Controls the rayCast for enemies
+	 * 
+	 */
 	private void rayCastController() {
 		for(CharacterBody enemy: this.enemies) {
 			enemy.rayCast(world);
 		}
 	}
 
+	/**
+	 * Gets the net Hero
+	 * 
+	 * @return The netHero's body
+	 */
 	public HeroBody getNetHero() {
 		return netHero;
 	}
 
+	/**
+	 * Sets the netHero to the HeroBody given
+	 * 
+	 * @param netHero - The body you to set for the netHero
+	 */
 	public void setNetHero(HeroBody netHero) {
 		this.netHero = netHero;
 	}
 	
+	/**
+	 * Sets the game to multiplayer
+	 * 
+	 * @param option - The option you want to set
+	 */
 	public void setMultiplayer(boolean option) {
 		this.multiplayer = option;
 	}
 	
+	/**
+	 * Fire logic function
+	 * 
+	 * @param hero - The hero that is firing
+	 */
     public void fire(HeroModel hero) {
     	this.playAttackSound();
         if (hero.getStamina() >= 1) {
@@ -199,6 +270,13 @@ public class GameController implements ContactListener{
         }
     }
 
+    /**
+     * Checks if a pair of 2 bodies is a Slug/Plasma Pair
+     * 
+     * @param bodyA - BodyA to test
+     * @param bodyB - BodyB to test
+     * @return The value of the comparation
+     */
     public boolean pairSlugPlasma(Body bodyA, Body bodyB) {
     	if(bodyA.getUserData() instanceof PlasmaModel && bodyB.getUserData() instanceof SlugModel) {
     		return true;
@@ -210,6 +288,10 @@ public class GameController implements ContactListener{
     	return false;
     }
     
+    /**
+     * Removes flagged bodies from the world
+     * 
+     */
     public void removeFlagged() {
         for (Iterator<PlasmaBody> body = this.activePlasmaBalls.iterator(); body.hasNext(); ) {
         	PlasmaBody aux = body.next();
@@ -234,16 +316,29 @@ public class GameController implements ContactListener{
         
     }
     
+    /**
+     * Deletes the instance of the GameController
+     * 
+     */
     public static void delete() {
     	instance = null;
     }
     
+    /**
+     * Updates the model
+     * 
+     * @param body - Body you want to get the values from
+     */
     private void updateModel(Body body) {
     	EntityModel model = ((EntityModel) body.getUserData());
         model.setPosition(body.getPosition().x, body.getPosition().y);
         model.setYSpeed(body.getLinearVelocity().y);
     }
     
+    /**
+     * Plays the attack sound
+     * 
+     */
     private void playAttackSound() {
     	Sound attack = TowerOfDoom.getInstance().getAssetManager().get( "Sound/attackSound.mp3" , Sound.class);
     	attack.play();

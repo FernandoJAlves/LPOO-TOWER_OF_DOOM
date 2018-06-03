@@ -11,9 +11,21 @@ import game.model.EntityModel;
 import game.model.HeroModel;
 import game.model.SlugModel;
 
+/**
+ * 
+ * SlugBody.java - The Slug body class
+ *
+ */
 public class SlugBody extends CharacterBody{
 	RayCastCallback callback;
 	private SlugModel slug;
+	
+	/**
+	 * Constructor for SlugBody
+	 * 
+	 * @param world - The world we want to insert the body into
+	 * @param model - The model we want to get the values from
+	 */
 	public SlugBody(World world, EntityModel model) {
 		super(world, model);
 		this.slug = (SlugModel) model;
@@ -29,6 +41,10 @@ public class SlugBody extends CharacterBody{
 		super.createFixture(body, 0, width, height, density, restitution,category,mask);
 	}
 	
+	/**
+	 * Override of the CreateShape function
+	 * 
+	 */
 	@Override
 	public Shape createShape(float x, float y) {
         PolygonShape polygon = new PolygonShape();
@@ -36,7 +52,10 @@ public class SlugBody extends CharacterBody{
         return polygon;
 	}
 	
-	
+	/**
+	 * Initializes the rayCast
+	 * 
+	 */
 	private void initRayCast() {
 		callback = new RayCastCallback() {
 			
@@ -66,6 +85,10 @@ public class SlugBody extends CharacterBody{
 		};
 	}
 	
+	/**
+	 * Raycast logic
+	 * 
+	 */
 	public void rayCast(World world ) {
 		float x = body.getPosition().x;
 		float y = body.getPosition().y;

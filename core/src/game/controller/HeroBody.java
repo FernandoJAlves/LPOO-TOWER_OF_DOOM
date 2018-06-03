@@ -6,8 +6,19 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import game.model.EntityModel;
 
+/**
+ * 
+ * HeroBody.java - The class for the Hero Body
+ *
+ */
 public class HeroBody extends CharacterBody{
 
+	/**
+	 * Constructor for the Hero body
+	 * 
+	 * @param world - The world you want to insert the Hero in
+	 * @param model - The model you want to obtain the values from
+	 */
 	public HeroBody(World world, EntityModel model) {
 		super(world, model);
 		float density = 50f;
@@ -28,6 +39,10 @@ public class HeroBody extends CharacterBody{
 		
 	}
 
+	/**
+	 * Override of the CreateShape function
+	 * 
+	 */
 	@Override
 	public Shape createShape(float x, float y) {
         PolygonShape polygon = new PolygonShape();

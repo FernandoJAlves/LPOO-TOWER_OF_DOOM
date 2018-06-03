@@ -6,8 +6,19 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import game.model.EntityModel;
 
+/**
+ * 
+ * PlasmaBody.java - The plasma body class
+ *
+ */
 public class PlasmaBody extends EntityBody{
 
+	/**
+	 * Constructor for PlasmaBody
+	 * 
+	 * @param world - The world we want to inser the body in
+	 * @param model - The model we want to get the values from
+	 */
 	PlasmaBody(World world, EntityModel model) {
 		super(world, model);
 		float density = 50f;
@@ -22,6 +33,9 @@ public class PlasmaBody extends EntityBody{
 		super.createFixture(body,radius, width, height, density, restitution,category,mask);
 	}
 
+	/**
+	 * Override of the CreateShape function
+	 */
 	@Override
 	public Shape createShape(float x, float y) {
         CircleShape polygon = new CircleShape();
