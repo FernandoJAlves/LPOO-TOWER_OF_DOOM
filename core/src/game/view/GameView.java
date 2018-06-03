@@ -352,7 +352,7 @@ public class GameView extends ScreenAdapter{
 	 * Plays music
 	 */
 	private void playMusic() {
-		Music music = game.getAssetManager().get("Sound/stage.mp3");
+		Sound music = game.getAssetManager().get("Sound/stage.mp3");
 		music.play();
 	}
 	
@@ -360,7 +360,7 @@ public class GameView extends ScreenAdapter{
 	 * Stops music
 	 */
 	private void stopMusic() {
-		Music music = game.getAssetManager().get("Sound/stage.mp3");
+		Sound music = game.getAssetManager().get("Sound/stage.mp3");
 		music.stop();
 	}
 	
