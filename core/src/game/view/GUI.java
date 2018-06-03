@@ -22,6 +22,11 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import game.main.TowerOfDoom;
 import game.menu.MainMenu;
 
+/**
+ * 
+ * GUI.java - Class with code to generate the GUI
+ *
+ */
 public class GUI extends Stage{
 	private Map<Character, Boolean> keys;
 	private String addr;
@@ -33,7 +38,9 @@ public class GUI extends Stage{
 	private float screenHeight;
 	private Dialog msg;
 	
-	
+	/**
+	 * Constructor for GUI
+	 */
 	public GUI() {
 		super(new ExtendViewport(320,240));
 		this.setMsg();
@@ -56,6 +63,9 @@ public class GUI extends Stage{
 		Gdx.input.setInputProcessor(this);
 	}
 	
+	/**
+	 * Initializes the keys
+	 */
 	private void initKeys() {
 		this.keys = new TreeMap<Character, Boolean>();
 		this.keys.put('w', false);
@@ -65,6 +75,9 @@ public class GUI extends Stage{
 		this.keys.put('e', false);
 	}
 	
+	/**
+	 * Initializes the buttons
+	 */
 	public void initButtons() {
 		this.setUpButton();
 		this.setFireButton();
@@ -73,6 +86,11 @@ public class GUI extends Stage{
 		this.setBackButton();
 	}
 	
+	/**
+	 * Create a button
+	 * @param path - path to image
+	 * @return The created button
+	 */
 	private ImageButton createButton(String path) {
 		Texture thrustTexture = TowerOfDoom.getInstance().getAssetManager().get(path);
 		TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(thrustTexture));
@@ -80,6 +98,9 @@ public class GUI extends Stage{
 		return button;
 	}
 	
+	/**
+	 * Sets the UpButton
+	 */
 	private void setUpButton() {
 		upButton = createButton("ButtonUp.png");
 		upButton.setPosition(12*this.screenWidth/16, screenHeight/16);
@@ -96,6 +117,9 @@ public class GUI extends Stage{
 		this.addActor(upButton);
 	}
 	
+	/**
+	 * Sets the FireButton
+	 */
 	private void setFireButton() {
 		fireButton = createButton("ButtonFire.png");
 		fireButton.setPosition(14*this.screenWidth/16, screenHeight/16);
@@ -112,6 +136,9 @@ public class GUI extends Stage{
 		this.addActor(fireButton);
 	}
 	
+	/**
+	 * Sets the LeftButton
+	 */
 	private void setLeftButton() {
 		leftButton = createButton("ButtonLeft.png");
 		leftButton.setPosition(this.screenWidth/16, screenHeight/16);
@@ -128,6 +155,9 @@ public class GUI extends Stage{
 		this.addActor(leftButton);
 	}
 	
+	/**
+	 * Sets the RightButton
+	 */
 	private void setRightButton() {
 		rightButton = createButton("ButtonRight.png");
 		rightButton.setPosition(3*this.screenWidth/16, screenHeight/16);
@@ -144,6 +174,9 @@ public class GUI extends Stage{
 		this.addActor(rightButton);
 	}
 	
+	/**
+	 * Sets the BackButton
+	 */
 	private void setBackButton() {
 		this.addListener(new InputListener() {
 			 @Override
@@ -157,10 +190,18 @@ public class GUI extends Stage{
 		);	
 		}
 	
+	/**
+	 * Returns boolean if keyPressed
+	 * @param key - key you want to test
+	 * @return True if key is pressed, false otherwise
+	 */
 	public boolean keyPressed(char key) {
 		return this.keys.get(key);
 	}
 	
+	/**
+	 * Initializes the keyboard
+	 */
 	private void initKeyboard() {
 		  this.addListener(new InputListener() 
 		    {
@@ -198,11 +239,18 @@ public class GUI extends Stage{
 		    });
 	}
 	
+	/**
+	 * Update method for the GUI
+	 * @param delta - Time since last update
+	 */
 	public void update(float delta) {
         this.act(delta); //Perform ui logic
         this.draw(); //Draw the ui
 	}
 	
+	/**
+	 * Sets the message
+	 */
 	private void setMsg() {
 		Skin skin = new Skin(Gdx.files.internal("skin/clean-crispy-ui.json"));
 		this.msg = new Dialog("Network", skin) {
@@ -215,6 +263,10 @@ public class GUI extends Stage{
 		
 	}
 	
+	/**
+	 * Creates message1
+	 * @param str - The IP in string format
+	 */
 	public void message1(String str) {
 
 		msg.text("Your IP: " + str + "\nWaiting for Player 2");
@@ -222,6 +274,9 @@ public class GUI extends Stage{
 		msg.show(this);
 	}
 	
+	/**
+	 * Creates message2
+	 */
 	public void message2() {
 
 		 TextInputListener textListener = new TextInputListener()
@@ -242,14 +297,24 @@ public class GUI extends Stage{
 		    Gdx.input.getTextInput(textListener, "Player 1 IP: ", "", null);
 	}
 	
+	/**
+	 * Disables the message
+	 */
 	public void disableMsg() {
 		this.msg.setVisible(false);
 	}
 	
+	/**
+	 * Gets the address
+	 * @return The address
+	 */
 	public String getAddr() {
 		return this.addr;
 	}
 	
+	/**
+	 * Resets the Esc button
+	 */
 	public void resetEscapeButton() {
 		this.keys.replace('e', false);
 	}
