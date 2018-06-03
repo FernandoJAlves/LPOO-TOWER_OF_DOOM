@@ -82,7 +82,7 @@ public abstract class EntityModel{
 	/**
 	 * Sets the Y speed value
 	 * 
-	 * @param xs2 - Desired speed
+	 * @param ys2 - Desired speed
 	 */
 	public void setYSpeed(float ys2) {
 		this.yspeed = ys2;

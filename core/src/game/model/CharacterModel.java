@@ -31,7 +31,7 @@ public abstract class CharacterModel extends EntityModel{
 	
 	/**
 	 * Abstract method for updating characters
-	 * @param c - The time since last update
+	 * @param delta - The time since last update
 	 */
 	abstract public void update(float delta);
 	

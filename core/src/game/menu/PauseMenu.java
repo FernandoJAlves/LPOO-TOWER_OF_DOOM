@@ -12,7 +12,7 @@ public class PauseMenu extends MainMenu{
 	private ImageButton backButton;
 	/**
 	 * Constructs The PauseMenu object
-	 * @param The actual instance of the GameView
+	 * @param g - The actual instance of the GameView
 	 */
 	public PauseMenu(GameView g) {
 		super();
